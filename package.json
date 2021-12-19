@@ -2,16 +2,19 @@
   "name": "trablock-teamproject-back",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "dependencies": {
     "@koa/router": "^10.1.1",
     "dotenv": "^10.0.0",
     "eslint-prettier": "^0.0.0-empty",
+    "joi": "^17.5.0",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
     "mongodb": "^4.2.2",
-    "mongoose": "^6.1.2"
+    "mongoose": "^6.1.2",
+    "nodemodule": "^0.3.0"
   },
   "devDependencies": {
     "eslint": "^8.4.1",
@@ -19,6 +22,6 @@
   },
   "scripts": {
     "start": "node src",
-    "start:dev": "nodemon src/ src/index.js"
+    "start:dev": "nodemon --watch src/ src/index.js"
   }
 }

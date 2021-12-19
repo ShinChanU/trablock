@@ -1,22 +1,23 @@
-require('dotenv').config(); // dotenv는 환경변수를 가지고 있음. .env 파일에 있음
-const Koa = require('koa');
-const Router = require('@koa/router');
-const bodyParser = require('koa-bodyparser');
-// const mongoose = require('mongoose');
-const Client = require('mongodb').MongoClient; // mongoose 가 안됨.
-
-const api = require('./api');
+import Dotenv from 'dotenv';
+Dotenv.config(); // dotenv는 환경변수를 가지고 있음. .env 파일에 있음
+import Koa from 'koa';
+import Router from '@koa/router';
+import bodyParser from 'koa-bodyparser';
+import mongoose from 'mongoose';
+// import Client from 'mongodb';
+// import Client = require('mongodb').MongoClient; // mongoose 가 안됨.
+import api from './api/index.js';
 
 const { PORT, MONGO_URI } = process.env;
 
-Client // { useNewUrlParser: true, useFindAndModify: false }
+mongoose // { useNewUrlParser: true, useFindAndModify: false }
   .connect(MONGO_URI)
   .then(() => {
     console.log('Connected to MongoDB');
   })
   .catch(e => {
     console.log(e);
-  })
+  });
 
 const app = new Koa();
 const router = new Router();
@@ -84,9 +85,12 @@ app.listen(port, () => {
 });
 
 /*
-21/12/19
+21/12/18
 https://thebook.io/080203/ch21/03/02/01/
 
-21/12/20
+21/12/19
 https://thebook.io/080203/ch22/04/
+
+21/12/20
+https://thebook.io/080203/ch22/10/05/
 */
