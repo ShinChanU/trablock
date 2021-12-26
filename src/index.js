@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 // import Client from 'mongodb';
 // import Client = require('mongodb').MongoClient; // mongoose 가 안됨.
 import api from './api/index.js';
+import jwtMiddleware from './lib/jwtMiddleware.js';
 
 const { PORT, MONGO_URI } = process.env;
 
@@ -30,6 +31,7 @@ router.get('/', (ctx, next) => {
 
 // 라우터 적용 전에 bodyParser 적용
 app.use(bodyParser());
+app.use(jwtMiddleware);
 
 // router.get('/about/:name?', (ctx, next) => {
 //   const { name } = ctx.params; // name의 존재 유무에 따라 다른 결과

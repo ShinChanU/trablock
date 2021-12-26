@@ -10,6 +10,7 @@
     "dotenv": "^10.0.0",
     "eslint-prettier": "^0.0.0-empty",
     "joi": "^17.5.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
