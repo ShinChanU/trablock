@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 // import Client = require('mongodb').MongoClient; // mongoose 가 안됨.
 import api from './api/index.js';
 import jwtMiddleware from './lib/jwtMiddleware.js';
+import cors from '@koa/cors';
 
 const { PORT, MONGO_URI } = process.env;
 
@@ -22,6 +23,14 @@ mongoose // { useNewUrlParser: true, useFindAndModify: false }
 
 const app = new Koa();
 const router = new Router();
+
+let corsOptions = {
+  origin: process.env.CLIENT_HOST,
+  credentials: true,
+};
+
+app.proxy = true; // true 일때 proxy 헤더들을 신뢰함
+app.use(cors(corsOptions));
 
 // 라우터 설정
 router.use('/api', api.routes());

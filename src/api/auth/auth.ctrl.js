@@ -15,9 +15,8 @@ export const signup = async ctx => { // 회원가입
     username: Joi.string()
       .alphanum()
       .min(3)
-      .max(20)
-      .required(),
-    password: Joi.string().required(),
+      .max(20),
+    password: Joi.string(),
     name: Joi.string(),
     nickname: Joi.string(),
     birthday: Joi.string(),
@@ -33,6 +32,7 @@ export const signup = async ctx => { // 회원가입
   };
 
   const { username, password, name, nickname, birthday, tel, gender, email } = ctx.request.body;
+
   try {
     // username이 이미 존재하는지 확인
     const exists = await User.findByUsername(username);
@@ -45,12 +45,13 @@ export const signup = async ctx => { // 회원가입
       name,
       nickname,
       birthday,
-      tel,
       gender,
       email
     });
     await user.setPassword(password);
     await user.save(); // db 저장
+
+    ctx.body = user.serialize();
 
     const token = user.generateToken();
     ctx.cookies.set('access_token', token, {
