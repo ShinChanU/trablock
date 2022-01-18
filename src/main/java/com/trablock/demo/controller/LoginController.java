@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *  종합 Controller, 이름만 LoginController 구현에 따라 분리 예정
  */
-@CrossOrigin
 @RequiredArgsConstructor
 @Controller
 public class LoginController {

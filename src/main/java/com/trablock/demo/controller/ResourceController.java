@@ -15,14 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value ="/api")
 public class ResourceController {
     private final RequestMappingHandlerMapping handlerMapping;
     private final MemberService memberService;
-
 
     @GetMapping("/requests")
     public String show() {
