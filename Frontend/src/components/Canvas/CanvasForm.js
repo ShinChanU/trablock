@@ -1,16 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import BuildBlockForm from 'containers/Canvas/BuildBlockForm';
+import './BuildTab/CanvasComponent.scss';
 
 const CanvasDiv = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 70vh;
-  width: 100vw;
+  height: 75vh;
+  width: 100%;
   padding-left: 17.5%;
   /* z-index: -1; */
+  background-color: red;
+`;
+
+const H1 = styled.div`
+  font-size: $font-lg;
 `;
 
 const textMap = {
@@ -25,7 +31,7 @@ const CanvasForm = ({ type }) => {
 
   return (
     <CanvasDiv>
-      {text}
+      <H1>{text}</H1>
       {type === 'build' && (
         <BuildBlockForm />
       )}

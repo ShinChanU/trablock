@@ -16,6 +16,7 @@ const List = styled.ul`
   padding: 0;
   margin: 0;
   z-index: 1;
+  background-color: blue;
 `;
 
 const Item = styled.li`
@@ -25,7 +26,7 @@ const Item = styled.li`
   margin-left: 20%;
   list-style: none;
   a {
-    color: ${(props) => (props.selected ? `black` : "white")};  
+    color: ${(props) => (props.selected ? `black` : 'white')};  
   }
 `;
 

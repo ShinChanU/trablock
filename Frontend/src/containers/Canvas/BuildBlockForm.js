@@ -1,7 +1,23 @@
-import { getPlan } from 'redux/modules/plan';
 import React, { useEffect } from 'react';
-import CanvasBlock from 'components/Canvas/CanvasBlock';
+import { getPlan } from 'redux/modules/plan';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+
+import CanvasBlock from 'components/Canvas/BuildTab/CanvasBlock';
+import SelectedLoc from 'components/Canvas/BuildTab/SelectedLoc';
+import Days from 'components/Canvas/BuildTab/Days';
+import 'components/Canvas/BuildTab/CanvasComponent.scss';
+
+const MainArea = styled.div`
+  /* border: 1px solid black; */
+  height: 100%;
+  display: flex;
+  margin-top: 25px;
+`;
+
+const Div = styled.div`
+  height: 100%;
+`;
 
 const BuildBlockForm = () => {
   const dispatch = useDispatch();
@@ -15,16 +31,18 @@ const BuildBlockForm = () => {
   }, [dispatch])
 
   return (
-    <div>
-      <section>
-        <h1>api test</h1>
+    <div className="BuildForm">
+      <section className="Section">
         {loadingPlan && '로딩 중..'}
         {!loadingPlan && plan && (
-          <>
-            {plan.name}
-            <CanvasBlock data={plan.selectedLocations} />
+          <Div>
+            <h4>{plan.name}</h4>
+            <MainArea>
+              <SelectedLoc data={plan.selectedLocations} />
+              <Days />
+            </MainArea>
             {console.log(plan)}
-          </>
+          </Div>
         )}
       </section>
     </div>
