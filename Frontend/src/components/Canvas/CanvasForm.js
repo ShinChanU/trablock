@@ -12,7 +12,7 @@ const CanvasDiv = styled.div`
   width: 100%;
   padding-left: 17.5%;
   /* z-index: -1; */
-  background-color: red;
+  /* background-color: red; */
 `;
 
 const H1 = styled.div`
