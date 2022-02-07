@@ -8,8 +8,6 @@ import SelectedLoc from 'components/Canvas/BuildTab/SelectedLoc';
 import Days from 'components/Canvas/BuildTab/Days';
 import 'components/Canvas/BuildTab/CanvasComponent.scss';
 import palette from 'lib/styles/palette';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const MainArea = styled.div`
   /* border: 1px solid black; */
@@ -42,11 +40,8 @@ const BuildBlockForm = () => {
           <Div>
             <h4>{plan.name}</h4>
             <MainArea>
-              {/* 드래그앤 드롭 선언 */}
-              <DndProvider backend={HTML5Backend}>
                 <SelectedLoc data={plan.selectedLocations} />
                 <Days />
-              </DndProvider>
             </MainArea>
             {console.log(plan)}
           </Div>

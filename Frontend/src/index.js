@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -36,9 +36,7 @@ loadUser();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<App />} />
-      </Routes>
+      <App />
     </BrowserRouter>
   </Provider >, document.getElementById('root'));
 

@@ -6,6 +6,7 @@ import palette from 'lib/styles/palette';
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowIcon from './ArrowIcon';
 import Item from './Item';
+import { Droppable } from 'react-beautiful-dnd';
 
 const Div = styled.div`
   background-color: ${palette.gray[3]};
