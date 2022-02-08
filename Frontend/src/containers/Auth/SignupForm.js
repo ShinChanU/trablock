@@ -31,9 +31,9 @@ const SignupForm = () => {
   // 폼 등록 이벤트 핸들러
   const onSubmit = e => {
     e.preventDefault();
-    const { userId, password, passwordCheck, username, nickname, birthday, phoneNum, gender, email } = form;
+    const { username, password, passwordCheck, realName, nickname, birthday, phoneNum, gender, email } = form;
     // 필수항목 중 하나라도 비어 있다면
-    if ([userId, password, passwordCheck, username, nickname, email].includes('')) {
+    if ([username, password, passwordCheck, realName, nickname, email].includes('')) {
       setError('필수항목을 모두 입력해 주세요.');
       return;
     }
@@ -43,7 +43,7 @@ const SignupForm = () => {
       changeField({ form: 'signup', key: 'passwordCheck', value: '' });
       return;
     }
-    dispatch(signup({ userId, password, passwordCheck, username, nickname, birthday, phoneNum, gender, email }));
+    dispatch(signup({ username, password, realName, nickname, birthday, phoneNum, gender, email }));
   };
 
   // 컴포넌트가 처음 렌더링될 때 form 초기화

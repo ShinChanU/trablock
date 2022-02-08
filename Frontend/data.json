@@ -44,5 +44,19 @@
         }
       ]
     }
+  ],
+  "users": [
+    {
+      "userId": "tlscksdn963",
+      "password": "123",
+      "passwordCheck": "123",
+      "username": "123",
+      "nickname": "123",
+      "birthday": "123123-12-23",
+      "phoneNum": "123",
+      "gender": "MALE",
+      "email": "tlscksnd963@naver.com",
+      "id": 1
+    }
   ]
 }

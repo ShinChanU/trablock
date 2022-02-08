@@ -6,21 +6,15 @@ import { shadow } from 'lib/styleUtils';
 import palette from 'lib/styles/palette';
 
 const buttonStyle = css`
-  /* border: 1px solid ${oc.cyan[6]}; */
-  /* border-radius: 2px; */
+  margin-left: 100px;
   font-weight: 600;
-  /* padding: 0.5rem; */
-  /* padding-bottom: 0.4rem; */
-  /* color: ${oc.cyan[6]}; */
+  font-size: 23px;
+  color: black;
   cursor: pointer;
   text-decoration: none;
   transition: .2s all;
-  /* background: white; */
 
   &:hover {
-    /* background: ${oc.cyan[6]}; */
-    /* color: white; */
-    ${shadow(1)}
   }
 
   &:active {
