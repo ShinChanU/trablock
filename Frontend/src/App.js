@@ -7,6 +7,7 @@ import CanvasMainPage from 'pages/CanvasPages/CanvasMainPage';
 // import LandingPage from 'pages/LandingPage';
 
 // import { DragDropContext } from 'react-beautiful-dnd';
+import DndTestPage from './test/DndTestPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route element={<SignUpPage />} path="/signup" />
         <Route element={<LoginPage />} path="/login" />
         <Route element={<CanvasMainPage />} path="/canvas/*" />
+        <Route element={<DndTestPage />} path="/dnd" />
       </Routes>
     </>
   );

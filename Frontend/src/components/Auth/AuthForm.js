@@ -29,7 +29,9 @@ const H4 = styled.h4`
 `;
 
 const SpanRed = styled.span`
-  color: rgb(255, 77, 77);
+  margin-left: 20px;
+  font-size: 15px;
+  color: blue;
 `;
 
 const StyledDiv = styled.div`
@@ -98,14 +100,12 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
     <>
       <AuthFormBlock>
         <Div>
-        <H2>{text}</H2>
-        {/* {
-          type === 'signup' && (
-            <H4>
-              아래 ' <SpanRed>*</SpanRed> '항목은 필수입력 사항입니다.
-            </H4>
-          )
-        } */}
+        <H2>
+          {text}
+          {type === 'signup' && (
+            <SpanRed>(* Required fields)</SpanRed>
+          )}
+        </H2>
           <form onSubmit={onSubmit}>
             <StyledDiv>
               {/* <StyledLabel>아이디
@@ -171,7 +171,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
                   />
                 </StyledDiv>
                 <StyledDiv>
-                  <StyledLabel>Birthday</StyledLabel>
+                  {/* <StyledLabel>Birthday</StyledLabel> */}
                   <StyledInput
                     name="birthday"
                     type="date"
@@ -180,17 +180,17 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
                   />
                 </StyledDiv>
                 <StyledDiv>
-                  <StyledLabel>Tel</StyledLabel>
+                  {/* <StyledLabel>Tel</StyledLabel> */}
                   <StyledInput
                     name="phoneNum"
-                    placeholder="( - ) 없이 적어주세요."
+                    placeholder="Phone Number (No Hyphen - )"
                     type="tel"
                     onChange={onChange}
                     value={form.phoneNum}
                   />
                 </StyledDiv>
                 <StyledDiv>
-                  <StyledLabel>성별</StyledLabel>
+                  {/* <StyledLabel>성별</StyledLabel> */}
                   <div
                     style={{
                       width: "270px",
@@ -221,7 +221,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
                   </div>
                 </StyledDiv>
                 <StyledDiv>
-                  <StyledLabel>이메일<SpanRed>*</SpanRed></StyledLabel>
+                  {/* <StyledLabel>이메일<SpanRed>*</SpanRed></StyledLabel> */}
                   <StyledInput
                     name="email"
                     placeholder="Email*"
