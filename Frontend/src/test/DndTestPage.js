@@ -85,7 +85,7 @@ const DndTestPage = () => {
     // 같은 리스트에서 dnd
     if(source.droppableId === destination.droppableId) {
       const items = reorder(
-        getList(source.droppableId),
+        
 
       )
     }
@@ -175,3 +175,11 @@ export default DndTestPage;
 // https://velog.io/@yjs3819/react-beautiful-dnd
 // drop 후 상태 저장 함수 작성하기
 // result 오브젝트 분석해보기
+
+// 0215
+// 여러개의 리스트가 있을 때 저장을 어떻게 할지..
+// dnd 이후 상태저장에 대해서,,
+// immer 를 사용해서 객체의 불변성을 유지해라..
+// https://react.vlpt.us/basic/23-immer.html
+// https://codedaily.io/tutorials/Multi-List-Drag-and-Drop-With-react-beautiful-dnd-Immer-and-useReducer
+// https://www.freakyjolly.com/react-draggable-sortable-lists-examples/
