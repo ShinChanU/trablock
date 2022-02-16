@@ -23,7 +23,7 @@ const textMap = {
   setting: '여행 설정',
   select: '블록 선택',
   build: '여행 캔버스',
-  share: '여행 공유'
+  share: '여행 공유',
 };
 
 const CanvasForm = ({ type }) => {
@@ -32,9 +32,7 @@ const CanvasForm = ({ type }) => {
   return (
     <CanvasDiv>
       <H1>{text}</H1>
-      {type === 'build' && (
-        <BuildBlockForm />
-      )}
+      {type === 'build' && <BuildBlockForm />}
     </CanvasDiv>
   );
 };

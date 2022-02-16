@@ -2,48 +2,81 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, signup } from 'redux/modules/auth';
 import AuthForm from 'components/Auth/AuthForm';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // import { check } from 'redux/modules/user';
 
 const SignupForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, userState } = useSelector(({ auth, user }) => ({ // state.auth, state.user
+  const {
+    form,
+    // auth, authError, userState
+  } = useSelector(({ auth, user }) => ({
+    // state.auth, state.user
     form: auth.signup, // store이름 auth, auth.signup에(회원 정보 목록 있음)
     auth: auth.auth,
     authError: auth.authError,
-    userState: user.userState
+    userState: user.userState,
   }));
 
   // 인풋 변경 이벤트 핸들러
-  const onChange = useCallback(e => {
-    const { value, name } = e.target;
-    dispatch(
-      changeField({
-        form: 'signup',
-        key: name,
-        value
-      })
-    );
-  }, [dispatch]);
+  const onChange = useCallback(
+    (e) => {
+      const { value, name } = e.target;
+      dispatch(
+        changeField({
+          form: 'signup',
+          key: name,
+          value,
+        }),
+      );
+    },
+    [dispatch],
+  );
 
   // 폼 등록 이벤트 핸들러
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const { username, password, passwordCheck, realName, nickname, birthday, phoneNum, gender, email } = form;
+    const {
+      username,
+      password,
+      passwordCheck,
+      realName,
+      nickname,
+      birthday,
+      phoneNum,
+      gender,
+      email,
+    } = form;
     // 필수항목 중 하나라도 비어 있다면
-    if ([username, password, passwordCheck, realName, nickname, email].includes('')) {
+    if (
+      [username, password, passwordCheck, realName, nickname, email].includes(
+        '',
+      )
+    ) {
       setError('필수항목을 모두 입력해 주세요.');
       return;
     }
-    if (password !== passwordCheck) { // 패스워드 다르면 오류출력 후 초기화
+    if (password !== passwordCheck) {
+      // 패스워드 다르면 오류출력 후 초기화
       setError('비밀번호가 일치하지 않습니다.');
       changeField({ form: 'signup', key: 'password', value: '' });
       changeField({ form: 'signup', key: 'passwordCheck', value: '' });
       return;
     }
-    dispatch(signup({ username, password, realName, nickname, birthday, phoneNum, gender, email }));
+    dispatch(
+      signup({
+        username,
+        password,
+        realName,
+        nickname,
+        birthday,
+        phoneNum,
+        gender,
+        email,
+      }),
+    );
   };
 
   // 컴포넌트가 처음 렌더링될 때 form 초기화

@@ -25,12 +25,12 @@ const BuildBlockForm = () => {
   const dispatch = useDispatch();
   const { plan, loadingPlan } = useSelector(({ plan, loading }) => ({
     plan: plan.plan,
-    loadingPlan: loading['plan/GET_PLAN']
-  }))
+    loadingPlan: loading['plan/GET_PLAN'],
+  }));
 
   useEffect(() => {
     dispatch(getPlan(1)); // 1은 travelPlan의 id (임시로 1)
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <div className="BuildForm">
@@ -40,8 +40,8 @@ const BuildBlockForm = () => {
           <Div>
             <h4>{plan.name}</h4>
             <MainArea>
-                <SelectedLoc data={plan.selectedLocations} />
-                <Days />
+              <SelectedLoc data={plan.selectedLocations} />
+              <Days />
             </MainArea>
             {console.log(plan)}
           </Div>

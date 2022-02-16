@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from 'lib/styles/palette';
 import Button from 'components/common/Button';
-import AccountCircle from './icons/AccountCircle';
+// import AccountCircle from './icons/AccountCircle';
 
 const AuthFormBlock = styled.div`
   padding-top: 30px;
@@ -22,11 +22,11 @@ const H2 = styled.h2`
 //   margin: 30px;
 // `;
 
-const H4 = styled.h4`
-  margin-top: 10px;
-  font-weight: lighter; 
-  text-align: center;
-`;
+// const H4 = styled.h4`
+//   margin-top: 10px;
+//   font-weight: lighter;
+//   text-align: center;
+// `;
 
 const SpanRed = styled.span`
   margin-left: 20px;
@@ -42,13 +42,13 @@ const StyledDiv = styled.div`
   padding-bottom: 1.5rem;
 `;
 
-const StyledLabel = styled.label`
-`;
+// const StyledLabel = styled.label`
+// `;
 
 const StyledInput = styled.input`
   padding-left: 30px;
   /* margin-right: 30px; */
-  font-size:1rem;
+  font-size: 1rem;
   /* border: none; */
   border: 1px solid ${palette.gray[5]};
   border-radius: 8px;
@@ -60,9 +60,9 @@ const StyledInput = styled.input`
     border-bottom: 1px solid ${palette.gray[7]};
   }
   & + & {
-    margin-top:1rem;
+    margin-top: 1rem;
   }
-;`
+`;
 
 const Footer = styled.div`
   margin-top: 2rem;
@@ -72,7 +72,7 @@ const Footer = styled.div`
     text-decoration: underline;
     &:hover {
       color: ${palette.gray[9]};
-    }  
+    }
   }
 `;
 
@@ -82,7 +82,7 @@ const ButtonWidthMarginTop = styled(Button)`
 
 const textMap = {
   login: 'Login',
-  signup: 'Sign Up'
+  signup: 'Sign Up',
 };
 /**
  * 에러를 보여 줍니다.
@@ -100,12 +100,10 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
     <>
       <AuthFormBlock>
         <Div>
-        <H2>
-          {text}
-          {type === 'signup' && (
-            <SpanRed>(* Required fields)</SpanRed>
-          )}
-        </H2>
+          <H2>
+            {text}
+            {type === 'signup' && <SpanRed>(* Required fields)</SpanRed>}
+          </H2>
           <form onSubmit={onSubmit}>
             <StyledDiv>
               {/* <StyledLabel>아이디
@@ -193,31 +191,33 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
                   {/* <StyledLabel>성별</StyledLabel> */}
                   <div
                     style={{
-                      width: "270px",
+                      width: '270px',
                       // marginRight: "30px",
                     }}
                   >
                     <StyledInput
                       style={{
-                        width: "20px",
-                        margin: "0px"
+                        width: '20px',
+                        margin: '0px',
                       }}
                       name="gender"
                       type="radio"
                       value="MALE"
                       onChange={onChange}
-                    />남자
+                    />
+                    남자
                     <StyledInput
                       style={{
-                        width: "20px",
-                        margin: "0px",
-                        marginLeft: "70px"
+                        width: '20px',
+                        margin: '0px',
+                        marginLeft: '70px',
                       }}
                       name="gender"
                       type="radio"
                       value="FEMALE"
                       onChange={onChange}
-                    />여자
+                    />
+                    여자
                   </div>
                 </StyledDiv>
                 <StyledDiv>
@@ -245,7 +245,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             )}
           </Footer>
         </Div>
-      </AuthFormBlock >
+      </AuthFormBlock>
     </>
   );
 };

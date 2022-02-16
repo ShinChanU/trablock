@@ -6,7 +6,6 @@ import CanvasMainPage from 'pages/CanvasPages/CanvasMainPage';
 // import HeaderContainer from './containers/common/HeaderContainer';
 // import LandingPage from 'pages/LandingPage';
 
-// import { DragDropContext } from 'react-beautiful-dnd';
 import DndTestPage from './test/DndTestPage';
 
 function App() {
@@ -36,3 +35,7 @@ export default App;
 // 0208
 // LandingPage 전체적인 틀 완료, 세부적인 구조 다듬기 필요, 사실상 랜딩이아니고 회원가입, 로그인임, 랜딩은 디자인 작업 중
 // 로고 클릭시 홈
+
+// 0216
+// dnd 적용 (drop, drag 영역 찾기)
+// 3개의 카테고리로 나누어서 각자다른 3개의 요소를 day에다가 옮기는 작업을 해봐

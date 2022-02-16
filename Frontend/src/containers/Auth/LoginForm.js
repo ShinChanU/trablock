@@ -1,34 +1,41 @@
 import React, { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector, } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, login } from 'redux/modules/auth';
 import AuthForm from 'components/Auth/AuthForm';
-import { check } from 'redux/modules/user';
-import { useNavigate } from 'react-router-dom';
+// import { check } from 'redux/modules/user';
+// import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { form, auth, authError, userState } = useSelector(({ auth, user }) => ({ // state.auth, state.user
+  const {
+    form,
+    // auth, authError, userState
+  } = useSelector(({ auth, user }) => ({
+    // state.auth, state.user
     form: auth.login, // store이름 auth, auth.signup에(회원 정보 목록 있음)
     auth: auth.auth,
     authError: auth.authError,
-    userState: user.userState
+    userState: user.userState,
   }));
 
   // 인풋 변경 이벤트 핸들러
-  const onChange = useCallback(e => {
-    const { value, name } = e.target;
-    dispatch(
-      changeField({
-        form: 'login',
-        key: name,
-        value
-      })
-    );
-  }, [dispatch]);
+  const onChange = useCallback(
+    (e) => {
+      const { value, name } = e.target;
+      dispatch(
+        changeField({
+          form: 'login',
+          key: name,
+          value,
+        }),
+      );
+    },
+    [dispatch],
+  );
 
   // 폼 등록 이벤트 핸들러
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const { username, password } = form;
     dispatch(login({ username, password }));

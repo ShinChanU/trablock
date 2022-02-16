@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import palette from 'lib/styles/palette';
-import { useDrag } from 'react-dnd';
 
 const List = styled.li`
-  /* border: 3px solid black; */
-  /* border-radius: 5px; */
   display: flex;
   list-style: none;
   margin-bottom: 11px;
@@ -15,7 +12,6 @@ const List = styled.li`
 `;
 
 const Img = styled.img`
-  /* height: 5vh; */
   width: 5vw;
   height: 3.2vw;
 `;
@@ -23,32 +19,17 @@ const Img = styled.img`
 const ListDiv = styled.div`
   margin-left: 5px;
   font-weight: bold;
-  /* text-align: center; */
-  /* display: table-cell; */
-  /* vertical-align: middle; */
-  /* margin: 0 auto; */
-  /* justify-content: center; */
 `;
 
 const Item = ({ data }) => {
-  // const [{ isDragging }, drag] = useDrag({
-  //   item: {
-  //     name: 'any custom name',
-  //     type: 'Our first type'
-  //   },
-  //   collect: (monitor) => ({
-  //     isDragging: monitor.isDragging(),
-  //   }),
-  // });
-
-  // const opacity = isDragging ? 0.4 : 1;
-
   return (
-    <List
-    // ref={drag} style={{ opacity }}
-    >
+    <List>
       <Img src={data.image} alt="img" />
-      <ListDiv>{data.name}<br />2021.01.26</ListDiv>
+      <ListDiv>
+        {data.name}
+        <br />
+        2021.01.26
+      </ListDiv>
     </List>
   );
 };

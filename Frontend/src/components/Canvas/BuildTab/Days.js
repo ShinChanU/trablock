@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDrop } from 'react-dnd';
+// import { useDrop } from 'react-dnd';
 
 const Days = () => {
   // const [{ canDrop, isOver }, drop] = useDrop({
@@ -16,8 +16,9 @@ const Days = () => {
   // console.log('options', { canDrop, isOver });
 
   return (
-    <div className="Day"
-    // ref={drop}
+    <div
+      className="Day"
+      // ref={drop}
     >
       Days 입니다
     </div>

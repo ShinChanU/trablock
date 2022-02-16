@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import './CanvasComponent.scss';
-// import CanvasBlock from './CanvasBlock';
-import CategoryBlock from './CategoryBlock';
+import CanvasBlock from './CategoryBlock';
 
 const Div = styled.div`
   overflow: auto;
@@ -21,18 +20,38 @@ const Div = styled.div`
   }
 `;
 
-// const textMap = {
-//   attraction: '관광지',
-//   restaurant: '음식점',
-//   lodge: '숙소'
-// };
+// const category = [
+//   {
+//     id: 1,
+//     engName: 'attractions',
+//     korName: '관광지',
+//   },
+//   {
+//     id: 2,
+//     engName: 'restaurants',
+//     korName: '음식점',
+//   },
+//   {
+//     id: 3,
+//     engName: 'accommodations',
+//     korName: '숙박 시설',
+//   },
+// ];
+
+// const type = ['관광지', '음식점', '숙박 시설'];
 
 const SelectedLoc = ({ data }) => {
   return (
     <Div>
-      <CategoryBlock data={data} />
+      <CanvasBlock data={data.attractions} type="관광지" />
+      <CanvasBlock data={data.restaurants} type="음식점" />
+      <CanvasBlock data={data.accommodations} type="숙박 시설" />
     </Div>
   );
 };
 
 export default SelectedLoc;
+
+// 0216
+// 컴포넌트 재사용에 대해 생각 해보자
+// 뭔가 반복문으로 json data.${여기..} 다른 데이터를 보낼 수 있을 거같은데..

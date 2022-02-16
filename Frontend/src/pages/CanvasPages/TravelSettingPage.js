@@ -12,4 +12,4 @@ const TravelSettingPage = () => {
   );
 };
 
-export default TravelSettingPage; 
+export default TravelSettingPage;

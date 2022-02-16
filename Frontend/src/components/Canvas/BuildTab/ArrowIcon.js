@@ -3,18 +3,16 @@ import { styled } from '@mui/styles';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const MyArrowIcon = styled(ArrowDropDownIcon)({
-  "&:hover": {
+  '&:hover': {
     // color: "red",
-    cursor: "pointer",
-    transform: "scale(1.5)",
-    transition: "all 0.2s linear"
-  }
-})
+    cursor: 'pointer',
+    transform: 'scale(1.5)',
+    transition: 'all 0.2s linear',
+  },
+});
 
 const ArrowIcon = ({ onClick }) => {
-  return (
-    <MyArrowIcon onClick={onClick} />
-  );
+  return <MyArrowIcon onClick={onClick} />;
 };
 
 export default ArrowIcon;
