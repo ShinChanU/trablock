@@ -7,6 +7,19 @@
       "concept": "Love",
       "startDay": "20211215",
       "arriveDay": "20211218",
+      "travelDays": {
+        "Day-1": {
+          "id": "Day-1",
+          "title": "Day1",
+          "locationIds": []
+        },
+        "Day-2": {
+          "id": "Day-2",
+          "title": "Day2",
+          "locationIds": []
+        }
+      },
+      "dayOrder": ["Day-1", "Day-2"],
       "selectedLocations": {
         "attractions": [
           {

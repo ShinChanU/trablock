@@ -53,7 +53,7 @@ const CanvasBlock = ({ data, type }) => {
         <ArrowIcon onClick={onClick} />
       </Title>
       <Ul>
-        {console.log(data)}
+        {/* {console.log(data)} */}
         {data.map((data) => (
           <Item data={data} key={data.id} />
         ))}

@@ -11,7 +11,6 @@ import rootReducer, { rootSaga } from 'redux/modules';
 import createSagaMiddleware from 'redux-saga';
 import { tempSetUser, check } from 'redux/modules/user';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -37,9 +36,7 @@ loadUser();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <DragDropContext>
-        <App />
-      </DragDropContext>
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
