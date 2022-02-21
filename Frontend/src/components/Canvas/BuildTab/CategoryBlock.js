@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import ArrowIcon from './ArrowIcon';
-import Item from './Item';
+import Location from './Location';
+import { Droppable } from 'react-beautiful-dnd';
 
 const Div = styled.div`
   background-color: ${palette.gray[3]};
@@ -39,12 +40,19 @@ const Ul = styled.ul`
   padding: 0;
 `;
 
-const CanvasBlock = ({ data, type }) => {
+const CanvasBlock = ({ locations, type }) => {
   const [clickState, setClickState] = useState(false);
+  const [locationArr, setLocationArr] = useState([]);
 
   const onClick = () => {
     setClickState(!clickState);
   };
+
+  useEffect(() => {
+    const test = Object.entries(locations).map((entries, index) => entries);
+    setLocationArr(test);
+    console.log(test);
+  }, [locations]);
 
   return (
     <Div clickState={clickState}>
@@ -52,12 +60,23 @@ const CanvasBlock = ({ data, type }) => {
         {type}
         <ArrowIcon onClick={onClick} />
       </Title>
-      <Ul>
-        {/* {console.log(data)} */}
-        {data.map((data) => (
-          <Item data={data} key={data.id} />
-        ))}
-      </Ul>
+      <Droppable droppableId="category" type="location">
+        {(provided) => (
+          <Ul ref={provided.innerRef} {...provided.droppableProps}>
+            {locationArr.map((location, index) => {
+              return (
+                <Location
+                  location={location[1]}
+                  index={index}
+                  key={location[1].id}
+                  type="category"
+                />
+              );
+            })}
+            {provided.placeholder}
+          </Ul>
+        )}
+      </Droppable>
     </Div>
   );
 };

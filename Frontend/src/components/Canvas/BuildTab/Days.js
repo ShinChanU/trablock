@@ -1,27 +1,55 @@
 import React from 'react';
-// import { useDrop } from 'react-dnd';
+import { Droppable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
+import Location from './Location';
 
-const Days = () => {
-  // const [{ canDrop, isOver }, drop] = useDrop({
-  //   accept: 'Our first type',
-  //   drop: () => ({
-  //     name: 'Some name'
-  //   }),
-  //   collect: (monitor) => ({
-  //     isOver: monitor.isOver(),
-  //     canDrop: monitor.canDrop(),
-  //   }),
-  // });
+const Container = styled('div')`
+  margin: 8px;
+  border-radius: 2px;
+  border: 1px solid lightgrey;
+  /* display: flex; */
+  flex-direction: day;
+  width: 230px;
+  background: white;
+`;
 
-  // console.log('options', { canDrop, isOver });
+const Title = styled('h3')`
+  text-align: center;
+`;
 
+const LocationsList = styled('div')`
+  padding: 8px;
+  flex-grow: 1;
+  min-height: 100px;
+  transition: background-color ease 0.2s;
+  background-color: ${(props) =>
+    props.isDraggingOver ? 'palevioletred' : 'white'};
+`;
+
+const Days = ({ day, locations }) => {
   return (
-    <div
-      className="Day"
-      // ref={drop}
-    >
-      Days 입니다
-    </div>
+    <Container>
+      <Title>{day.title}</Title>
+      <Droppable droppableId={day.id} type="location">
+        {(provided, snapshot) => (
+          <LocationsList
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+            {locations.map((location, index) => (
+              <Location
+                key={location.id}
+                location={location}
+                index={index}
+                type="day"
+              />
+            ))}
+            {provided.placeholder}
+          </LocationsList>
+        )}
+      </Droppable>
+    </Container>
   );
 };
 

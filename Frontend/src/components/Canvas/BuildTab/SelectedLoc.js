@@ -20,32 +20,14 @@ const Div = styled.div`
   }
 `;
 
-// const category = [
-//   {
-//     id: 1,
-//     engName: 'attractions',
-//     korName: '관광지',
-//   },
-//   {
-//     id: 2,
-//     engName: 'restaurants',
-//     korName: '음식점',
-//   },
-//   {
-//     id: 3,
-//     engName: 'accommodations',
-//     korName: '숙박 시설',
-//   },
-// ];
+const SelectedLoc = ({ locations }) => {
+  const { attractions, restaurants, accommodations } = locations;
 
-// const type = ['관광지', '음식점', '숙박 시설'];
-
-const SelectedLoc = ({ data }) => {
   return (
     <Div>
-      <CanvasBlock data={data.attractions} type="관광지" />
-      <CanvasBlock data={data.restaurants} type="음식점" />
-      <CanvasBlock data={data.accommodations} type="숙박 시설" />
+      <CanvasBlock locations={attractions} type="관광지" />
+      <CanvasBlock locations={restaurants} type="음식점" />
+      <CanvasBlock locations={accommodations} type="숙박 시설" />
     </Div>
   );
 };
