@@ -33,7 +33,7 @@ const ListDiv = styled.div`
 const Location = ({ location, index, type }) => {
   return (
     <>
-      {console.log(location, index, type)}
+      {/* {console.log(location, index, type)} */}
       <Draggable draggableId={location.id} index={index} type="location">
         {(provided, snapshot) => (
           <Container

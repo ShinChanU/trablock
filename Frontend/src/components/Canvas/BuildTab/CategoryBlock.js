@@ -60,7 +60,7 @@ const CanvasBlock = ({ locations, type }) => {
         {type}
         <ArrowIcon onClick={onClick} />
       </Title>
-      <Droppable droppableId="category" type="location">
+      <Droppable droppableId={type} type="location">
         {(provided) => (
           <Ul ref={provided.innerRef} {...provided.droppableProps}>
             {locationArr.map((location, index) => {

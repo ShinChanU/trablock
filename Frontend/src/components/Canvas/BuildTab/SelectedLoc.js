@@ -25,9 +25,9 @@ const SelectedLoc = ({ locations }) => {
 
   return (
     <Div>
-      <CanvasBlock locations={attractions} type="관광지" />
-      <CanvasBlock locations={restaurants} type="음식점" />
-      <CanvasBlock locations={accommodations} type="숙박 시설" />
+      <CanvasBlock locations={attractions} type="attractions" />
+      <CanvasBlock locations={restaurants} type="restaurants" />
+      <CanvasBlock locations={accommodations} type="accommodations" />
     </Div>
   );
 };

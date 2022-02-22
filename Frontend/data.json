@@ -21,48 +21,9 @@
         }
       },
       "selectedLocations": {
-        "attractions": {
-          "한라산": {
-            "id": "한라산",
-            "image": "https://i.ibb.co/zJMMHVD/image.jpg"
-          },
-          "만장굴": {
-            "id": "만장굴",
-            "image": "https://i.ibb.co/GFX3TZr/image.jpg"
-          },
-          "성산 일출봉": {
-            "id": "성산 일출봉",
-            "image": "https://i.ibb.co/MVvvPsX/image.jpg"
-          }
-        },
-        "restaurants": {
-          "곰막식당": {
-            "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-            "id": "곰막식당"
-          },
-          "고집돌우럭": {
-            "image": "https://i.ibb.co/GFX3TZr/image.jpg",
-            "id": "고집돌우럭"
-          },
-          "정성듬뿍 제주국": {
-            "image": "https://i.ibb.co/MVvvPsX/image.jpg",
-            "id": "정성듬뿍 제주국"
-          }
-        },
-        "accommodations": {
-          "레인보우인 제주": {
-            "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-            "id": "레인보우인 제주"
-          },
-          "그랜드 하얏트 호텔": {
-            "image": "https://i.ibb.co/GFX3TZr/image.jpg",
-            "id": "그랜드 하얏트 호텔"
-          },
-          "제주 칼호텔": {
-            "image": "https://i.ibb.co/MVvvPsX/image.jpg",
-            "id": "제주 칼호텔"
-          }
-        }
+        "attractions": ["한라산", "만장굴"],
+        "restaurants": ["곰막식당", "고집돌우럭", "정성듬뿍 제주국"],
+        "accommodations": ["레인보우인 제주"]
       }
     },
     {
@@ -98,5 +59,49 @@
       "email": "tlscksnd963@naver.com",
       "id": 1
     }
-  ]
+  ],
+  "locations": {
+    "attractions": [
+      {
+        "id": "한라산",
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg"
+      },
+      {
+        "id": "만장굴",
+        "image": "https://i.ibb.co/GFX3TZr/image.jpg"
+      },
+      {
+        "id": "성산 일출봉",
+        "image": "https://i.ibb.co/MVvvPsX/image.jpg"
+      }
+    ],
+    "restaurants": [
+      {
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "id": "곰막식당"
+      },
+      {
+        "image": "https://i.ibb.co/GFX3TZr/image.jpg",
+        "id": "고집돌우럭"
+      },
+      {
+        "image": "https://i.ibb.co/MVvvPsX/image.jpg",
+        "id": "정성듬뿍 제주국"
+      }
+    ],
+    "accommodations": [
+      {
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "id": "레인보우인 제주"
+      },
+      {
+        "image": "https://i.ibb.co/GFX3TZr/image.jpg",
+        "id": "그랜드 하얏트 호텔"
+      },
+      {
+        "image": "https://i.ibb.co/MVvvPsX/image.jpg",
+        "id": "제주 칼호텔"
+      }
+    ]
+  }
 }

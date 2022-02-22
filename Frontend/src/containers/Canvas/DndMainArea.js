@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import palette from 'lib/styles/palette';
 import SelectedLoc from 'components/Canvas/BuildTab/SelectedLoc';
 import Days from 'components/Canvas/BuildTab/Days';
 import { DragDropContext } from 'react-beautiful-dnd';
+import axios from 'axios';
 
 const Container = styled.div`
   height: 100%;
@@ -13,8 +14,40 @@ const Container = styled.div`
 `;
 
 const DndMainArea = ({ plan }) => {
-  const onDragEnd = (result) => {}; // 작성해야함 0221
+  const [location, setLocation] = useState(null);
+  const [category, setCategory] = useState([]);
   const { travelDays, dayOrder, selectedLocations } = plan;
+
+  useEffect(() => {
+    let completed = false;
+    const getData = async () => {
+      const result = await axios.get('http://localhost:4000/locations');
+      if (!completed) setLocation(result.data);
+    };
+    getData();
+    return () => {
+      completed = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    setCategory(Object.keys(plan.selectedLocations));
+  }, [plan.selectedLocations]);
+
+  const onDragEnd = (result) => {
+    // result : combine, destination, draggableId, mode, reason, source{index, droppableId}, type
+    // const { destination, source, draggableId, type } = result;
+    // if (!destination) return;
+    // if (
+    //   destination.droppableId === source.droppableId &&
+    //   destination.index === source.index
+    // )
+    //   return;
+    // if (source.droppableId)
+    // const start =
+    // console.log(category.indexOf(source.droppableId));
+  }; // 작성해야함 0221
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
