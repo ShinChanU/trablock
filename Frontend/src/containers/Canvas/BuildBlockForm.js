@@ -2,8 +2,12 @@ import React, { useEffect } from 'react';
 import { getPlan } from 'redux/modules/plan';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import 'components/Canvas/BuildTab/CanvasComponent.scss';
-import DndMainArea from 'containers/Canvas/DndMainArea';
+import DndMainArea from 'components/Canvas/BuildTab/DndMainArea';
+
+const Section = styled.div`
+  background-color: white;
+  border: 1px solid black;
+`;
 
 const Div = styled.div`
   height: 100%;
@@ -21,17 +25,15 @@ const BuildBlockForm = () => {
   }, [dispatch]);
 
   return (
-    <div className="BuildForm">
-      <section className="Section">
-        {loadingPlan && '로딩 중..'}
-        {!loadingPlan && plan && (
-          <Div>
-            <h4>{plan.name}</h4>
-            <DndMainArea plan={plan} />
-          </Div>
-        )}
-      </section>
-    </div>
+    <Section>
+      {loadingPlan && '로딩 중..'}
+      {!loadingPlan && plan && (
+        <Div>
+          <h4>{plan.name}</h4>
+          <DndMainArea plan={plan} />
+        </Div>
+      )}
+    </Section>
   );
 };
 

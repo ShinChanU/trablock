@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
-import ArrowIcon from './ArrowIcon';
+import ArrowIcon from 'components/Canvas/BuildTab/Styles/ArrowIcon';
 import Location from './Location';
 import { Droppable } from 'react-beautiful-dnd';
 
 const Div = styled.div`
+  border-radius: 5px;
   background-color: ${palette.gray[3]};
   padding: 10px;
   margin: 10px;
@@ -42,17 +43,10 @@ const Ul = styled.ul`
 
 const CanvasBlock = ({ locations, type }) => {
   const [clickState, setClickState] = useState(false);
-  const [locationArr, setLocationArr] = useState([]);
 
   const onClick = () => {
     setClickState(!clickState);
   };
-
-  useEffect(() => {
-    const test = Object.entries(locations).map((entries, index) => entries);
-    setLocationArr(test);
-    console.log(test);
-  }, [locations]);
 
   return (
     <Div clickState={clickState}>
@@ -63,12 +57,12 @@ const CanvasBlock = ({ locations, type }) => {
       <Droppable droppableId={type} type="location">
         {(provided) => (
           <Ul ref={provided.innerRef} {...provided.droppableProps}>
-            {locationArr.map((location, index) => {
+            {locations.map((location, index) => {
               return (
                 <Location
-                  location={location[1]}
+                  location={location}
                   index={index}
-                  key={location[1].id}
+                  key={location.id}
                   type="category"
                 />
               );

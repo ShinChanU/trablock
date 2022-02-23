@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BuildBlockForm from 'containers/Canvas/BuildBlockForm';
-import './BuildTab/CanvasComponent.scss';
+import 'components/Canvas/BuildTab/Styles/CanvasComponent.scss';
 
 const CanvasDiv = styled.div`
   position: absolute;

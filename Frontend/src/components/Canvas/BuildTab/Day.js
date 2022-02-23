@@ -26,7 +26,7 @@ const LocationsList = styled('div')`
     props.isDraggingOver ? 'palevioletred' : 'white'};
 `;
 
-const Days = ({ day, locations }) => {
+const Day = ({ day, locations }) => {
   return (
     <Container>
       <Title>{day.title}</Title>
@@ -53,4 +53,4 @@ const Days = ({ day, locations }) => {
   );
 };
 
-export default Days;
+export default Day;
