@@ -5,12 +5,15 @@ import styled from 'styled-components';
 import DndMainArea from 'components/Canvas/BuildTab/DndMainArea';
 
 const Section = styled.div`
+  margin-top: 30px;
   background-color: white;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 7px;
+  /* height: 80%; */
 `;
 
 const Div = styled.div`
-  height: 100%;
+  /* height: 100%; */
 `;
 
 const BuildBlockForm = () => {
@@ -30,7 +33,7 @@ const BuildBlockForm = () => {
       {!loadingPlan && plan && (
         <Div>
           <h4>{plan.name}</h4>
-          <DndMainArea plan={plan} />
+          <DndMainArea data={plan} />
         </Div>
       )}
     </Section>

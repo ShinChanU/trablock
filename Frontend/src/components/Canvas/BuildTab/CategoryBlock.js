@@ -26,7 +26,7 @@ const Div = styled.div`
     props.clickState &&
     css`
       overflow: auto;
-      height: 42.5vh;
+      height: 52vh;
     `}
 `;
 
@@ -41,7 +41,7 @@ const Ul = styled.ul`
   padding: 0;
 `;
 
-const CanvasBlock = ({ locations, type }) => {
+const CategoryBlock = ({ locations, type }) => {
   const [clickState, setClickState] = useState(false);
 
   const onClick = () => {
@@ -75,4 +75,4 @@ const CanvasBlock = ({ locations, type }) => {
   );
 };
 
-export default CanvasBlock;
+export default CategoryBlock;

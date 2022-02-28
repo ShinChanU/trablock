@@ -4,19 +4,24 @@ import BuildBlockForm from 'containers/Canvas/BuildBlockForm';
 import 'components/Canvas/BuildTab/Styles/CanvasComponent.scss';
 
 const CanvasDiv = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 75vh;
-  width: 100%;
-  padding-left: 17.5%;
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  /* height: 75vh; */
+  /* width: 100%; */
+  /* padding-left: 17.5%; */
   /* z-index: -1; */
   /* background-color: red; */
+  padding-top: 50px;
+  padding-left: 30px;
+  padding-right: 20px;
+  width: 100%;
 `;
 
 const H1 = styled.div`
-  font-size: $font-lg;
+  /* font-size: $font-lg; */
+  font-size: 30px;
 `;
 
 const textMap = {

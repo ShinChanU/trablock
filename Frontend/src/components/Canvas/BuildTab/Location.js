@@ -4,17 +4,17 @@ import palette from 'lib/styles/palette';
 import { Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
   margin-bottom: 8px;
   border-radius: 2px;
-  padding: 8px;
+  /* padding: 8px; */
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
 const List = styled.li`
   display: flex;
   list-style: none;
-  margin-bottom: 11px;
+  /* margin-bottom: 11px; */
   background-color: ${palette.gray[0]};
   box-shadow: 3px 3px 3px 3px ${palette.gray[5]};
   padding: 5px;
@@ -40,7 +40,7 @@ const Location = ({ location, index, type }) => {
             ref={provided.innerRef}
             {...provided.dragHandleProps}
             {...provided.draggableProps}
-            // isDragging={snapshot.isDragging}
+            isDragging={snapshot.isDragging}
           >
             <List>
               <Img src={location.image} alt="img" />

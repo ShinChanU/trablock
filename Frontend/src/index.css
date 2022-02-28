@@ -8,6 +8,8 @@ body {
   background: #f1f1f5;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
