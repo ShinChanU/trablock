@@ -5,7 +5,6 @@ import palette from 'lib/styles/palette';
 import axios from 'axios';
 import Day from 'components/Canvas/BuildTab/Day';
 import CategoryBlock from './CategoryBlock';
-import { style } from '@mui/system';
 
 const Container = styled.div`
   overflow: auto;
@@ -67,7 +66,6 @@ const DndMainArea = ({ data }) => {
 
   //0228 너무 고민중...
   const onDragEnd = (result) => {
-    console.log(result);
     const { destination, source, draggableId, type } = result;
     // dnd
     // result : combine, destination, draggableId, mode, reason, source{index, droppableId}, type
@@ -77,6 +75,7 @@ const DndMainArea = ({ data }) => {
       destination.index === source.index
     )
       return;
+    console.log(result);
 
     // select에서 움직임
     const startLocs = selectedLocations;

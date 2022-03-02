@@ -55,7 +55,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server --watch data.json --port 4000",
-    "dev": "concurrently \"yarn start\" \"yarn server\" "
+    "dev": "concurrently \"yarn start\" \"yarn server\" ",
+    "react-start": "set BROWSER=none && yarn start",
+    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "electron-pack": "yarn build && electron-builder build -c.extraMetadata.main=build/Main.js"
   },
   "eslintConfig": {
     "extends": [
@@ -76,7 +79,11 @@
     ]
   },
   "devDependencies": {
+    "electron": "^17.1.0",
+    "electron-builder": "^22.14.13",
     "eslint-plugin-jest": "^25.2.4",
     "sass": "^1.49.0"
-  }
+  },
+  "main": "public/Main.js",
+  "homepage": "./"
 }

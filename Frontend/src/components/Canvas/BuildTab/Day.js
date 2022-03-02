@@ -5,7 +5,7 @@ import Location from './Location';
 
 const Container = styled('div')`
   margin: 8px;
-  border-radius: 2px;
+  border-radius: 15px;
   border: 1px solid lightgrey;
   /* display: flex; */
   flex-direction: day;

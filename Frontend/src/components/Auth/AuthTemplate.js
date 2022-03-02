@@ -7,7 +7,7 @@ const AuthTemplateBlock = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  background-color: #FFF1A9;
+  background-color: #fff1a9;
 `;
 
 const WhiteBox = styled.div`
@@ -24,24 +24,23 @@ const Main = styled.div`
 `;
 
 const Illustration = styled.div`
-  ${props =>
-    props.plane && css`
+  ${(props) =>
+    props.plane &&
+    css`
       margin-top: 20px;
       padding-left: 40px;
-    `
-  }
+    `}
 
-${props =>
-    props.traveler && css`
+  ${(props) =>
+    props.traveler &&
+    css`
       position: relative;
       text-align: center;
       top: -30px;
-    `
-  }
+    `}
 `;
 
-const MainCharacter = styled.img`
-`;
+const MainCharacter = styled.img``;
 
 const AuthTemplate = ({ children }) => {
   return (
@@ -56,7 +55,9 @@ const AuthTemplate = ({ children }) => {
           <MainCharacter src={process.env.PUBLIC_URL + '/images/plane.png'} />
         </Illustration>
         <Illustration traveler>
-          <MainCharacter src={process.env.PUBLIC_URL + '/images/mainCharacter.png'} />
+          <MainCharacter
+            src={process.env.PUBLIC_URL + '/images/mainCharacter.png'}
+          />
         </Illustration>
       </Main>
     </AuthTemplateBlock>
