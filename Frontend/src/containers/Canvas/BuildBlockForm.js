@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { getPlan } from 'redux/modules/plan';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import DndMainArea from 'components/Canvas/BuildTab/DndMainArea';
 
@@ -9,31 +8,35 @@ const Section = styled.div`
   background-color: white;
   border: 2px solid black;
   border-radius: 7px;
-  /* height: 80%; */
 `;
 
-const Div = styled.div`
-  /* height: 100%; */
-`;
+const Div = styled.div``;
 
 const BuildBlockForm = () => {
-  const dispatch = useDispatch();
-  const { plan, loadingPlan } = useSelector(({ plan, loading }) => ({
-    plan: plan.plan,
-    loadingPlan: loading['plan/GET_PLAN'],
-  }));
+  const [userPlan, setUserPlan] = useState(null);
+  const [globalLocations, setGlobalLocations] = useState(null);
 
   useEffect(() => {
-    dispatch(getPlan(1)); // 1은 travelPlan의 id (임시로 1)
-  }, [dispatch]);
+    const getData = async () => {
+      const userPlanResult = await axios.get(
+        'http://localhost:4000/travelPlans/1',
+      );
+      setUserPlan(userPlanResult.data);
+      const globalLocationsResult = await axios.get(
+        'http://localhost:4000/locations',
+      );
+      setGlobalLocations(globalLocationsResult.data);
+    };
+    getData();
+  }, []);
 
   return (
     <Section>
-      {loadingPlan && '로딩 중..'}
-      {!loadingPlan && plan && (
+      {(!userPlan || !globalLocations) && '로딩 중..'}
+      {userPlan && globalLocations && (
         <Div>
-          <h4>{plan.name}</h4>
-          <DndMainArea data={plan} />
+          <h4>{userPlan.name}</h4>
+          <DndMainArea userPlan={userPlan} globalLocations={globalLocations} />
         </Div>
       )}
     </Section>
@@ -41,3 +44,6 @@ const BuildBlockForm = () => {
 };
 
 export default BuildBlockForm;
+
+// 0303 plan redux 삭제, useState사용으로 변경
+// container에서 데이터관리..

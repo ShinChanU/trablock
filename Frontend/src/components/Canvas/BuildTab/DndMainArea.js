@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import palette from 'lib/styles/palette';
-import axios from 'axios';
 import Day from 'components/Canvas/BuildTab/Day';
 import CategoryBlock from './CategoryBlock';
 
@@ -47,22 +46,8 @@ const categoryObj = {
 
 const categoryKeys = Object.keys(categoryObj);
 
-const DndMainArea = ({ data }) => {
-  const [gLocations, setGLocations] = useState(null);
-  const [plan, setPlan] = useState(data);
-  const { travelDays, dayOrder, selectedLocations } = plan;
-
-  useEffect(() => {
-    let completed = false;
-    const getGLocations = async () => {
-      const result = await axios.get('http://localhost:4000/locations');
-      if (!completed) setGLocations(result.data);
-    };
-    getGLocations();
-    return () => {
-      completed = true;
-    };
-  }, []);
+const DndMainArea = ({ userPlan, globalLocations }) => {
+  const { travelDays, dayOrder, selectedLocations } = userPlan;
 
   //0228 너무 고민중...
   const onDragEnd = (result) => {
@@ -136,34 +121,32 @@ const DndMainArea = ({ data }) => {
         <Container>
           {/* 담은 블록 */}
           <Basket>
-            {gLocations &&
-              categoryKeys.map((category) => {
-                // 카테고리별로 데이터 전달
-                const locations = selectedLocations[category].map(
-                  (locationId) => gLocations[category][locationId],
-                );
-                return (
-                  <CategoryBlock
-                    key={category}
-                    locations={locations}
-                    type={category}
-                  />
-                );
-              })}
+            {categoryKeys.map((category) => {
+              // 카테고리별로 데이터 전달
+              const locations = selectedLocations[category].map(
+                (locationId) => globalLocations[category][locationId],
+              );
+              return (
+                <CategoryBlock
+                  key={category}
+                  locations={locations}
+                  type={category}
+                />
+              );
+            })}
           </Basket>
           {/* 데이 */}
           <Days>
-            {gLocations &&
-              dayOrder.map((dayId) => {
-                // 데이 개수, 순서에 따라 저장된 데이터 전달(json)
-                const day = travelDays[dayId]; // object
-                const locations = day.locationIds.map((locationId) => {
-                  let category = Object.keys(locationId).join();
-                  let key = locationId[category];
-                  return gLocations[category][key];
-                });
-                return <Day key={day.id} day={day} locations={locations} />;
-              })}
+            {dayOrder.map((dayId) => {
+              // 데이 개수, 순서에 따라 저장된 데이터 전달(json)
+              const day = travelDays[dayId]; // object
+              const locations = day.locationIds.map((locationId) => {
+                let category = Object.keys(locationId).join();
+                let key = locationId[category];
+                return globalLocations[category][key];
+              });
+              return <Day key={day.id} day={day} locations={locations} />;
+            })}
           </Days>
         </Container>
       </DragDropContext>
@@ -197,3 +180,6 @@ export default DndMainArea;
 // Basket 에서 CanvasBlock 중 하나의 카테고리가 열리면 하나는 닫히도록 설정해서 높이 조절
 // onDragEnd 에서 순서 조정
 // 결국 redux로 plan을 받아와서 useState로 상태 저장을 하는데, 장바구니의 세개의 순서, day의 2개의 각각 id순서들을 splice를 사용해서 올바르게 정렬후 setState 로 상태를 저장해야함
+
+// 0303
+// redux 안 쓰고, 위 component 에서 props 받아오는걸로..

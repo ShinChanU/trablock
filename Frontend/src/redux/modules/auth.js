@@ -11,30 +11,26 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD'; // input 값
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM'; // form 초기화
 
 // 액션 함수 생성
-const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE] = createRequestActionTypes(
-  'auth/SIGNUP'
-);
+const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE] =
+  createRequestActionTypes('auth/SIGNUP');
 
-const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
-  'auth/LOGIN'
-);
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] =
+  createRequestActionTypes('auth/LOGIN');
 
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
     form, // login, signup
     key, // username, password, name ..
-    value
-  })
+    value,
+  }),
 );
 
-export const initializeForm = createAction(
-  INITIALIZE_FORM,
-  form => form
-); // signup, login
+export const initializeForm = createAction(INITIALIZE_FORM, (form) => form); // signup, login
 
-export const signup = createAction(SIGNUP, (
-  { username, password, realName, nickname, birthday, phoneNum, gender, email }) => ({
+export const signup = createAction(
+  SIGNUP,
+  ({
     username,
     password,
     realName,
@@ -42,12 +38,22 @@ export const signup = createAction(SIGNUP, (
     birthday,
     phoneNum,
     gender,
-    email
-  }));
+    email,
+  }) => ({
+    username,
+    password,
+    realName,
+    nickname,
+    birthday,
+    phoneNum,
+    gender,
+    email,
+  }),
+);
 
 export const login = createAction(LOGIN, ({ username, password }) => ({
   username,
-  password
+  password,
 }));
 // export const login = ({ type: LOGIN });
 
@@ -61,7 +67,8 @@ export function* authSaga() {
 }
 
 // 초기값
-const initialState = { // 불변성 유지하면서 객체 수정
+const initialState = {
+  // 불변성 유지하면서 객체 수정
   signup: {
     username: '',
     password: '',
@@ -75,7 +82,7 @@ const initialState = { // 불변성 유지하면서 객체 수정
   },
   login: {
     username: '',
-    password: ''
+    password: '',
   },
   auth: null,
   authError: null,
@@ -91,38 +98,44 @@ const initialState = { // 불변성 유지하면서 객체 수정
 //   }
 // }
 
-const auth = handleActions({
-  [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>  // action 대신 구조분해, action.payload.form, key.. 호출
-    produce(state, draft => {
-      draft[form][key] = value; // ex. state.signup.username
+const auth = handleActions(
+  {
+    [CHANGE_FIELD]: (
+      state,
+      { payload: { form, key, value } }, // action 대신 구조분해, action.payload.form, key.. 호출
+    ) =>
+      produce(state, (draft) => {
+        draft[form][key] = value; // ex. state.signup.username
+      }),
+    [INITIALIZE_FORM]: (state, { payload: form }) => ({
+      ...state,
+      [form]: initialState[form],
+      authError: null, // 폼 전환 시 외원 인증 에러 초기화
     }),
-  [INITIALIZE_FORM]: (state, { payload: form }) => ({
-    ...state,
-    [form]: initialState[form],
-    authError: null, // 폼 전환 시 외원 인증 에러 초기화
-  }),
-  // 회원가입 성공
-  [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
-    ...state,
-    authError: null,
-    auth,
-  }),
-  // 회원가입 실패
-  [SIGNUP_FAILURE]: (state, { payload: error }) => ({
-    ...state,
-    authError: error,
-  }),
-  // 로그인 성공
-  [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
-    ...state,
-    authError: null,
-    auth,
-  }),
-  // 로그인 실패
-  [LOGIN_FAILURE]: (state, { payload: error }) => ({
-    ...state,
-    authError: error,
-  }),
-}, initialState);
+    // 회원가입 성공
+    [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    // 회원가입 실패
+    [SIGNUP_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    // 로그인 성공
+    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    // 로그인 실패
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+  },
+  initialState,
+);
 
 export default auth;
