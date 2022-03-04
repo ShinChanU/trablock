@@ -46,22 +46,55 @@ const categoryObj = {
 
 const categoryKeys = Object.keys(categoryObj);
 
-const DndMainArea = ({ userPlan, globalLocations }) => {
+const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
 
   //0228 너무 고민중...
   const onDragEnd = (result) => {
+    // setUserPlanData(userPlan);
+    // console.log(userPlan.selectedLocations.attractions);
     const { destination, source, draggableId, type } = result;
     // dnd
-    // result : combine, destination, draggableId, mode, reason, source{index, droppableId}, type
     if (!destination) return;
-    if (
-      destination.droppableId === source.droppableId ||
-      destination.index === source.index
-    )
-      return;
+    const startDropId = source.droppableId;
+    const endDropId = destination.droppableId;
+    if (startDropId === endDropId) return;
+
     console.log(result);
 
+    if (
+      // 출발이 selectedLocation 도착 day
+      categoryKeys.indexOf(startDropId) !== -1 &&
+      categoryKeys.indexOf(endDropId) === -1
+    ) {
+      const start = selectedLocations[startDropId];
+      const end = travelDays[endDropId];
+      const dragIdObj = {};
+      dragIdObj[startDropId] = draggableId;
+      const newSelLocOrder = [...selectedLocations[startDropId]];
+      const newDayOrder = [...travelDays[endDropId].locationIds];
+      newSelLocOrder.splice(source.index, 1);
+      newDayOrder.splice(destination.index, 0, dragIdObj);
+      // 0304 doing..
+      // setState를 해야함
+      // selLoc, TradayLoc_id 둘다 수정...........
+      setUserPlanData({
+        ...userPlan,
+        selectedLocations[startDropId]: newSelLocOrder,
+        travelDays[endDropId].locationIds: newSelLocOrder,
+      })
+    }
+    if (
+      // 출발이 day 도착 day
+      categoryKeys.indexOf(startDropId) === -1 &&
+      categoryKeys.indexOf(endDropId) === -1
+    ) {
+      const start = travelDays[startDropId];
+      const end = travelDays[endDropId];
+      console.log(start, end);
+    }
+
+    /*
     // select에서 움직임
     const startLocs = selectedLocations;
     let startLocsIds; // 장바구니에서의 loc_id : ["만장굴", "성산 일출봉"]
@@ -91,6 +124,7 @@ const DndMainArea = ({ userPlan, globalLocations }) => {
       else startDayLocationIds.splice(source.index, 1);
       endLocationIds.splice(destination.index, 0, draggableObj);
     }
+    */
 
     // const newSelect = {
     //   ...startLocs,

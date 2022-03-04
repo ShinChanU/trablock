@@ -30,13 +30,21 @@ const BuildBlockForm = () => {
     getData();
   }, []);
 
+  const setUserPlanData = (x) => {
+    setUserPlan(x);
+  };
+
   return (
     <Section>
       {(!userPlan || !globalLocations) && '로딩 중..'}
       {userPlan && globalLocations && (
         <Div>
           <h4>{userPlan.name}</h4>
-          <DndMainArea userPlan={userPlan} globalLocations={globalLocations} />
+          <DndMainArea
+            setUserPlanData={setUserPlanData}
+            userPlan={userPlan}
+            globalLocations={globalLocations}
+          />
         </Div>
       )}
     </Section>
