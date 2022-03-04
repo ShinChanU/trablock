@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/trablock/static/css/main.06deff40.chunk.css",
-    "main.js": "/trablock/static/js/main.5e1c2b22.chunk.js",
-    "main.js.map": "/trablock/static/js/main.5e1c2b22.chunk.js.map",
+    "main.js": "/trablock/static/js/main.2de68cda.chunk.js",
+    "main.js.map": "/trablock/static/js/main.2de68cda.chunk.js.map",
     "runtime-main.js": "/trablock/static/js/runtime-main.639fb0c9.js",
     "runtime-main.js.map": "/trablock/static/js/runtime-main.639fb0c9.js.map",
     "static/js/2.0bac92c2.chunk.js": "/trablock/static/js/2.0bac92c2.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.639fb0c9.js",
     "static/js/2.0bac92c2.chunk.js",
     "static/css/main.06deff40.chunk.css",
-    "static/js/main.5e1c2b22.chunk.js"
+    "static/js/main.2de68cda.chunk.js"
   ]
 }
