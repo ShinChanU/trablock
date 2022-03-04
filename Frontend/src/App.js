@@ -11,10 +11,13 @@ function App() {
     <>
       {/* <HeaderContainer /> */}
       {useRoutes([
-        { path: '/', element: <SignUpPage /> }, // 임시로 signup
-        { path: '/signup', element: <SignUpPage /> },
-        { path: '/login', element: <LoginPage /> },
-        { path: '/canvas/*', element: <CanvasMainPage /> },
+        { path: process.env.PUBLIC_URL + '/', element: <SignUpPage /> }, // 임시로 signup
+        { path: process.env.PUBLIC_URL + '/signup', element: <SignUpPage /> },
+        { path: process.env.PUBLIC_URL + '/login', element: <LoginPage /> },
+        {
+          path: process.env.PUBLIC_URL + '/canvas/*',
+          element: <CanvasMainPage />,
+        },
       ])}
       {/* <Routes>
         <Route element={<SignUpPage />} path="/" />
