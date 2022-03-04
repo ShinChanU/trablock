@@ -12,7 +12,10 @@
         "Day-1": {
           "id": "Day-1",
           "title": "Day1",
-          "locationIds": [{ "attractions": "한라산" }]
+          "locationIds": [
+            { "attractions": "한라산" },
+            { "accommodations": "제주 칼호텔" }
+          ]
         },
         "Day-2": {
           "id": "Day-2",

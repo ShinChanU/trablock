@@ -49,105 +49,60 @@ const categoryKeys = Object.keys(categoryObj);
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
 
-  //0228 너무 고민중...
+  // 0304 drop 까지 구현완료
+  // day에서 재정렬할때 구현필요함
   const onDragEnd = (result) => {
-    // setUserPlanData(userPlan);
-    // console.log(userPlan.selectedLocations.attractions);
-    const { destination, source, draggableId, type } = result;
+    const { destination, source, draggableId } = result;
     // dnd
     if (!destination) return;
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
     if (startDropId === endDropId) return;
-
-    console.log(result);
-
     if (
       // 출발이 selectedLocation 도착 day
       categoryKeys.indexOf(startDropId) !== -1 &&
       categoryKeys.indexOf(endDropId) === -1
     ) {
-      const start = selectedLocations[startDropId];
-      const end = travelDays[endDropId];
+      console.log(result);
       const dragIdObj = {};
       dragIdObj[startDropId] = draggableId;
-      const newSelLocOrder = [...selectedLocations[startDropId]];
-      const newDayOrder = [...travelDays[endDropId].locationIds];
-      newSelLocOrder.splice(source.index, 1);
-      newDayOrder.splice(destination.index, 0, dragIdObj);
-      // 0304 doing..
-      // setState를 해야함
-      // selLoc, TradayLoc_id 둘다 수정...........
+      console.log(dragIdObj);
+      const newSelLocOrder = { ...selectedLocations };
+      const newDayOrder = { ...travelDays };
+      newSelLocOrder[startDropId].splice(source.index, 1);
+      console.log(newSelLocOrder);
+      newDayOrder[endDropId].locationIds.splice(
+        destination.index,
+        0,
+        dragIdObj,
+      );
       setUserPlanData({
         ...userPlan,
-        selectedLocations[startDropId]: newSelLocOrder,
-        travelDays[endDropId].locationIds: newSelLocOrder,
-      })
+        selectedLocations: newSelLocOrder,
+        travelDays: newDayOrder,
+      });
     }
     if (
       // 출발이 day 도착 day
       categoryKeys.indexOf(startDropId) === -1 &&
       categoryKeys.indexOf(endDropId) === -1
     ) {
-      const start = travelDays[startDropId];
-      const end = travelDays[endDropId];
-      console.log(start, end);
+      const dragIdObj = {};
+      const newDayOrder = { ...travelDays };
+      const temp = newDayOrder[startDropId].locationIds.splice(source.index, 1);
+      dragIdObj[Object.keys(temp[0])[0]] = draggableId;
+      console.log(dragIdObj);
+      newDayOrder[endDropId].locationIds.splice(
+        destination.index,
+        0,
+        dragIdObj,
+      );
+      setUserPlanData({
+        ...userPlan,
+        travelDays: newDayOrder,
+      });
     }
-
-    /*
-    // select에서 움직임
-    const startLocs = selectedLocations;
-    let startLocsIds; // 장바구니에서의 loc_id : ["만장굴", "성산 일출봉"]
-    let startDay; // day object
-    let startDayLocationIds; // day loc_id : [{ "attractions": "한라산" }]
-
-    // 0228 여기부터 다시 확인
-    if (startLocs[source.droppableId])
-      startLocsIds = selectedLocations[source.droppableId];
-    else {
-      startDay = travelDays[source.droppableId];
-      startDayLocationIds = [...startDay.locationIds];
-    }
-    console.log(startLocs, startLocsIds, startDay, startDayLocationIds);
-
-    // day에서 움직임
-    // if (start === undefined) start = travelDays[source.droppableId];
-    const end = travelDays[destination.droppableId];
-    let endLocationIds;
-    if (end) endLocationIds = [...end.locationIds];
-
-    if (end !== undefined) {
-      let draggableObj = {};
-      draggableObj[source.droppableId] = draggableId;
-      console.log(draggableObj);
-      if (startLocsIds) startLocsIds.splice(source.index, 1);
-      else startDayLocationIds.splice(source.index, 1);
-      endLocationIds.splice(destination.index, 0, draggableObj);
-    }
-    */
-
-    // const newSelect = {
-    //   ...startLocs,
-    //   startLocsIds,
-    // }
-
-    // const endDay = {
-    //   ...end,
-    //   locationIds: end.locationIds,
-    // };
-
-    // setPlan({
-    //   ...plan,
-    //   travelDays: {
-    //     [end.id]: endDay,
-    //     []: ,
-    //   },
-    //   selectedLocations: {
-    //     ...selectedLocations,
-
-    //   }
-    // });
-  }; // 작성해야함 0221
+  };
 
   return (
     <>
@@ -158,7 +113,12 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
             {categoryKeys.map((category) => {
               // 카테고리별로 데이터 전달
               const locations = selectedLocations[category].map(
-                (locationId) => globalLocations[category][locationId],
+                (locationId) => {
+                  let locObj = {};
+                  locObj = globalLocations[category][locationId];
+                  locObj['category'] = category;
+                  return locObj;
+                },
               );
               return (
                 <CategoryBlock
@@ -171,16 +131,20 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
           </Basket>
           {/* 데이 */}
           <Days>
-            {dayOrder.map((dayId) => {
-              // 데이 개수, 순서에 따라 저장된 데이터 전달(json)
-              const day = travelDays[dayId]; // object
-              const locations = day.locationIds.map((locationId) => {
-                let category = Object.keys(locationId).join();
-                let key = locationId[category];
-                return globalLocations[category][key];
-              });
-              return <Day key={day.id} day={day} locations={locations} />;
-            })}
+            {dayOrder &&
+              dayOrder.map((dayId) => {
+                // 데이 개수, 순서에 따라 저장된 데이터 전달(json)
+                const day = travelDays[dayId]; // object
+                const locations = day.locationIds.map((locationId) => {
+                  let locObj = {};
+                  let category = Object.keys(locationId).join();
+                  let key = locationId[category];
+                  locObj = globalLocations[category][key];
+                  locObj['category'] = category;
+                  return locObj;
+                });
+                return <Day key={day.id} day={day} locations={locations} />;
+              })}
           </Days>
         </Container>
       </DragDropContext>

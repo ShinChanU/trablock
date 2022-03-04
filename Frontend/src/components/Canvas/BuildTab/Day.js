@@ -37,14 +37,11 @@ const Day = ({ day, locations }) => {
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
-            {locations.map((location, index) => (
-              <Location
-                key={location.id}
-                location={location}
-                index={index}
-                type="day"
-              />
-            ))}
+            {locations.map((location, index) => {
+              return (
+                <Location key={location.id} location={location} index={index} />
+              );
+            })}
             {provided.placeholder}
           </LocationsList>
         )}

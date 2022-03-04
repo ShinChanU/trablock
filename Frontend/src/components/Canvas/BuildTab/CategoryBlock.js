@@ -63,7 +63,7 @@ const CategoryBlock = ({ locations, type }) => {
                   location={location}
                   index={index}
                   key={location.id}
-                  type="category"
+                  type={type}
                 />
               );
             })}
