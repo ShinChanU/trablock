@@ -41,10 +41,10 @@ const Ul = styled.ul`
   padding: 0;
 `;
 
-const CategoryBlock = ({ locations, type }) => {
+const CategoryBlock = ({ locations, type, onClick }) => {
   const [clickState, setClickState] = useState(false);
 
-  const onClick = () => {
+  const onClickIcon = () => {
     console.log(locations, clickState);
     setClickState(!clickState);
   };
@@ -53,7 +53,7 @@ const CategoryBlock = ({ locations, type }) => {
     <Div clickState={clickState}>
       <Title>
         {type}
-        <ArrowIcon onClick={onClick} clickState={clickState} />
+        <ArrowIcon onClick={onClickIcon} clickState={clickState} />
       </Title>
       <Droppable droppableId={type} type="location">
         {(provided) => (
@@ -65,6 +65,7 @@ const CategoryBlock = ({ locations, type }) => {
                   index={index}
                   key={location.id}
                   type={type}
+                  onClick={onClick}
                 />
               );
             })}

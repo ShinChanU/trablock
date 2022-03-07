@@ -49,7 +49,9 @@ const categoryKeys = Object.keys(categoryObj);
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
 
-  useEffect(() => {}, []);
+  const onClick = (e) => {
+    console.log(e.target);
+  };
 
   const onDragEnd = (result) => {
     console.log(result);
@@ -125,6 +127,7 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
                   key={category}
                   locations={locations}
                   type={category}
+                  onClick={onClick}
                 />
               );
             })}
@@ -143,7 +146,14 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
                   locObj['category'] = category;
                   return locObj;
                 });
-                return <Day key={day.id} day={day} locations={locations} />;
+                return (
+                  <Day
+                    key={day.id}
+                    day={day}
+                    locations={locations}
+                    onClick={onClick}
+                  />
+                );
               })}
           </Days>
         </Container>
@@ -156,3 +166,9 @@ export default DndMainArea;
 
 // 참고 레퍼런스
 // https://codesandbox.io/s/react-beautiful-dnd-example-forked-9l3wz8?file=/src/index.js
+
+// 0307
+// https://react-icons.github.io/react-icons/
+// https://technicolour.tistory.com/56
+// onClick 함수 만들기
+// onClick 된 location의 category로 다시 되돌리기(push, pop)사용

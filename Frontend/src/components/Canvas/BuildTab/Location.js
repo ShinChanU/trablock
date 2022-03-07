@@ -11,6 +11,13 @@ const Container = styled.div`
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
+const Btn = styled.button`
+  height: 18px;
+  width: 18px;
+  padding: 0px;
+  visibility: hidden;
+`;
+
 const List = styled.li`
   display: flex;
   list-style: none;
@@ -18,6 +25,12 @@ const List = styled.li`
   background-color: ${palette.gray[0]};
   box-shadow: 3px 3px 3px 3px ${palette.gray[5]};
   padding: 5px;
+  /* justify-content: space-b e; */
+  &:hover ${Btn} {
+    visibility: visible;
+    /* width: 200px; */
+    transition: 1s;
+  }
 `;
 
 const Img = styled.img`
@@ -26,11 +39,17 @@ const Img = styled.img`
 `;
 
 const ListDiv = styled.div`
-  margin-left: 5px;
+  margin-left: 10px;
   font-weight: bold;
+  flex: 1;
 `;
 
-const Location = ({ location, index, type }) => {
+const Name = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Location = ({ location, index, type, onClick }) => {
   return (
     <>
       {/* {console.log(key, location, index, type)} */}
@@ -45,9 +64,11 @@ const Location = ({ location, index, type }) => {
             <List>
               <Img src={location.image} alt="img" />
               <ListDiv>
-                {location.id}
+                <Name>
+                  {location.id}
+                  <Btn onClick={onClick}>x</Btn>
+                </Name>
                 {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
-                <br />
                 2021.01.26
               </ListDiv>
             </List>

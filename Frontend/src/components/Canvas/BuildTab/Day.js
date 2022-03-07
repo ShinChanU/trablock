@@ -26,7 +26,7 @@ const LocationsList = styled('div')`
     props.isDraggingOver ? 'palevioletred' : 'white'};
 `;
 
-const Day = ({ day, locations }) => {
+const Day = ({ day, locations, onClick }) => {
   return (
     <Container>
       <Title>{day.title}</Title>
@@ -39,7 +39,12 @@ const Day = ({ day, locations }) => {
           >
             {locations.map((location, index) => {
               return (
-                <Location key={location.id} location={location} index={index} />
+                <Location
+                  key={location.id}
+                  location={location}
+                  index={index}
+                  onClick={onClick}
+                />
               );
             })}
             {provided.placeholder}
