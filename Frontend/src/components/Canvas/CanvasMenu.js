@@ -47,16 +47,19 @@ const CanvasMenu = () => {
   return (
     <Menu>
       <List>
-        <Item selected={pathname === '/canvas/setting'}>
+        <Item
+          selected={pathname === process.env.PUBLIC_URL + '/canvas/setting'}
+        >
+          {/* 링크 주소 변경 필요 */}
           <MenuLink to="../setting">여행 설정</MenuLink>
         </Item>
-        <Item selected={pathname === '/canvas/select'}>
+        <Item selected={pathname === process.env.PUBLIC_URL + '/canvas/select'}>
           <MenuLink to="../select">블록 선택</MenuLink>
         </Item>
-        <Item selected={pathname === '/canvas/build'}>
+        <Item selected={pathname === process.env.PUBLIC_URL + '/canvas/build'}>
           <MenuLink to="../build">여행 캔버스</MenuLink>
         </Item>
-        <Item selected={pathname === '/canvas/share'}>
+        <Item selected={pathname === process.env.PUBLIC_URL + '/canvas/share'}>
           <MenuLink to="../share">여행 공유</MenuLink>
         </Item>
       </List>

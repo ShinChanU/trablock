@@ -10,6 +10,7 @@ function App() {
   return (
     <>
       {/* <HeaderContainer /> */}
+      {/* 배포 url */}
       {useRoutes([
         { path: process.env.PUBLIC_URL + '/', element: <SignUpPage /> }, // 임시로 signup
         { path: process.env.PUBLIC_URL + '/signup', element: <SignUpPage /> },

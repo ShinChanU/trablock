@@ -6,13 +6,14 @@ const MyArrowIcon = styled(ArrowDropDownIcon)({
   '&:hover': {
     // color: "red",
     cursor: 'pointer',
-    transform: 'scale(1.5)',
+    transform: 'scale(1.7)',
     transition: 'all 0.2s linear',
   },
 });
 
-const ArrowIcon = ({ onClick }) => {
-  return <MyArrowIcon onClick={onClick} />;
+const ArrowIcon = ({ onClick, clickState }) => {
+  console.log(clickState);
+  return <MyArrowIcon onClick={onClick} clickState={clickState} />;
 };
 
 export default ArrowIcon;

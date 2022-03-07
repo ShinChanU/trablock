@@ -13,7 +13,9 @@ const Header = ({ user, onLogout }) => {
   return (
     <>
       <Div>
-        <Button2 to="/canvas/setting">Go Plan</Button2>
+        <Button2 to={process.env.PUBLIC_URL + '/canvas/setting'}>
+          Go Plan
+        </Button2>
         <Button2 to="/about">About</Button2>
         <Button2 to="/contact">Contact</Button2>
       </Div>

@@ -239,9 +239,9 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           </form>
           <Footer>
             {type === 'login' ? (
-              <Link to="/signup">회원가입</Link>
+              <Link to={process.env.PUBLIC_URL + '/signup'}>회원가입</Link>
             ) : (
-              <Link to="/login">로그인</Link>
+              <Link to={process.env.PUBLIC_URL + '/login'}>로그인</Link>
             )}
           </Footer>
         </Div>

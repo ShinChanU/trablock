@@ -39,3 +39,5 @@ const plan = handleActions(
 );
 
 export default plan;
+
+// 사용X

@@ -32,6 +32,7 @@ const BuildBlockForm = () => {
 
   const setUserPlanData = (x) => {
     setUserPlan(x);
+    console.log('setUserPlan');
   };
 
   return (

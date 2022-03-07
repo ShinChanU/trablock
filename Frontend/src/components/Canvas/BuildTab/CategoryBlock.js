@@ -45,6 +45,7 @@ const CategoryBlock = ({ locations, type }) => {
   const [clickState, setClickState] = useState(false);
 
   const onClick = () => {
+    console.log(locations, clickState);
     setClickState(!clickState);
   };
 
@@ -52,7 +53,7 @@ const CategoryBlock = ({ locations, type }) => {
     <Div clickState={clickState}>
       <Title>
         {type}
-        <ArrowIcon onClick={onClick} />
+        <ArrowIcon onClick={onClick} clickState={clickState} />
       </Title>
       <Droppable droppableId={type} type="location">
         {(provided) => (

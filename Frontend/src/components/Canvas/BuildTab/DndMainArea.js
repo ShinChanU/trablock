@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import palette from 'lib/styles/palette';
@@ -49,21 +49,20 @@ const categoryKeys = Object.keys(categoryObj);
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
 
-  // 0304 drop 까지 구현완료
-  // day에서 재정렬할때 구현필요함
+  useEffect(() => {}, []);
+
   const onDragEnd = (result) => {
+    console.log(result);
+    // dnd 구현
     const { destination, source, draggableId } = result;
-    // dnd
     if (!destination) return;
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
-    if (startDropId === endDropId) return;
     if (
-      // 출발이 selectedLocation 도착 day
+      // 출발 selectedLocation, 도착 day
       categoryKeys.indexOf(startDropId) !== -1 &&
       categoryKeys.indexOf(endDropId) === -1
     ) {
-      console.log(result);
       const dragIdObj = {};
       dragIdObj[startDropId] = draggableId;
       console.log(dragIdObj);
@@ -81,9 +80,9 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
         selectedLocations: newSelLocOrder,
         travelDays: newDayOrder,
       });
-    }
-    if (
-      // 출발이 day 도착 day
+      return;
+    } else if (
+      // 출발 day, 도착 day(같은 day에서도 사용)
       categoryKeys.indexOf(startDropId) === -1 &&
       categoryKeys.indexOf(endDropId) === -1
     ) {
@@ -101,6 +100,7 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
         ...userPlan,
         travelDays: newDayOrder,
       });
+      return;
     }
   };
 
@@ -154,30 +154,5 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
 
 export default DndMainArea;
 
-//https://codesandbox.io/s/react-beautiful-dnd-example-forked-9l3wz8?file=/src/index.js
-
-// 0216
-// 컴포넌트 재사용에 대해 생각 해보자
-// 뭔가 반복문으로 json data.${여기..} 다른 데이터를 보낼 수 있을 거같은데..
-
-// 0221
-// 현재 진행 상황
-// data.json 에 있는 개수 기반
-// category 3개, 전체 droppable, 각 요소 location(draggable)
-// day 2개, 전체 droppable, 각 요소 location(draggable)
-// 드래그로 움직이기만 하는 상황, 드랍 기능 추가해야함
-// 그리고, 드래그를 잡았을 때 위치가 살짝 아래로 잡히는데 이 또한 수정해야함.
-
-// 0223
-// BockBasket Component 삭제
-// data.json 에 dayOrder와 travelDays는 초기 설정에서 설정시 생성
-// scss 삭제해야함
-// 그리고, 드래그를 잡았을 때 위치가 살짝 아래로 잡히는데 이 또한 수정해야함.(0228 수정, css position 문제)
-
-// 0228
-// Basket 에서 CanvasBlock 중 하나의 카테고리가 열리면 하나는 닫히도록 설정해서 높이 조절
-// onDragEnd 에서 순서 조정
-// 결국 redux로 plan을 받아와서 useState로 상태 저장을 하는데, 장바구니의 세개의 순서, day의 2개의 각각 id순서들을 splice를 사용해서 올바르게 정렬후 setState 로 상태를 저장해야함
-
-// 0303
-// redux 안 쓰고, 위 component 에서 props 받아오는걸로..
+// 참고 레퍼런스
+// https://codesandbox.io/s/react-beautiful-dnd-example-forked-9l3wz8?file=/src/index.js
