@@ -1,23 +1,26 @@
 import React from 'react';
-import { styled } from '@mui/styles';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import styled from 'styled-components';
+import { MdArrowDropDown } from 'react-icons/md';
 
-const MyArrowIcon = styled(ArrowDropDownIcon)({
-  '&:hover': {
-    // color: "red",
-    cursor: 'pointer',
-    transform: 'scale(1.7)',
-    transition: 'all 0.2s linear',
-  },
-});
+const ArrowDropDownI = styled(MdArrowDropDown)`
+  cursor: pointer;
+  size: 3em;
+  &:hover {
+    transform: scale(1.4);
+    transition: all 0.2s linear;
+  }
+`;
 
 const ArrowIcon = ({ onClick, clickState }) => {
   // console.log(clickState);
   return (
-    <MyArrowIcon
-      onClick={onClick}
-      // clickState={clickState}
-    />
+    <>
+      <ArrowDropDownI
+        size="1.5em"
+        onClick={onClick}
+        // clickState={clickState}
+      />
+    </>
   );
 };
 

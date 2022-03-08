@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import { Draggable } from 'react-beautiful-dnd';
+import { MdClose } from 'react-icons/md';
 
 const Container = styled.div`
   /* border: 1px solid lightgrey; */
@@ -11,32 +12,28 @@ const Container = styled.div`
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
-const Btn = styled.button`
+const CloseBtn = styled(MdClose)`
   display: none;
   ${(props) =>
     props.day &&
     css`
       display: block;
-      height: 18px;
-      width: 18px;
       padding: 0px;
-      visibility: hidden;
+      color: ${palette.gray[6]};
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.3);
+        transition: transform 0.2s linear;
+      }
     `}
 `;
 
 const List = styled.li`
   display: flex;
   list-style: none;
-  /* margin-bottom: 11px; */
   background-color: ${palette.gray[0]};
   box-shadow: 3px 3px 3px 3px ${palette.gray[5]};
   padding: 5px;
-  /* justify-content: space-b e; */
-  &:hover ${Btn} {
-    visibility: visible;
-    /* width: 200px; */
-    transition: 1s;
-  }
 `;
 
 const Img = styled.img`
@@ -76,9 +73,7 @@ const Location = ({ location, index, type, onClick, day }) => {
               <ListDiv>
                 <Name>
                   {location.id}
-                  <Btn day={day} onClick={onClickX}>
-                    x
-                  </Btn>
+                  <CloseBtn day={day} onClick={onClickX} />
                 </Name>
                 {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
                 2021.01.26

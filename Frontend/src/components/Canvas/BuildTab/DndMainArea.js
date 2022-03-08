@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from // useEffect
+'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import palette from 'lib/styles/palette';
@@ -49,7 +50,7 @@ const categoryKeys = Object.keys(categoryObj);
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
 
-  const onClick = (day, location, index) => {
+  const onClick = async (day, location, index) => {
     const category = location.category;
     const newSelLocOrder = { ...selectedLocations };
     const newDayOrder = { ...travelDays };
@@ -177,5 +178,3 @@ export default DndMainArea;
 // 0307
 // https://react-icons.github.io/react-icons/
 // https://technicolour.tistory.com/56
-// onClick 함수 만들기
-// onClick 된 location의 category로 다시 되돌리기(push, pop)사용

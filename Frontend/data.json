@@ -13,8 +13,12 @@
           "id": "Day-1",
           "title": "Day1",
           "locationIds": [
-            { "attractions": "한라산" },
-            { "accommodations": "제주 칼호텔" }
+            {
+              "attractions": "한라산"
+            },
+            {
+              "accommodations": "제주 칼호텔"
+            }
           ]
         },
         "Day-2": {
@@ -47,6 +51,20 @@
           "id": "12543"
         }
       ]
+    },
+    {
+      "name": "Test",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "새 여행 캔버스",
+      "periods": "5123",
+      "concept": "Love"
+    },
+    {
+      "{\"name\":\"test\"}": "",
+      "id": 5
     }
   ],
   "users": [

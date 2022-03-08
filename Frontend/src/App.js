@@ -1,5 +1,8 @@
 import React from 'react';
-import { Routes, Route, useRoutes } from 'react-router-dom';
+import {
+  // Routes, Route,
+  useRoutes,
+} from 'react-router-dom';
 import SignUpPage from 'pages/SignupPage';
 import LoginPage from 'pages/LoginPage';
 import CanvasMainPage from 'pages/CanvasPages/CanvasMainPage';
