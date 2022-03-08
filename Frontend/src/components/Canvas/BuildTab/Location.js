@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -12,10 +12,16 @@ const Container = styled.div`
 `;
 
 const Btn = styled.button`
-  height: 18px;
-  width: 18px;
-  padding: 0px;
-  visibility: hidden;
+  display: none;
+  ${(props) =>
+    props.day &&
+    css`
+      display: block;
+      height: 18px;
+      width: 18px;
+      padding: 0px;
+      visibility: hidden;
+    `}
 `;
 
 const List = styled.li`
@@ -49,7 +55,11 @@ const Name = styled.div`
   justify-content: space-between;
 `;
 
-const Location = ({ location, index, type, onClick }) => {
+const Location = ({ location, index, type, onClick, day }) => {
+  const onClickX = () => {
+    onClick(day, location, index);
+  };
+
   return (
     <>
       {/* {console.log(key, location, index, type)} */}
@@ -66,7 +76,9 @@ const Location = ({ location, index, type, onClick }) => {
               <ListDiv>
                 <Name>
                   {location.id}
-                  <Btn onClick={onClick}>x</Btn>
+                  <Btn day={day} onClick={onClickX}>
+                    x
+                  </Btn>
                 </Name>
                 {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
                 2021.01.26

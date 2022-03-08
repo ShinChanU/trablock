@@ -45,7 +45,7 @@ const CategoryBlock = ({ locations, type, onClick }) => {
   const [clickState, setClickState] = useState(false);
 
   const onClickIcon = () => {
-    console.log(locations, clickState);
+    // console.log(locations, clickState);
     setClickState(!clickState);
   };
 

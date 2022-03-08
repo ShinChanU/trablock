@@ -12,8 +12,13 @@ const MyArrowIcon = styled(ArrowDropDownIcon)({
 });
 
 const ArrowIcon = ({ onClick, clickState }) => {
-  console.log(clickState);
-  return <MyArrowIcon onClick={onClick} clickState={clickState} />;
+  // console.log(clickState);
+  return (
+    <MyArrowIcon
+      onClick={onClick}
+      // clickState={clickState}
+    />
+  );
 };
 
 export default ArrowIcon;

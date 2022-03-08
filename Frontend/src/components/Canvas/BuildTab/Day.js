@@ -44,6 +44,7 @@ const Day = ({ day, locations, onClick }) => {
                   location={location}
                   index={index}
                   onClick={onClick}
+                  day={day}
                 />
               );
             })}

@@ -49,12 +49,22 @@ const categoryKeys = Object.keys(categoryObj);
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
 
-  const onClick = (e) => {
-    console.log(e.target);
+  const onClick = (day, location, index) => {
+    const category = location.category;
+    const newSelLocOrder = { ...selectedLocations };
+    const newDayOrder = { ...travelDays };
+    newDayOrder[day.id].locationIds.splice(index, 1);
+    newSelLocOrder[category].push(location.id);
+
+    setUserPlanData({
+      ...userPlan,
+      selectedLocations: newSelLocOrder,
+      travelDays: newDayOrder,
+    });
+    return;
   };
 
   const onDragEnd = (result) => {
-    console.log(result);
     // dnd 구현
     const { destination, source, draggableId } = result;
     if (!destination) return;
@@ -67,11 +77,9 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
     ) {
       const dragIdObj = {};
       dragIdObj[startDropId] = draggableId;
-      console.log(dragIdObj);
       const newSelLocOrder = { ...selectedLocations };
       const newDayOrder = { ...travelDays };
       newSelLocOrder[startDropId].splice(source.index, 1);
-      console.log(newSelLocOrder);
       newDayOrder[endDropId].locationIds.splice(
         destination.index,
         0,
@@ -92,7 +100,6 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
       const newDayOrder = { ...travelDays };
       const temp = newDayOrder[startDropId].locationIds.splice(source.index, 1);
       dragIdObj[Object.keys(temp[0])[0]] = draggableId;
-      console.log(dragIdObj);
       newDayOrder[endDropId].locationIds.splice(
         destination.index,
         0,
