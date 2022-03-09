@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import DndMainArea from 'components/Canvas/BuildTab/DndMainArea';
@@ -30,9 +30,10 @@ const BuildBlockForm = () => {
     getData();
   }, []);
 
-  const setUserPlanData = (x) => {
+  const setUserPlanData = useCallback((x) => {
     setUserPlan(x);
-  };
+    console.log('setUerPlan');
+  }, []);
 
   return (
     <Section>

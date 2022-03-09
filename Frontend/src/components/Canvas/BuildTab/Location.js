@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import { Draggable } from 'react-beautiful-dnd';
 import { MdClose } from 'react-icons/md';
 
 const Container = styled.div`
+  width: 90%;
   /* border: 1px solid lightgrey; */
-  margin-bottom: 8px;
+  margin: auto;
+  margin-top: 10px;
   border-radius: 2px;
   /* padding: 8px; */
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
@@ -30,6 +32,7 @@ const CloseBtn = styled(MdClose)`
 
 const List = styled.li`
   display: flex;
+  /* justify-content: center; */
   list-style: none;
   background-color: ${palette.gray[0]};
   box-shadow: 3px 3px 3px 3px ${palette.gray[5]};
@@ -52,14 +55,13 @@ const Name = styled.div`
   justify-content: space-between;
 `;
 
-const Location = ({ location, index, type, onClick, day }) => {
+const Location = memo(({ location, index, type, onClick, day }) => {
   const onClickX = () => {
     onClick(day, location, index);
   };
 
   return (
     <>
-      {/* {console.log(key, location, index, type)} */}
       <Draggable draggableId={location.id} index={index} type={type}>
         {(provided, snapshot) => (
           <Container
@@ -84,6 +86,6 @@ const Location = ({ location, index, type, onClick, day }) => {
       </Draggable>
     </>
   );
-};
+});
 
 export default Location;

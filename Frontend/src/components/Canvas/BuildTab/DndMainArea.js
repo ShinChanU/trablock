@@ -1,5 +1,4 @@
-import React from // useEffect
-'react';
+import React, { useCallback } from 'react'; // useEffect
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import palette from 'lib/styles/palette';
@@ -50,20 +49,19 @@ const categoryKeys = Object.keys(categoryObj);
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
 
-  const onClick = async (day, location, index) => {
-    const category = location.category;
+  const onClick = useCallback((day, location, index) => {
+    const category = location.category.slice();
     const newSelLocOrder = { ...selectedLocations };
     const newDayOrder = { ...travelDays };
     newDayOrder[day.id].locationIds.splice(index, 1);
     newSelLocOrder[category].push(location.id);
-
     setUserPlanData({
       ...userPlan,
       selectedLocations: newSelLocOrder,
       travelDays: newDayOrder,
     });
     return;
-  };
+  }, []);
 
   const onDragEnd = (result) => {
     // dnd 구현

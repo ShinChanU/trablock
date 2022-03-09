@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import ArrowIcon from 'components/Canvas/BuildTab/Styles/ArrowIcon';
@@ -41,7 +41,7 @@ const Ul = styled.ul`
   padding: 0;
 `;
 
-const CategoryBlock = ({ locations, type, onClick }) => {
+const CategoryBlock = memo(({ locations, type, onClick }) => {
   const [clickState, setClickState] = useState(false);
 
   const onClickIcon = () => {
@@ -75,6 +75,6 @@ const CategoryBlock = ({ locations, type, onClick }) => {
       </Droppable>
     </Div>
   );
-};
+});
 
 export default CategoryBlock;

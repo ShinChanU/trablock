@@ -11,7 +11,7 @@
       "travelDays": {
         "Day-1": {
           "id": "Day-1",
-          "title": "Day1",
+          "order": "1일차",
           "locationIds": [
             {
               "attractions": "한라산"
@@ -23,7 +23,7 @@
         },
         "Day-2": {
           "id": "Day-2",
-          "title": "Day2",
+          "order": "2일차",
           "locationIds": []
         }
       },
