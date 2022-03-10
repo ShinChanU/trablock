@@ -8,7 +8,7 @@ const Container = styled.div`
   width: 90%;
   /* border: 1px solid lightgrey; */
   margin: auto;
-  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 2px;
   /* padding: 8px; */
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};

@@ -19,6 +19,12 @@
             {
               "accommodations": "제주 칼호텔"
             }
+          ],
+          "moveData": [
+            {
+              "vehicle": "car",
+              "time": "100"
+            }
           ]
         },
         "Day-2": {
