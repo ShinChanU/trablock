@@ -2,11 +2,34 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdMode } from 'react-icons/md';
 import oc from 'open-color';
+import Modal from 'react-modal';
+import './Styles/Modal.css';
+
+// modal 만들기 0311
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  content: {
+    // height: '200px',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
 const Div = styled.div`
   // 오른쪽 정렬 필요 0310
-  /* position: relative;
-  display: block; */
+  position: relative;
+  display: inline-block;
   /* float: right; */
   /* clear: both; */
   :after {
@@ -49,6 +72,15 @@ const BubbleDiv = styled.div`
 
 const MoveDataDiv = ({ moveData, index }) => {
   const [moveObj, setMoveObj] = useState(moveData[index]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   const getTime = (time) => {
     let hour = 0;
@@ -67,7 +99,7 @@ const MoveDataDiv = ({ moveData, index }) => {
       {moveData[index] === undefined && (
         <Div>
           <Span>
-            <MdMode />
+            <MdMode onClick={openModal} />
           </Span>
         </Div>
       )}
@@ -76,11 +108,22 @@ const MoveDataDiv = ({ moveData, index }) => {
           <Span>
             <BubbleDiv>
               {moveObj.vehicle}
-              <BubbleDiv margin>{getTime(moveObj.time)}</BubbleDiv>
+              <BubbleDiv margin>
+                {getTime(moveObj.time)}
+                <MdMode onClick={openModal} />
+              </BubbleDiv>
             </BubbleDiv>
           </Span>
         </Div>
       )}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        // portalClassName="modal"
+        style={customStyles}
+      >
+        <button onClick={closeModal}>Modal Close</button>
+      </Modal>
     </>
   );
 };

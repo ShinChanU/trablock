@@ -8,6 +8,7 @@ import LoginPage from 'pages/LoginPage';
 import CanvasMainPage from 'pages/CanvasPages/CanvasMainPage';
 // import HeaderContainer from './containers/common/HeaderContainer';
 // import LandingPage from 'pages/LandingPage';
+import Modal from 'react-modal';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
     </>
   );
 }
+
+Modal.setAppElement('#root'); // Modal 사용을 위해 붙임(0311)
 
 export default App;
 
