@@ -4,27 +4,8 @@ import { MdMode } from 'react-icons/md';
 import oc from 'open-color';
 import Modal from 'react-modal';
 import './Styles/Modal.css';
-
-// modal 만들기 0311
-const customStyles = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-  },
-  content: {
-    // height: '200px',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import ModalModule from './ModalModule';
+import MoveSettingChild from './MoveSettingChild';
 
 const Div = styled.div`
   // 오른쪽 정렬 필요 0310
@@ -116,14 +97,15 @@ const MoveDataDiv = ({ moveData, index }) => {
           </Span>
         </Div>
       )}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        // portalClassName="modal"
-        style={customStyles}
+      <ModalModule
+        modalIsOpen={modalIsOpen}
+        openModal={openModal}
+        closeModal={closeModal}
+        header="이동수단 설정"
       >
-        <button onClick={closeModal}>Modal Close</button>
-      </Modal>
+        <MoveSettingChild />
+        {/* 내부요소, chlidren */}
+      </ModalModule>
     </>
   );
 };
