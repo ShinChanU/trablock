@@ -1,6 +1,7 @@
 import oc from 'open-color';
 import React from 'react';
 import styled from 'styled-components';
+import Time from 'components/Canvas/BuildTab/Icons/Time';
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ const DayHeader = ({ day }) => {
       <DayNum>{day.order}</DayNum>
       <StartLeave>
         <div>출발시각/체류시간을 설정해주세요</div>
-        <Icon>Icon</Icon>
+        <Time />
       </StartLeave>
     </Container>
   );

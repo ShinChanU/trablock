@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
+import Close from 'components/Canvas/BuildTab/Icons/Close';
 
 const customStyles = {
   overlay: {
@@ -24,9 +25,10 @@ const customStyles = {
 };
 
 const Header = styled.div`
-  width: 300px;
+  width: 350px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   /* padding: 5px 3px; */
   border: 1px solid black;
   margin-bottom: 20px;
@@ -37,6 +39,7 @@ const Btn = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 10px;
 `;
 
 const ModalModule = ({ modalIsOpen, closeModal, children, header }) => {
@@ -44,7 +47,7 @@ const ModalModule = ({ modalIsOpen, closeModal, children, header }) => {
     <Modal isOpen={modalIsOpen} style={customStyles}>
       <Header>
         <div>{header}</div>
-        <div>X</div>
+        <Close size="20" onClick={closeModal} />
       </Header>
       {children}
       <Btn>
