@@ -83,9 +83,11 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
                     onClick={onClick}
                     day={day}
                   />
-                  {locations[index + 1] !== undefined && (
+                  {/* moveData 관리 수정 필요 // 0315 */}
+                  {/* {locations[index + 1] !== undefined && (
                     <MoveDataDiv moveData={moveData} index={index} />
                   )}
+                  {console.log(moveData)} */}
                 </div>
               );
             })}
@@ -99,3 +101,7 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
 });
 
 export default Day;
+
+// 0315
+// modal 완성(onRequestClose 적용 필요)
+// moveData 수정 필요

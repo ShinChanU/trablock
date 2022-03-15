@@ -1,8 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import { Draggable } from 'react-beautiful-dnd';
 import { MdClose } from 'react-icons/md';
+import Time from './Icons/Time';
+import Close from './Icons/Close';
 
 const Container = styled.div`
   width: 90%;
@@ -55,9 +57,32 @@ const Name = styled.div`
   justify-content: space-between;
 `;
 
+const Btn = styled.div`
+  display: none;
+  ${(props) =>
+    props.day &&
+    css`
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      color: ${palette.gray[6]};
+    `}
+`;
+
 const Location = memo(({ location, index, type, onClick, day }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const onClickX = () => {
     onClick(day, location, index);
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -73,13 +98,15 @@ const Location = memo(({ location, index, type, onClick, day }) => {
             <List>
               <Img src={location.image} alt="img" />
               <ListDiv>
-                <Name>
-                  {location.id}
-                  <CloseBtn day={day} onClick={onClickX} />
-                </Name>
+                <Name>{location.id}</Name>
                 {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
                 2021.01.26
               </ListDiv>
+              <Btn day={day}>
+                <Close size="18" onClick={onClickX} />
+                {/* <CloseBtn day={day} onClick={onClickX} /> */}
+                <Time onClick={openModal} title="체류시간 설정" />
+              </Btn>
             </List>
           </Container>
         )}

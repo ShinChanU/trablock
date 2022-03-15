@@ -177,3 +177,10 @@ export default DndMainArea;
 // 0307
 // https://react-icons.github.io/react-icons/
 // https://technicolour.tistory.com/56
+
+// 0314
+// modal 사용하는 곳
+// timeData => 출발시각과 체류시각1개, 나머지는 체류시각만
+// moveData => 이동수단, 시간 설정
+// userLoc => 자체 블록 생성
+// detailLoc => 로케이션 상세 설명

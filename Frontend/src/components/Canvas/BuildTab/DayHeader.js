@@ -24,17 +24,13 @@ const StartLeave = styled.div`
   margin-right: 7px;
 `;
 
-const Icon = styled.div`
-  margin-left: 7px;
-`;
-
 const DayHeader = ({ day }) => {
   return (
     <Container>
       <DayNum>{day.order}</DayNum>
       <StartLeave>
         <div>출발시각/체류시간을 설정해주세요</div>
-        <Time />
+        <Time title="1일차 출발/체류시간 설정" />
       </StartLeave>
     </Container>
   );

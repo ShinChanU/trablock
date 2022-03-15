@@ -6,6 +6,7 @@ import {
   MdDirectionsWalk,
   MdDirectionsBike,
 } from 'react-icons/md';
+import TimeInput from './TimeInput';
 
 const Container = styled.div`
   display: flex;
@@ -25,11 +26,11 @@ const Time = styled.div`
   margin-right: 10px;
 `;
 
-const TimeInput = styled.input`
-  width: 60px;
-  margin-left: 5px;
-  margin-right: 5px;
-`;
+// const TimeInput = styled.input`
+//   width: 60px;
+//   margin-left: 5px;
+//   margin-right: 5px;
+// `;
 
 const MoveSettingChild = () => {
   const [time, setTime] = useState({
@@ -51,6 +52,7 @@ const MoveSettingChild = () => {
       [name]: tmpVal,
     });
   };
+
   return (
     <Container>
       <Vehicle>
@@ -82,6 +84,18 @@ const MoveSettingChild = () => {
       <Time>
         <div>소요 시간(선택)</div>
         <TimeInput
+          onChange={onChange}
+          placeholder="시간"
+          name="hour"
+          value={time.hour}
+        />
+        <TimeInput
+          onChange={onChange}
+          placeholder="분"
+          name="minute"
+          value={time.minute}
+        />
+        {/* <TimeInput
           type="number"
           placeholder="시간"
           value={time.hour}
@@ -94,7 +108,7 @@ const MoveSettingChild = () => {
           value={time.minute}
           onChange={onChange}
           name="minute"
-        />
+        /> */}
         <div>
           {time.hour}시간 {time.minute}분 소요
         </div>
