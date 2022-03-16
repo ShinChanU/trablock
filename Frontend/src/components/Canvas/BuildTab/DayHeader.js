@@ -1,7 +1,7 @@
 import oc from 'open-color';
 import React from 'react';
 import styled from 'styled-components';
-import Time from 'components/Canvas/BuildTab/Icons/Time';
+import Time from 'lib/Icons/Time';
 
 const Container = styled.div`
   display: flex;

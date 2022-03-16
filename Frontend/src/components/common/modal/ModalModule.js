@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
-import Close from 'components/Canvas/BuildTab/Icons/Close';
-import '../Styles/Modal.css';
+import Close from 'lib/Icons/Close';
+import 'lib/styles/Modal.css';
 
 const Header = styled.div`
   width: 350px;

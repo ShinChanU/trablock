@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import BuildBlockForm from 'containers/Canvas/BuildBlockForm';
-import 'components/Canvas/BuildTab/Styles/CanvasComponent.scss';
+import TravelSettingForm from 'containers/Canvas/TravelSettingForm';
+import PlanName from './PlanName';
 
 const CanvasDiv = styled.div`
   /* position: absolute; */
@@ -37,7 +38,11 @@ const CanvasForm = ({ type }) => {
   return (
     <CanvasDiv>
       <H1>{text}</H1>
+      <PlanName />
+      {type === 'setting' && <TravelSettingForm />}
+      {/* {type === 'select' && <TravelSettingForm />} */}
       {type === 'build' && <BuildBlockForm />}
+      {/* {type === 'share' && <TravelSettingForm />} */}
     </CanvasDiv>
   );
 };

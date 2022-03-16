@@ -1,10 +1,10 @@
-import React, { useMemo, memo } from 'react';
+import React, { memo } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import styled, { css } from 'styled-components';
 import Location from './Location';
 import DayHeader from './DayHeader';
 import oc from 'open-color';
-import MoveDataDiv from './MoveDataDiv';
+// import MoveDataDiv from './MoveDataDiv';
 
 const Container = styled('div')`
   margin: 8px;
@@ -16,9 +16,9 @@ const Container = styled('div')`
   background: white;
 `;
 
-const Title = styled('h3')`
-  text-align: center;
-`;
+// const Title = styled('h3')`
+//   text-align: center;
+// `;
 
 const InitForm = styled.div`
   display: flex;

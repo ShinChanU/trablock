@@ -1,10 +1,9 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import { Draggable } from 'react-beautiful-dnd';
-import { MdClose } from 'react-icons/md';
-import Time from './Icons/Time';
-import Close from './Icons/Close';
+import Time from 'lib/Icons/Time';
+import Close from 'lib/Icons/Close';
 
 const Container = styled.div`
   width: 90%;
@@ -14,22 +13,6 @@ const Container = styled.div`
   border-radius: 2px;
   /* padding: 8px; */
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
-`;
-
-const CloseBtn = styled(MdClose)`
-  display: none;
-  ${(props) =>
-    props.day &&
-    css`
-      display: block;
-      padding: 0px;
-      color: ${palette.gray[6]};
-      cursor: pointer;
-      &:hover {
-        transform: scale(1.3);
-        transition: transform 0.2s linear;
-      }
-    `}
 `;
 
 const List = styled.li`
@@ -71,18 +54,8 @@ const Btn = styled.div`
 `;
 
 const Location = memo(({ location, index, type, onClick, day }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const onClickX = () => {
     onClick(day, location, index);
-  };
-
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
   };
 
   return (
@@ -104,8 +77,7 @@ const Location = memo(({ location, index, type, onClick, day }) => {
               </ListDiv>
               <Btn day={day}>
                 <Close size="18" onClick={onClickX} />
-                {/* <CloseBtn day={day} onClick={onClickX} /> */}
-                <Time onClick={openModal} title="체류시간 설정" />
+                <Time title="체류시간 설정" />
               </Btn>
             </List>
           </Container>

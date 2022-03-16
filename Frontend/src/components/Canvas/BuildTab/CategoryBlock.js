@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
-import ArrowIcon from 'components/Canvas/BuildTab/Styles/ArrowIcon';
+import ArrowIcon from 'lib/Icons/ArrowIcon';
 import Location from './Location';
 import { Droppable } from 'react-beautiful-dnd';
 

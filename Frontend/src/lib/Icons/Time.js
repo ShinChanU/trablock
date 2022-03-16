@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { MdMoreTime } from 'react-icons/md';
 import styled from 'styled-components';
-import ModalModule from 'components/Canvas/BuildTab/modal/ModalModule';
-import TimeInput from 'components/Canvas/BuildTab/TimeInput';
+import ModalModule from 'components/common/modal/ModalModule';
+import TimeInput from 'components/Canvas/common/TimeInput';
 
 const TimeBtn = styled(MdMoreTime)`
   cursor: pointer;
@@ -19,8 +19,10 @@ const Container = styled.div`
 const Time = ({ title }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [time, setTime] = useState({
-    hour: '',
-    minute: '',
+    startHour: '',
+    startMinute: '',
+    stayHour: '',
+    stayMinute: '',
   });
 
   const onChange = (e) => {
@@ -46,6 +48,8 @@ const Time = ({ title }) => {
     setModalIsOpen(false);
   };
 
+  const { startHour, startMinute, stayHour, stayMinute } = time;
+
   return (
     <>
       <TimeBtn size="18" onClick={openModal} />
@@ -62,14 +66,14 @@ const Time = ({ title }) => {
               <TimeInput
                 onChange={onChange}
                 placeholder="시간"
-                name="hour"
-                value={time.hour}
+                name="startHour"
+                value={startHour}
               />
               <TimeInput
                 onChange={onChange}
                 placeholder="분"
-                name="minute"
-                value={time.minute}
+                name="startMinute"
+                value={startMinute}
               />
             </div>
           )}
@@ -78,14 +82,14 @@ const Time = ({ title }) => {
             <TimeInput
               onChange={onChange}
               placeholder="시간"
-              name="hour"
-              value={time.hour}
+              name="stayHour"
+              value={stayHour}
             />
             <TimeInput
               onChange={onChange}
               placeholder="분"
-              name="minute"
-              value={time.minute}
+              name="stayMinute"
+              value={stayMinute}
             />
           </div>
         </Container>

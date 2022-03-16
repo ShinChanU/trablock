@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react'; // useEffect
+import React, { useCallback, useEffect } from 'react'; // useEffect
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import palette from 'lib/styles/palette';
 import Day from 'components/Canvas/BuildTab/Day';
-import CategoryBlock from './CategoryBlock';
+import CategoryBlock from 'components/Canvas/BuildTab/CategoryBlock';
 
 const Container = styled.div`
   overflow: auto;
@@ -61,7 +61,7 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
       travelDays: newDayOrder,
     });
     return;
-  }, []);
+  }, []); // waring 해결 못함
 
   const onDragEnd = (result) => {
     // dnd 구현
@@ -177,10 +177,3 @@ export default DndMainArea;
 // 0307
 // https://react-icons.github.io/react-icons/
 // https://technicolour.tistory.com/56
-
-// 0314
-// modal 사용하는 곳
-// timeData => 출발시각과 체류시각1개, 나머지는 체류시각만
-// moveData => 이동수단, 시간 설정
-// userLoc => 자체 블록 생성
-// detailLoc => 로케이션 상세 설명

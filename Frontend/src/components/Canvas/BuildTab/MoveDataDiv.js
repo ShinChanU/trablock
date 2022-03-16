@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  // useEffect,
+  useState,
+} from 'react';
 import styled, { css } from 'styled-components';
 import { MdMode } from 'react-icons/md';
 import oc from 'open-color';
 // import Modal from 'react-modal';
 import './Styles/Modal.css';
 // import ModalModule from './ModalModule';
-import ModalModule from 'components/Canvas/BuildTab/modal/ModalModule';
+import ModalModule from 'components/common/modal/ModalModule';
 import MoveSettingChild from './MoveSettingChild';
 
 const Div = styled.div`

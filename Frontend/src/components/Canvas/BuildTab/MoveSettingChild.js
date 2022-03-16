@@ -6,7 +6,7 @@ import {
   MdDirectionsWalk,
   MdDirectionsBike,
 } from 'react-icons/md';
-import TimeInput from './TimeInput';
+import TimeInput from 'components/Canvas/common/TimeInput';
 
 const Container = styled.div`
   display: flex;
