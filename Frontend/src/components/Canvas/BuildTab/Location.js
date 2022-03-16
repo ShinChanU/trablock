@@ -77,7 +77,7 @@ const Location = memo(({ location, index, type, onClick, day }) => {
               </ListDiv>
               <Btn day={day}>
                 <Close size="18" onClick={onClickX} />
-                <Time title="체류시간 설정" />
+                <Time title="체류시간" />
               </Btn>
             </List>
           </Container>

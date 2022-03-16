@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Time from 'lib/Icons/Time';
 
 const Container = styled.div`
+  /* position: fixed; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,6 +14,7 @@ const Container = styled.div`
   color: white;
   padding: 5px;
   font-size: 20px;
+  border-radius: 7px 7px 0px 0px;
 `;
 
 const DayNum = styled.div``;
@@ -30,7 +32,7 @@ const DayHeader = ({ day }) => {
       <DayNum>{day.order}</DayNum>
       <StartLeave>
         <div>출발시각/체류시간을 설정해주세요</div>
-        <Time title="1일차 출발/체류시간 설정" />
+        <Time title="출발/체류시간" />
       </StartLeave>
     </Container>
   );

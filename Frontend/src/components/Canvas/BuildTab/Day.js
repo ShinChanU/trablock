@@ -7,6 +7,7 @@ import oc from 'open-color';
 // import MoveDataDiv from './MoveDataDiv';
 
 const Container = styled('div')`
+  overflow: auto;
   margin: 8px;
   border-radius: 15px;
   border: 1px solid lightgrey;

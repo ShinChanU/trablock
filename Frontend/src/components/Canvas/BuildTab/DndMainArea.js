@@ -1,27 +1,22 @@
-import React, { useCallback, useEffect } from 'react'; // useEffect
+import React, { useCallback } from 'react'; // useEffect
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import palette from 'lib/styles/palette';
 import Day from 'components/Canvas/BuildTab/Day';
 import CategoryBlock from 'components/Canvas/BuildTab/CategoryBlock';
 
 const Container = styled.div`
-  overflow: auto;
-  height: 70vh;
   display: flex;
-  /* margin-top: 25px; */
-  background-color: ${palette.gray[3]};
+  flex: 1;
+  justify-content: space-between;
 `;
 
 const Basket = styled.div`
-  overflow: auto;
   width: 280px;
-  /* height: 60vh; */
-  /* margin-left: 30px; */
   background-color: rgb(109, 144, 176);
+  overflow: auto;
 
   ::-webkit-scrollbar {
-    /* width: 10px; */
+    width: 10px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: #2f3542;
@@ -32,7 +27,6 @@ const Basket = styled.div`
 `;
 
 const Days = styled.div`
-  /* width: 70%; */
   display: flex;
   flex: 1; //남은 영역 모두 채움
   justify-content: space-around;

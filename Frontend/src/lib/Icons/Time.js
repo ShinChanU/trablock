@@ -4,6 +4,7 @@ import { MdMoreTime } from 'react-icons/md';
 import styled from 'styled-components';
 import ModalModule from 'components/common/modal/ModalModule';
 import TimeInput from 'components/Canvas/common/TimeInput';
+import ReactTooltip from 'react-tooltip';
 
 const TimeBtn = styled(MdMoreTime)`
   cursor: pointer;
@@ -52,7 +53,10 @@ const Time = ({ title }) => {
 
   return (
     <>
-      <TimeBtn size="18" onClick={openModal} />
+      <TimeBtn size="18" onClick={openModal} data-tip data-for="time" />
+      <ReactTooltip id="time" place="right" type="info" effect="solid">
+        <div>체류시간 을 설정해주세요.</div>
+      </ReactTooltip>
       <ModalModule
         modalIsOpen={modalIsOpen}
         openModal={openModal}
@@ -60,7 +64,7 @@ const Time = ({ title }) => {
         title={title}
       >
         <Container>
-          {title === '1일차 출발/체류시간 설정' && (
+          {title === '출발/체류시간' && (
             <div>
               출발시간
               <TimeInput
