@@ -39,7 +39,7 @@ const ModalModule = ({ modalIsOpen, closeModal, children, title }) => {
       <Section>
         <Header>
           <div>{title} 설정</div>
-          <Close size="20" onClick={closeModal} />
+          <Close size="20" onClick={closeModal} tooltip={false} />
         </Header>
         <main>{children}</main>
         <Btn>

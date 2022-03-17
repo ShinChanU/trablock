@@ -7,13 +7,17 @@ const CloseBtn = styled(MdClose)`
   cursor: pointer;
 `;
 
-const Close = ({ size, onClick }) => {
+const Close = ({ size, onClick, tooltip }) => {
   return (
     <>
       <CloseBtn size={size} onClick={onClick} data-tip data-for="close" />
-      <ReactTooltip id="close" place="right" type="info" effect="solid">
-        <div>다시 장바구니로 되돌릴 수 있습니다.</div>
-      </ReactTooltip>
+      {tooltip ? (
+        <ReactTooltip id="close" place="right" type="info" effect="solid">
+          <div>다시 장바구니로 되돌릴 수 있습니다.</div>
+        </ReactTooltip>
+      ) : (
+        ''
+      )}
     </>
   );
 };

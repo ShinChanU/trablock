@@ -1,13 +1,13 @@
-import React, { memo } from 'react';
+import React, { useRef, useEffect, memo } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import styled, { css } from 'styled-components';
 import Location from './Location';
 import DayHeader from './DayHeader';
 import oc from 'open-color';
-// import MoveDataDiv from './MoveDataDiv';
+import MoveDataDiv from './MoveDataDiv';
 
 const Container = styled('div')`
-  overflow: auto;
+  /* overflow: auto; */
   margin: 8px;
   border-radius: 15px;
   border: 1px solid lightgrey;
@@ -53,6 +53,23 @@ const LocationsList = styled('div')`
 `;
 
 const Day = memo(({ day, locations, onClick, moveData }) => {
+  const coordRef = useRef(null);
+
+  // 0317
+  // 로케이션 블록 좌표 찾아서 moveDataDiv로 넘겨줘서, css에 position 잡을 때 사용 예정
+  useEffect(() => {
+    // const ele = document.querySelectorAll('.test');
+    // // const value = ele.getBoundingClientRect();
+    // for (let i = 0; i < ele.length; i++) {
+    //   console.log(ele[i].getBoundingClientRect());
+    // }
+    // console.log(coordRef);
+    // .map((e) => e.getBoundingClientRect())
+    // if (!coordRef.current) return;
+    // const coord = coordRef.current.getBoundingClientRect();
+    // console.log(coordRef.current, coord.top);
+  }, [locations]);
+
   return (
     <Container>
       <DayHeader day={day} />
@@ -76,7 +93,7 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
             {/* {console.log(day, locations)} */}
             {locations.map((location, index) => {
               return (
-                <div key={location.id}>
+                <div key={location.id} ref={coordRef}>
                   <Location
                     key={location.id}
                     location={location}
@@ -84,11 +101,10 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
                     onClick={onClick}
                     day={day}
                   />
-                  {/* moveData 관리 수정 필요 // 0315 */}
-                  {/* {locations[index + 1] !== undefined && (
+                  {/* moveData 관리 수정 필요 // 0317 */}
+                  {locations[index + 1] !== undefined && (
                     <MoveDataDiv moveData={moveData} index={index} />
                   )}
-                  {console.log(moveData)} */}
                 </div>
               );
             })}

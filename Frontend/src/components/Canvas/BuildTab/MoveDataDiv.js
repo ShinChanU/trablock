@@ -1,22 +1,22 @@
-import React, {
-  // useEffect,
-  useState,
-} from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdMode } from 'react-icons/md';
 import oc from 'open-color';
 // import Modal from 'react-modal';
-import './Styles/Modal.css';
+import 'lib/styles/Modal.css';
 // import ModalModule from './ModalModule';
 import ModalModule from 'components/common/modal/ModalModule';
 import MoveSettingChild from './MoveSettingChild';
 
-const Div = styled.div`
-  // 오른쪽 정렬 필요 0310
+const Container = styled.div`
   position: relative;
-  display: inline-block;
-  /* float: right; */
-  /* clear: both; */
+`;
+
+const Div = styled.div`
+  position: absolute;
+  // 수정 예정 0317
+  left: 270px;
+  top: -20px;
   :after {
     content: '';
     position: absolute;
@@ -80,8 +80,13 @@ const MoveDataDiv = ({ moveData, index }) => {
   };
 
   return (
-    <>
-      {moveData[index] === undefined && (
+    <Container>
+      <Div>
+        <Span>
+          <MdMode onClick={openModal} />
+        </Span>
+      </Div>
+      {/* {moveData[index] === undefined && (
         <Div>
           <Span>
             <MdMode onClick={openModal} />
@@ -94,24 +99,32 @@ const MoveDataDiv = ({ moveData, index }) => {
             <BubbleDiv>
               {moveObj.vehicle}
               <BubbleDiv margin>
-                {getTime(moveObj.time)}
+                <div>{getTime(moveObj.time)}</div>
                 <MdMode onClick={openModal} />
               </BubbleDiv>
             </BubbleDiv>
           </Span>
         </Div>
-      )}
+      )} */}
       <ModalModule
         modalIsOpen={modalIsOpen}
         openModal={openModal}
         closeModal={closeModal}
-        title="이동수단 설정"
+        title="이동수단"
       >
         <MoveSettingChild />
         {/* 내부요소, chlidren */}
       </ModalModule>
-    </>
+    </Container>
   );
 };
 
 export default MoveDataDiv;
+
+// ,
+//           "moveData": [
+//             {
+//               "vehicle": "car",
+//               "time": "100"
+//             }
+//           ]

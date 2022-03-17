@@ -13,27 +13,34 @@ import {
 const AllbuttonsDiv = styled.div`
   height: 50px;
   /* position: relative; */
-  top: 80%;
+  /* top: 80%; */
+`;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-right: 20px;
+  margin-top: 10px;
 `;
 
 const ButtonDiv = styled.div`
-  text-align: right;
-  position: relative;
-  top: 15%;
+  margin-bottom: 2px;
 
   .next {
-    float: left;
-    margin-left: 70%;
+    /* float: left; */
+    /* margin-left: 70%; */
   }
 
   .exit {
-    float: right;
-    margin-right: 7%;
+    /* flex: 1; */
+    /* float: right; */
+    /* margin-right: 7%; */
   }
 
   .prev {
-    float: left;
-    margin-left: 5%;
+    /* float: left; */
+    /* margin-left: 5%; */
   }
 `;
 
@@ -80,7 +87,7 @@ const CanvasButtons = () => {
 
   return (
     <AllbuttonsDiv>
-      <ButtonDiv>
+      <Div>
         <ButtonDiv className="prev">
           <Link
             to={
@@ -97,30 +104,32 @@ const CanvasButtons = () => {
             </StyledButton>
           </Link>
         </ButtonDiv>
-        <ButtonDiv className="next">
-          <Link
-            to={
-              process.env.PUBLIC_URL +
-              `/canvas/${idx === 3 ? siteMap[3] : siteMap[idx + 1]}`
-            }
-          >
-            <StyledButton
-              onClick={() => {
-                idx === 3 ? LastPageButton() : onClickNext(idx);
-              }}
+        <div>
+          <ButtonDiv className="next">
+            <Link
+              to={
+                process.env.PUBLIC_URL +
+                `/canvas/${idx === 3 ? siteMap[3] : siteMap[idx + 1]}`
+              }
             >
-              다음으로 &gt;
-            </StyledButton>
-          </Link>
-        </ButtonDiv>
-        <ButtonDiv className="exit">
-          <Link to="/">
-            <StyledButton onClick={() => console.log('나가기')}>
-              저장하고 나가기
-            </StyledButton>
-          </Link>
-        </ButtonDiv>
-      </ButtonDiv>
+              <StyledButton
+                onClick={() => {
+                  idx === 3 ? LastPageButton() : onClickNext(idx);
+                }}
+              >
+                다음으로 &gt;
+              </StyledButton>
+            </Link>
+          </ButtonDiv>
+          <ButtonDiv className="exit">
+            <Link to="/">
+              <StyledButton onClick={() => console.log('나가기')}>
+                저장하고 나가기
+              </StyledButton>
+            </Link>
+          </ButtonDiv>
+        </div>
+      </Div>
     </AllbuttonsDiv>
   );
 };

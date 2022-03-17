@@ -2,13 +2,10 @@
   "travelPlans": [
     {
       "id": 1,
-      "name": " 여행 이름!",
+      "name": " 여행 이름!!!",
       "periods": 1,
-      "concept": [
-        2,
-        3
-      ],
-      "startDay": "2022/03/16",
+      "concept": [],
+      "startDay": "2022/03/17",
       "arriveDay": "20211218",
       "dayOrder": [
         "Day-1",
@@ -53,7 +50,7 @@
           "그랜드 하얏트 호텔"
         ]
       },
-      "destination": ""
+      "destination": "제주도"
     },
     {
       "id": 2,
