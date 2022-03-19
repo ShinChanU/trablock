@@ -7,10 +7,7 @@
       "concept": [],
       "startDay": "2022/03/19",
       "arriveDay": "20211218",
-      "dayOrder": [
-        "Day-1",
-        "Day-2"
-      ],
+      "dayOrder": ["Day-1", "Day-2"],
       "travelDays": {
         "Day-1": {
           "id": "Day-1",
@@ -37,11 +34,7 @@
         }
       },
       "selectedLocations": {
-        "attractions": [
-          "만장굴",
-          "한라산",
-          "성산 일출봉"
-        ],
+        "attractions": ["만장굴", "한라산", "성산 일출봉"],
         "restaurants": [],
         "accommodations": [
           "그랜드 하얏트 호텔",
