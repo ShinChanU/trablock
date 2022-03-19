@@ -56,7 +56,7 @@ const BubbleDiv = styled.div`
 `;
 
 const MoveDataDiv = ({ moveData, index }) => {
-  const [moveObj, setMoveObj] = useState(moveData[index]);
+  const [moveObj, setMoveObj] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {

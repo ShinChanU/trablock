@@ -19,6 +19,8 @@ const Buttons = styled.div`
   width: 100px;
 `;
 
+export let travelPlan = {};
+
 const BuildBlockForm = () => {
   const [userPlan, setUserPlan] = useState(null);
   const [globalLocations, setGlobalLocations] = useState(null);
@@ -26,11 +28,11 @@ const BuildBlockForm = () => {
 
   const getData = useCallback(async () => {
     const userPlanResult = await axios.get(
-      'http://localhost:4000/travelPlans/1',
+      'http://localhost:8080/travelPlans/1',
     );
     setUserPlan(userPlanResult.data);
     const globalLocationsResult = await axios.get(
-      'http://localhost:4000/locations',
+      'http://localhost:8080/locations',
     );
     setGlobalLocations(globalLocationsResult.data);
   }, []);
@@ -43,8 +45,11 @@ const BuildBlockForm = () => {
 
   const setUserPlanData = (x) => {
     setUserPlan(x);
-    console.log('setUerPlan');
+    travelPlan = userPlan;
+    console.log(userPlan);
   };
+
+  // travelPlan = userPlan;
 
   return (
     <>

@@ -49,7 +49,7 @@ const PlanName = () => {
     setIsChecked(!isChecked);
     setIsDisabled(!isDisabled);
     axios
-      .patch('http://localhost:4000/travelPlans/1', {
+      .patch('http://localhost:8080/travelPlans/1', {
         //URL 수정
         name: saveName,
       })
@@ -64,7 +64,7 @@ const PlanName = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/travelPlans/1')
+      .get('http://localhost:8080/travelPlans/1')
       .then(function (response) {
         console.log(response);
         setSaveName(response.data.name);

@@ -103,7 +103,10 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
                   />
                   {/* moveData 관리 수정 필요 // 0317 */}
                   {locations[index + 1] !== undefined && (
-                    <MoveDataDiv moveData={moveData} index={index} />
+                    <MoveDataDiv
+                      //  moveData={moveData} 백엔트와 소통 이후 결정
+                      index={index}
+                    />
                   )}
                 </div>
               );

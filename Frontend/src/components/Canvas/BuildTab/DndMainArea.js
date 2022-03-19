@@ -152,7 +152,7 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
                     day={day}
                     locations={locations}
                     onClick={onClick}
-                    moveData={day.moveData}
+                    // moveData={day.moveData}
                   />
                 );
               })}
