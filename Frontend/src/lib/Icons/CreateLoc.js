@@ -11,7 +11,7 @@ const CreateLocBtn = styled(MdOutlineLibraryAdd)`
 
 const Div = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 7px;
 `;
 
@@ -21,12 +21,33 @@ const Container = styled.div`
   /* align-items: center; */
 `;
 
-const Input = styled.input`
-  margin-right: 10px;
+const Label = styled.label`
+  width: 70px;
 `;
+
+const Input = styled.input`
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 180px;
+`;
+
+const Type = styled.div`
+  margin-left: 10px;
+`;
+
+const List = [
+  'attraction',
+  'culture',
+  'festival',
+  'leports',
+  'lodge',
+  'Restaurant',
+];
+// zustand 사용?
 
 const CreateLoc = ({ size, onClick }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectValue, setSelectValue] = useState('');
   // const [time, setTime] = useState({
   //   startHour: '',
   //   startMinute: '',
@@ -57,6 +78,9 @@ const CreateLoc = ({ size, onClick }) => {
     setModalIsOpen(false);
   };
 
+  const handleChange = (e) => {
+    setSelectValue(e.target.value);
+  };
   // const { startHour, startMinute, stayHour, stayMinute } = time;
 
   return (
@@ -75,11 +99,12 @@ const CreateLoc = ({ size, onClick }) => {
         openModal={openModal}
         closeModal={closeModal}
         title="자체 블록"
+        map={true}
       >
         <Container>
           {/* 수정 필요 0317 */}
           <Div>
-            <label htmlFor="name">블록명</label>
+            <Label htmlFor="name">블록명</Label>
             <Input
               id="name"
               onChange={onChange}
@@ -89,24 +114,33 @@ const CreateLoc = ({ size, onClick }) => {
             />
           </Div>
           <Div>
-            <label htmlFor="coord">블록 좌표</label>
+            <Label htmlFor="coord">블록 좌표</Label>
             <Input
               id="coord"
               onChange={onChange}
-              placeholder="좌표를 지정하세요."
+              placeholder="지도에 마커를 표시해주세요"
               // name="stayHour"
               // value={stayHour}
             />
           </Div>
           <Div>
-            <label htmlFor="operateT">운영시간(선택)</label>
-            <Input
-              id="operateT"
-              onChange={onChange}
-              placeholder="?"
-              // name="stayHour"
-              // value={stayHour}
-            />
+            <Label>type 설정</Label>
+            <Type>
+              {List.map((value, i) => (
+                <div key={i}>
+                  <input
+                    id={value}
+                    value={value}
+                    name="category"
+                    type="radio"
+                    checked={selectValue === value}
+                    onChange={handleChange}
+                  />
+                  {value}
+                  <br />
+                </div>
+              ))}
+            </Type>
           </Div>
         </Container>
       </ModalModule>

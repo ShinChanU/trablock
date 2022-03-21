@@ -7,6 +7,7 @@ import 'lib/styles/Modal.css';
 // import ModalModule from './ModalModule';
 import ModalModule from 'components/common/modal/ModalModule';
 import MoveSettingChild from './MoveSettingChild';
+import Map from './Map';
 
 const Container = styled.div`
   position: relative;

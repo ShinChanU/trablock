@@ -1,0 +1,165 @@
+{
+  "travelPlans": [
+    {
+      "id": 1,
+      "concept": "Love",
+      "name": "새 여행 캔버스(2)",
+      "destination": "제주도",
+      "periods": "3",
+      "depart": "20211215",
+      "travelDays": [
+        {
+          "id": 1,
+          "locationIds": [1, 2, 3],
+          "startTime": "",
+          "stayTimes": [],
+          "movingData": [
+            {
+              "이동 수단": "",
+              "이동 시간": ""
+            },
+            {
+              "이동 수단": "",
+              "이동 시간": ""
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "locationIds": []
+        },
+        {
+          "id": 3,
+          "locationIds": []
+        }
+      ],
+      "selectedLocations": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
+  ],
+  "users": [
+    {
+      "userId": "tlscksdn963",
+      "password": "123",
+      "passwordCheck": "123",
+      "username": "123",
+      "nickname": "123",
+      "birthday": "123123-12-23",
+      "phoneNum": "123",
+      "gender": "MALE",
+      "email": "tlscksnd963@naver.com",
+      "id": 1
+    }
+  ],
+  "locations": [
+    {
+      "id": 1,
+      "name": "한라산",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 2,
+      "name": "곰막식당",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 3,
+      "name": "제주 칼호텔",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 4,
+      "name": "만장굴",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 5,
+      "name": "고집돌우럭",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 6,
+      "name": "그랜드 하얏트 호텔",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 7,
+      "name": "성산 일출봉",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/MVvvPsX/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 8,
+      "name": "정성듬뿍 제주국",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    {
+      "id": 9,
+      "name": "레인보우인 제주",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    }
+  ]
+}
+
+// 0321 데이터 샘플 새로 작성 중
