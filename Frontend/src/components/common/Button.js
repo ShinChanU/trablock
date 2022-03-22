@@ -6,19 +6,20 @@ import { shadow } from 'lib/styleUtils';
 import palette from 'lib/styles/palette';
 
 const buttonStyle = css`
-  border: 1px solid ${oc.cyan[6]};
-  border-radius: 2px;
+  border: 3px solid ${oc.teal[6]};
+  border-radius: 3px;
   font-weight: 600;
   padding: 0.5rem;
   padding-bottom: 0.4rem;
-  color: ${oc.cyan[6]};
+  color: ${oc.teal[6]};
+  /* color: black; */
   cursor: pointer;
   text-decoration: none;
-  transition: .2s all;
+  transition: 0.2s all;
   background: white;
 
   &:hover {
-    background: ${oc.cyan[6]};
+    background: ${oc.teal[6]};
     color: white;
     ${shadow(1)}
   }
@@ -28,23 +29,24 @@ const buttonStyle = css`
     transform: translateY(3px);
   }
 
-  ${props =>
-    props.fullWidth && css`
+  ${(props) =>
+    props.fullWidth &&
+    css`
       padding-top: 0.75rem;
       padding-bottom: 0.75rem;
       width: 100%;
       font-size: 1.125rem;
       color: white;
-    `
-  }
+    `}
 
-${props =>
-    props.cyan && css`
-      background: ${palette.cyan[5]};
+  ${(props) =>
+    props.cyan &&
+    css`
+      background: ${oc.teal[5]};
       &:hover {
-        background: ${palette.cyan[5]};
-      }`
-  }
+        background: ${oc.teal[5]};
+      }
+    `}
 `;
 
 const StyledButton = styled.button`
@@ -55,12 +57,8 @@ const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
 
-const Button = props => {
-  return props.to ? (
-    <StyledLink {...props} />
-  ) : (
-    <StyledButton {...props} />
-  )
+const Button = (props) => {
+  return props.to ? <StyledLink {...props} /> : <StyledButton {...props} />;
 };
 
 export default Button;

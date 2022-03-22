@@ -5,6 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
 import oc from 'open-color';
 
+import { useStore } from 'lib/store';
+
 const TitleSpan = styled.span`
   font-size: 1.2em;
 `;
@@ -140,8 +142,10 @@ export let planDestination = '';
 
 const TravelSettingForm = () => {
   // 여행 일자
+  const { userPlan, count, click } = useStore();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  // periods 생성시 day 생성
   planDepart =
     startDate.getFullYear() +
     '/' +
@@ -177,6 +181,8 @@ const TravelSettingForm = () => {
 
   return (
     <div>
+      <button onClick={click}>클릭</button>
+      {console.log(count)}
       <DateSettingDiv>
         <TitleSpan>1. 여행 일자 설정 </TitleSpan>
         <button data-tip data-for="datesetting">

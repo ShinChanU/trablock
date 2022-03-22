@@ -3,24 +3,34 @@
     {
       "id": 1,
       "concept": "Love",
-      "name": "새 여행 캔버스(2)",
-      "destination": "제주도",
-      "periods": "3",
       "depart": "20211215",
+      "destination": "제주도",
+      "name": "새 여행 캔버스(1)",
+      "periods": "3",
+      "status": "",
       "travelDays": [
         {
           "id": 1,
           "locationIds": [1, 2, 3],
-          "startTime": "",
-          "stayTimes": [],
+          "sequence": [0, 1, 2],
           "movingData": [
             {
-              "이동 수단": "",
-              "이동 시간": ""
+              "startTime": ["12:10", "12", 0],
+              "stayTime": [0, 12, 12],
+              "vehicles": [],
+              "movingTime": []
             },
             {
-              "이동 수단": "",
-              "이동 시간": ""
+              "startTime": ["12:10", "12", 0],
+              "stayTime": [0, 12, 12],
+              "vehicles": [],
+              "movingTime": []
+            },
+            {
+              "startTime": ["12:10", "12", 0],
+              "stayTime": [0, 12, 12],
+              "vehicles": [],
+              "movingTime": []
             }
           ]
         },
@@ -33,7 +43,7 @@
           "locationIds": []
         }
       ],
-      "selectedLocations": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      "selectedLocations": [4, 5, 6, 7, 8, 9]
     }
   ],
   "users": [

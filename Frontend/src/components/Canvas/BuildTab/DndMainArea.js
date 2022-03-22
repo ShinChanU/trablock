@@ -1,13 +1,61 @@
-import React, { useCallback } from 'react'; // useEffect
+import React, { useCallback, useState } from 'react'; // useEffect
 import { DragDropContext } from 'react-beautiful-dnd';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Day from 'components/Canvas/BuildTab/Day';
 import CategoryBlock from 'components/Canvas/BuildTab/CategoryBlock';
+import { useStore } from 'lib/store';
+import oc from 'open-color';
 
 const Container = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
+`;
+
+const Category = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+const Div = styled.div`
+  width: 350px;
+  display: flex;
+  /* border: 2px solid black; */
+  font-size: 20px;
+  font-weight: 550;
+  height: 100%;
+  /* justify-content: center; */
+`;
+
+const Item = styled.div`
+  width: 100px;
+  display: flex;
+  border: 2px solid black;
+  /* font-size: 20px;
+  font-weight: 550; */
+  align-items: center;
+  :hover {
+    cursor: pointer;
+    background: ${oc.teal[6]};
+    color: white;
+    transition: background 0.2s linear;
+  }
+
+  :active {
+    transform: translateY(1px);
+  }
+`;
+
+const CategoryBlock2 = styled.div`
+  display: none;
+  border: 2px solid black;
+  flex: 1;
+  ${(props) =>
+    props.visible &&
+    css`
+      display: block;
+    `}/* height: 100%; */
 `;
 
 const Basket = styled.div`
@@ -42,6 +90,8 @@ const categoryKeys = Object.keys(categoryObj);
 
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
+  const { category } = useStore();
+  const [visible, setVisible] = useState(false);
 
   const onClick = useCallback((day, location, index) => {
     const category = location.category.slice();
@@ -106,11 +156,29 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
     }
   };
 
+  // 0322 카테고리 클릭시 visible state변경
+  const onClickItem = (e) => {
+    console.log(e);
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <Container>
           {/* 담은 블록 */}
+          <Category>
+            {category.map((e) => {
+              return (
+                <Div>
+                  <Item onClick={() => onClickItem(e)}>{e.kor}</Item>
+                  <CategoryBlock2 visible={visible}>
+                    <header>{e.kor}</header>
+                    <main></main>
+                  </CategoryBlock2>
+                </Div>
+              );
+            })}
+          </Category>
           <Basket>
             {categoryKeys.map((category) => {
               // 카테고리별로 데이터 전달

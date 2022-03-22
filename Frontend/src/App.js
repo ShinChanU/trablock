@@ -6,14 +6,14 @@ import {
 import SignUpPage from 'pages/SignupPage';
 import LoginPage from 'pages/LoginPage';
 import CanvasMainPage from 'pages/CanvasPages/CanvasMainPage';
-// import HeaderContainer from './containers/common/HeaderContainer';
+import HeaderContainer from './containers/common/HeaderContainer';
 // import LandingPage from 'pages/LandingPage';
 import Modal from 'react-modal';
 
 function App() {
   return (
     <>
-      {/* <HeaderContainer /> */}
+      <HeaderContainer />
       {/* 배포 url */}
       {useRoutes([
         { path: process.env.PUBLIC_URL + '/', element: <SignUpPage /> }, // 임시로 signup

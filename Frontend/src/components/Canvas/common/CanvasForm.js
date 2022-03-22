@@ -14,10 +14,10 @@ const CanvasDiv = styled.div`
   /* padding-left: 17.5%; */
   /* z-index: -1; */
   /* background-color: red; */
-  padding-top: 50px;
-  padding-left: 30px;
-  padding-right: 20px;
-  width: 100%;
+  /* padding-top: 20px; */
+  /* padding-left: 30px; */
+  /* padding-right: 20px; */
+  /* width: 100%; */
 `;
 
 const H1 = styled.div`
@@ -37,8 +37,8 @@ const CanvasForm = ({ type }) => {
 
   return (
     <CanvasDiv>
-      <H1>{text}</H1>
-      <PlanName />
+      {/* <H1>{text}</H1> */}
+      {/* <PlanName /> 어디에 넣을지.. */}
       {type === 'setting' && <TravelSettingForm />}
       {/* {type === 'select' && <TravelSettingForm />} */}
       {type === 'build' && <BuildBlockForm />}

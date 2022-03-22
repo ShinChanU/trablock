@@ -7,7 +7,7 @@
       "concept": [],
       "startDay": "2022/03/19",
       "arriveDay": "20211218",
-      "dayOrder": ["Day-1", "Day-2"],
+      "dayOrder": ["Day-1", "Day-2", "Day-3", "Day-4"],
       "travelDays": {
         "Day-1": {
           "id": "Day-1",
@@ -29,6 +29,16 @@
         },
         "Day-2": {
           "id": "Day-2",
+          "order": "2일차",
+          "locationIds": []
+        },
+        "Day-3": {
+          "id": "Day-3",
+          "order": "2일차",
+          "locationIds": []
+        },
+        "Day-4": {
+          "id": "Day-4",
           "order": "2일차",
           "locationIds": []
         }

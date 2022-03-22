@@ -4,15 +4,16 @@ import styled from 'styled-components';
 import DndMainArea from 'components/Canvas/BuildTab/DndMainArea';
 import CreateLoc from 'lib/Icons/CreateLoc';
 import palette from 'lib/styles/palette';
+import { useStore } from 'lib/store';
 
-const Div = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   background-color: ${palette.gray[3]};
   height: 70vh;
   overflow: auto;
-  border-radius: 7px;
+  /* border-radius: 7px; */
 `;
 
 const Buttons = styled.div`
@@ -25,6 +26,10 @@ const BuildBlockForm = () => {
   const [userPlan, setUserPlan] = useState(null);
   const [globalLocations, setGlobalLocations] = useState(null);
   const [submitting, setSubmitting] = useState(true);
+
+  //
+  const { userPlanTest } = useStore;
+  //
 
   const getData = useCallback(async () => {
     const userPlanResult = await axios.get(
@@ -55,7 +60,7 @@ const BuildBlockForm = () => {
     <>
       {(!userPlan || !globalLocations) && '로딩 중..'}
       {userPlan && globalLocations && (
-        <Div>
+        <Container>
           <DndMainArea
             setUserPlanData={setUserPlanData}
             userPlan={userPlan}
@@ -64,7 +69,7 @@ const BuildBlockForm = () => {
           <Buttons>
             <CreateLoc size="30" />
           </Buttons>
-        </Div>
+        </Container>
       )}
     </>
   );
