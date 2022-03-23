@@ -73,7 +73,7 @@ const Header = ({ user, onLogout }) => {
     <Positioner>
       <WhiteBackground>
         <HeaderContents>
-          <Logo to="/">TRABLOCK</Logo>
+          <Logo to={process.env.PUBLIC_URL}>TRABLOCK</Logo>
           <Spacer />
 
           {/* 임시로 만듦 */}

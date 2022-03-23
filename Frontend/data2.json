@@ -18,6 +18,7 @@
               "startTime": ["12:10", "12", 0],
               "stayTime": [0, 12, 12],
               "vehicles": [],
+
               "movingTime": []
             },
             {
@@ -43,7 +44,7 @@
           "locationIds": []
         }
       ],
-      "selectedLocations": [4, 5, 6, 7, 8, 9]
+      "selectedLocations": [2, 3, 4, 5, 6, 7, 8, 9]
     }
   ],
   "users": [
@@ -60,8 +61,8 @@
       "id": 1
     }
   ],
-  "locations": [
-    {
+  "locations": {
+    "1": {
       "id": 1,
       "name": "한라산",
       "address1": "",
@@ -73,31 +74,31 @@
       "restDate": "",
       "useTime": ""
     },
-    {
+    "2": {
       "id": 2,
       "name": "곰막식당",
       "address1": "",
       "address2": "",
       "coords": "",
       "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-      "type": "1",
+      "type": "6",
       "parking": true,
       "restDate": "",
       "useTime": ""
     },
-    {
+    "3": {
       "id": 3,
       "name": "제주 칼호텔",
       "address1": "",
       "address2": "",
       "coords": "",
       "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-      "type": "1",
+      "type": "5",
       "parking": true,
       "restDate": "",
       "useTime": ""
     },
-    {
+    "4": {
       "id": 4,
       "name": "만장굴",
       "address1": "",
@@ -109,67 +110,65 @@
       "restDate": "",
       "useTime": ""
     },
-    {
+    "5": {
       "id": 5,
       "name": "고집돌우럭",
       "address1": "",
       "address2": "",
       "coords": "",
       "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-      "type": "1",
+      "type": "6",
       "parking": true,
       "restDate": "",
       "useTime": ""
     },
-    {
+    "6": {
       "id": 6,
       "name": "그랜드 하얏트 호텔",
       "address1": "",
       "address2": "",
       "coords": "",
       "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-      "type": "1",
+      "type": "5",
       "parking": true,
       "restDate": "",
       "useTime": ""
     },
-    {
+    "7": {
       "id": 7,
-      "name": "성산 일출봉",
+      "name": "문화시설 예시",
       "address1": "",
       "address2": "",
       "coords": "",
       "image": "https://i.ibb.co/MVvvPsX/image.jpg",
-      "type": "1",
+      "type": "2",
       "parking": true,
       "restDate": "",
       "useTime": ""
     },
-    {
+    "8": {
       "id": 8,
-      "name": "정성듬뿍 제주국",
+      "name": "축제 예시",
       "address1": "",
       "address2": "",
       "coords": "",
       "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-      "type": "1",
+      "type": "3",
       "parking": true,
       "restDate": "",
       "useTime": ""
     },
-    {
+    "9": {
       "id": 9,
-      "name": "레인보우인 제주",
+      "name": "레포츠예시",
       "address1": "",
       "address2": "",
       "coords": "",
       "image": "https://i.ibb.co/zJMMHVD/image.jpg",
-      "type": "1",
+      "type": "5",
       "parking": true,
       "restDate": "",
       "useTime": ""
     }
-  ]
+  }
 }
-
-// 0321 데이터 샘플 새로 작성 중

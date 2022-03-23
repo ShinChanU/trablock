@@ -28,7 +28,6 @@ const BuildBlockForm = () => {
   const [submitting, setSubmitting] = useState(true);
 
   //
-  const { userPlanTest } = useStore;
   //
 
   const getData = useCallback(async () => {

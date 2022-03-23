@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'; // useEffect
+import React, { useCallback, useEffect, useState } from 'react'; // useEffect
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled, { css } from 'styled-components';
 import Day from 'components/Canvas/BuildTab/Day';
@@ -48,7 +48,7 @@ const Item = styled.div`
 `;
 
 const CategoryBlock2 = styled.div`
-  display: none;
+  /* display: none; */
   border: 2px solid black;
   flex: 1;
   ${(props) =>
@@ -90,8 +90,25 @@ const categoryKeys = Object.keys(categoryObj);
 
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
-  const { category } = useStore();
+  const { category, userPlanTest, systemLocations, getData } = useStore();
   const [visible, setVisible] = useState(false);
+  const [cateItems, setCateItems] = useState([]);
+
+  // const [location, setLocation]
+
+  useEffect(() => {
+    getData().then(
+      userPlanTest.selectedLocations.map((id) => {
+        const location = systemLocations[id]; // sysLoc data
+        const type = location.type;
+        setCateItems((cateItems) => [...cateItems]);
+        console.log(type);
+        // setCateItems({});
+        // console.log(systemLocations[id].type);
+        // console.log(e);
+      }),
+    );
+  }, []);
 
   const onClick = useCallback((day, location, index) => {
     const category = location.category.slice();
@@ -163,21 +180,25 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
 
   return (
     <>
+      {/* {console.log(systemLocations)} */}
       <DragDropContext onDragEnd={onDragEnd}>
         <Container>
           {/* 담은 블록 */}
           <Category>
-            {category.map((e) => {
+            {/* {category.map((e) => {
+              console.log(e);
               return (
                 <Div>
                   <Item onClick={() => onClickItem(e)}>{e.kor}</Item>
-                  <CategoryBlock2 visible={visible}>
-                    <header>{e.kor}</header>
-                    <main></main>
-                  </CategoryBlock2>
+                  {systemLocations && (
+                    <CategoryBlock2 visible={visible}>
+                      <header>{e.kor}</header>
+                      <main></main>
+                    </CategoryBlock2>
+                  )}
                 </Div>
               );
-            })}
+            })} */}
           </Category>
           <Basket>
             {categoryKeys.map((category) => {

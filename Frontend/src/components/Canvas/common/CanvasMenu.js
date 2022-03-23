@@ -17,20 +17,19 @@ const Menu = styled.div`
 `;
 
 const List = styled.ul`
-  display: flex;
   /* border: 1px solid red; */
-  justify-content: space-around;
   /* position: absolute;
   top: 25%;
   width: 14vw; */
+  display: flex;
+  justify-content: space-around;
   padding: 0;
-
+  margin: 0;
   /* margin: 0; */
   /* z-index: 1; */
   /* background-color: blue; */
   /* padding-left: 40px; */
   /* margin-top: 100px; */
-  margin: 0;
 `;
 
 const Item = styled.li`

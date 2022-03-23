@@ -11,7 +11,7 @@ import {
 } from 'containers/Canvas/TravelSettingForm';
 import { travelPlan } from 'containers/Canvas/BuildBlockForm';
 
-const AllbuttonsDiv = styled.div`
+const AllButtonsDiv = styled.div`
   height: 50px;
   /* position: relative; */
   /* top: 80%; */
@@ -113,7 +113,7 @@ const CanvasButtons = () => {
   // };
 
   return (
-    <AllbuttonsDiv>
+    <AllButtonsDiv>
       <Div>
         <ButtonDiv className="prev">
           <Link to={process.env.PUBLIC_URL + `/canvas/${siteMap[idx - 1]}`}>
@@ -165,7 +165,7 @@ const CanvasButtons = () => {
           </ButtonDiv>
         </div>
       </Div>
-    </AllbuttonsDiv>
+    </AllButtonsDiv>
   );
 };
 
