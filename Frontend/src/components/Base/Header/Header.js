@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { shadow, media } from 'lib/styleUtils';
 import oc from 'open-color';
 // import Button from 'components/Base/Header/Button';
 import Button from 'components/common/Button';
+import ModalModule from 'components/common/modal/ModalModule';
+import InsertCanvas from './InsertCanvas';
 
 // 상단 고정, 그림자
 const Positioner = styled.div`
@@ -69,6 +71,17 @@ const UserInfo = styled.div`
 `;
 
 const Header = ({ user, onLogout }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  // const onClick = () => {openModal()};
   return (
     <Positioner>
       <WhiteBackground>
@@ -77,7 +90,10 @@ const Header = ({ user, onLogout }) => {
           <Spacer />
 
           {/* 임시로 만듦 */}
-          <Button to={process.env.PUBLIC_URL + '/canvas/setting'}>
+          <Button
+            // to={process.env.PUBLIC_URL + '/canvas/insert'}
+            onClick={openModal}
+          >
             여행 계획 세우러 가기
           </Button>
           <Spacer />
@@ -91,6 +107,14 @@ const Header = ({ user, onLogout }) => {
             <Button to={process.env.PUBLIC_URL + '/login'}>로그인</Button>
           )}
         </HeaderContents>
+        <ModalModule
+          modalIsOpen={modalIsOpen}
+          openModal={openModal}
+          closeModal={closeModal}
+          title="새로운 여행? 이미 있는 여행?"
+        >
+          <InsertCanvas closeModal={closeModal} />
+        </ModalModule>
       </WhiteBackground>
       <GradientBorder />
     </Positioner>

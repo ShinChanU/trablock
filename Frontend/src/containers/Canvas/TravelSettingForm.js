@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -142,9 +142,13 @@ export let planDestination = '';
 
 const TravelSettingForm = () => {
   // 여행 일자
-  const { userPlan, count, click } = useStore();
+  const { userPlan, sysLoc } = useStore();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+
+  // 찬우 수정, 여행 설정 탭에서 초기 데이터 모두 정리
+  useEffect(() => {}, []);
+
   // periods 생성시 day 생성
   planDepart =
     startDate.getFullYear() +
@@ -179,10 +183,14 @@ const TravelSettingForm = () => {
   };
   planConcept = pConcept;
 
+  const click = () => {
+    console.log(sysLoc);
+    console.log(userPlan);
+  };
+
   return (
     <div>
       <button onClick={click}>클릭</button>
-      {console.log(count)}
       <DateSettingDiv>
         <TitleSpan>1. 여행 일자 설정 </TitleSpan>
         <button data-tip data-for="datesetting">

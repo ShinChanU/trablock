@@ -90,25 +90,25 @@ const categoryKeys = Object.keys(categoryObj);
 
 const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
   const { travelDays, dayOrder, selectedLocations } = userPlan;
-  const { category, userPlanTest, systemLocations, getData } = useStore();
+  // const { category, userPlanTest, systemLocations, getData } = useStore();
   const [visible, setVisible] = useState(false);
   const [cateItems, setCateItems] = useState([]);
 
   // const [location, setLocation]
 
-  useEffect(() => {
-    getData().then(
-      userPlanTest.selectedLocations.map((id) => {
-        const location = systemLocations[id]; // sysLoc data
-        const type = location.type;
-        setCateItems((cateItems) => [...cateItems]);
-        console.log(type);
-        // setCateItems({});
-        // console.log(systemLocations[id].type);
-        // console.log(e);
-      }),
-    );
-  }, []);
+  // useEffect(() => {
+  //   getData().then(
+  //     userPlanTest.selectedLocations.map((id) => {
+  //       const location = systemLocations[id]; // sysLoc data
+  //       const type = location.type;
+  //       setCateItems((cateItems) => [...cateItems]);
+  //       console.log(type);
+  //       // setCateItems({});
+  //       // console.log(systemLocations[id].type);
+  //       // console.log(e);
+  //     }),
+  //   );
+  // }, []);
 
   const onClick = useCallback((day, location, index) => {
     const category = location.category.slice();
@@ -201,7 +201,7 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
             })} */}
           </Category>
           <Basket>
-            {categoryKeys.map((category) => {
+            {/* {categoryKeys.map((category) => {
               // 카테고리별로 데이터 전달
               const locations = selectedLocations[category].map(
                 (locationId) => {
@@ -219,11 +219,11 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
                   onClick={onClick}
                 />
               );
-            })}
+            })} */}
           </Basket>
           {/* 데이 */}
           <Days>
-            {dayOrder &&
+            {/* {dayOrder &&
               dayOrder.map((dayId) => {
                 // 데이 개수, 순서에 따라 저장된 데이터 전달(json)
                 const day = travelDays[dayId]; // object
@@ -244,7 +244,7 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
                     // moveData={day.moveData}
                   />
                 );
-              })}
+              })} */}
           </Days>
         </Container>
       </DragDropContext>

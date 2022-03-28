@@ -2,86 +2,104 @@
   "travelPlans": [
     {
       "id": 1,
-      "name": "여행 이름!!!",
-      "periods": 1,
-      "concept": [],
-      "startDay": "2022/03/22",
-      "arriveDay": "20211218",
-      "dayOrder": [
-        "Day-1",
-        "Day-2"
-      ],
-      "travelDays": {
-        "Day-1": {
-          "id": "Day-1",
-          "order": "1일차",
+      "concept": "Love",
+      "depart": "20211215",
+      "destination": "제주도",
+      "name": "새 여행 캔버스(1)",
+      "periods": "3",
+      "status": "",
+      "travelDays": [
+        {
+          "id": 1,
           "locationIds": [
+            1,
+            2,
+            3
+          ],
+          "sequence": [
+            0,
+            1,
+            2
+          ],
+          "movingData": [
             {
-              "restaurants": "고집돌우럭"
+              "startTime": [
+                "12:10",
+                "12",
+                0
+              ],
+              "stayTime": [
+                0,
+                12,
+                12
+              ],
+              "vehicles": [],
+              "movingTime": []
             },
             {
-              "restaurants": "곰막식당"
-            }
-          ],
-          "moveData": [
+              "startTime": [
+                "12:10",
+                "12",
+                0
+              ],
+              "stayTime": [
+                0,
+                12,
+                12
+              ],
+              "vehicles": [],
+              "movingTime": []
+            },
             {
-              "vehicle": "car",
-              "time": "100"
+              "startTime": [
+                "12:10",
+                "12",
+                0
+              ],
+              "stayTime": [
+                0,
+                12,
+                12
+              ],
+              "vehicles": [],
+              "movingTime": []
             }
           ]
         },
-        "Day-2": {
-          "id": "Day-2",
-          "order": "2일차",
+        {
+          "id": 2,
+          "locationIds": []
+        },
+        {
+          "id": 3,
           "locationIds": []
         }
-      },
-      "selectedLocations": {
-        "attractions": [
-          "만장굴",
-          "한라산",
-          "성산 일출봉"
-        ],
-        "restaurants": [],
-        "accommodations": [
-          "그랜드 하얏트 호텔",
-          "레인보우인 제주",
-          "제주 칼호텔"
-        ]
-      },
-      "destination": ""
+      ],
+      "selectedLocations": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
     {
-      "id": 2,
-      "name": "새 여행 캔버스(2)",
-      "periods": "4",
-      "concept": "Love",
-      "startDay": "20211215",
-      "arriveDay": "20211218",
-      "selectedLocations": [
-        {
-          "id": "12312"
-        },
-        {
-          "id": "12423"
-        },
-        {
-          "id": "12543"
-        }
-      ]
+      "name": "Test",
+      "id": 2
     },
     {
       "name": "Test",
       "id": 3
     },
     {
-      "id": 4,
-      "name": "새 여행 캔버스",
-      "periods": "5123",
-      "concept": "Love"
+      "name": "Test",
+      "id": 4
     },
     {
-      "{\"name\":\"test\"}": "",
+      "name": "Test",
       "id": 5
     }
   ],
@@ -100,49 +118,113 @@
     }
   ],
   "locations": {
-    "attractions": {
-      "한라산": {
-        "id": "한라산",
-        "name": "한라산",
-        "image": "https://i.ibb.co/zJMMHVD/image.jpg"
-      },
-      "만장굴": {
-        "id": "만장굴",
-        "name": "만장굴",
-        "image": "https://i.ibb.co/GFX3TZr/image.jpg"
-      },
-      "성산 일출봉": {
-        "id": "성산 일출봉",
-        "image": "https://i.ibb.co/MVvvPsX/image.jpg"
-      }
+    "1": {
+      "id": 1,
+      "name": "한라산",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
     },
-    "restaurants": {
-      "곰막식당": {
-        "id": "곰막식당",
-        "image": "https://i.ibb.co/zJMMHVD/image.jpg"
-      },
-      "고집돌우럭": {
-        "id": "고집돌우럭",
-        "image": "https://i.ibb.co/GFX3TZr/image.jpg"
-      },
-      "정성듬뿍 제주국": {
-        "id": "정성듬뿍 제주국",
-        "image": "https://i.ibb.co/MVvvPsX/image.jpg"
-      }
+    "2": {
+      "id": 2,
+      "name": "곰막식당",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "6",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
     },
-    "accommodations": {
-      "레인보우인 제주": {
-        "id": "레인보우인 제주",
-        "image": "https://i.ibb.co/zJMMHVD/image.jpg"
-      },
-      "그랜드 하얏트 호텔": {
-        "id": "그랜드 하얏트 호텔",
-        "image": "https://i.ibb.co/GFX3TZr/image.jpg"
-      },
-      "제주 칼호텔": {
-        "id": "제주 칼호텔",
-        "image": "https://i.ibb.co/MVvvPsX/image.jpg"
-      }
+    "3": {
+      "id": 3,
+      "name": "제주 칼호텔",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "5",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    "4": {
+      "id": 4,
+      "name": "만장굴",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "1",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    "5": {
+      "id": 5,
+      "name": "고집돌우럭",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "6",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    "6": {
+      "id": 6,
+      "name": "그랜드 하얏트 호텔",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "5",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    "7": {
+      "id": 7,
+      "name": "문화시설 예시",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/MVvvPsX/image.jpg",
+      "type": "2",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    "8": {
+      "id": 8,
+      "name": "축제 예시",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "3",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
+    },
+    "9": {
+      "id": 9,
+      "name": "레포츠예시",
+      "address1": "",
+      "address2": "",
+      "coords": "",
+      "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+      "type": "5",
+      "parking": true,
+      "restDate": "",
+      "useTime": ""
     }
   }
 }
