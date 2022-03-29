@@ -55,7 +55,7 @@ const CategoryBlock = memo(({ locations, type, onClick }) => {
         {type}
         <ArrowIcon onClick={onClickIcon} clickState={clickState} />
       </Title>
-      <Droppable droppableId={type} type="location">
+      {/* <Droppable droppableId={type} type="location">
         {(provided) => (
           <Ul ref={provided.innerRef} {...provided.droppableProps}>
             {locations.map((location, index) => {
@@ -72,7 +72,7 @@ const CategoryBlock = memo(({ locations, type, onClick }) => {
             {provided.placeholder}
           </Ul>
         )}
-      </Droppable>
+      </Droppable> */}
     </Div>
   );
 });

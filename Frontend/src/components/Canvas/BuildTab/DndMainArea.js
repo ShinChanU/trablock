@@ -5,6 +5,8 @@ import Day from 'components/Canvas/BuildTab/Day';
 import CategoryBlock from 'components/Canvas/BuildTab/CategoryBlock';
 import { useStore } from 'lib/store';
 import oc from 'open-color';
+import Location from './Location';
+import { Droppable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
   display: flex;
@@ -88,40 +90,27 @@ const categoryObj = {
 
 const categoryKeys = Object.keys(categoryObj);
 
-const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
-  const { travelDays, dayOrder, selectedLocations } = userPlan;
-  // const { category, userPlanTest, systemLocations, getData } = useStore();
-  const [visible, setVisible] = useState(false);
-  const [cateItems, setCateItems] = useState([]);
-
-  // const [location, setLocation]
-
-  // useEffect(() => {
-  //   getData().then(
-  //     userPlanTest.selectedLocations.map((id) => {
-  //       const location = systemLocations[id]; // sysLoc data
-  //       const type = location.type;
-  //       setCateItems((cateItems) => [...cateItems]);
-  //       console.log(type);
-  //       // setCateItems({});
-  //       // console.log(systemLocations[id].type);
-  //       // console.log(e);
-  //     }),
-  //   );
-  // }, []);
+const DndMainArea = ({ selLoc, userPlan }) => {
+  const { travelDays, periods } = userPlan;
+  const { sysLoc, dayLocChange } = useStore();
+  // const [visible, setVisible] = useState(false);
 
   const onClick = useCallback((day, location, index) => {
-    const category = location.category.slice();
-    const newSelLocOrder = { ...selectedLocations };
-    const newDayOrder = { ...travelDays };
-    newDayOrder[day.id].locationIds.splice(index, 1);
-    newSelLocOrder[category].push(location.id);
-    setUserPlanData({
-      ...userPlan,
-      selectedLocations: newSelLocOrder,
-      travelDays: newDayOrder,
-    });
-    return;
+    console.log(day.id, location, index);
+    // day->locationIds에서 해당 index 제거
+    // selLoc -> category => 해당 index, 추가
+    dayLocChange(day.id, location, index);
+    // const category = location.category.slice();
+    // const newSelLocOrder = { ...selectedLocations };
+    // const newDayOrder = { ...travelDays };
+    // newDayOrder[day.id].locationIds.splice(index, 1);
+    // newSelLocOrder[category].push(location.id);
+    // setUserPlanData({
+    //   ...userPlan,
+    //   selectedLocations: newSelLocOrder,
+    //   travelDays: newDayOrder,
+    // });
+    // return;
   }, []); // waring 해결 못함
 
   const onDragEnd = (result) => {
@@ -130,110 +119,105 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
     if (!destination) return;
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
-    if (
-      // 출발 selectedLocation, 도착 day
-      categoryKeys.indexOf(startDropId) !== -1 &&
-      categoryKeys.indexOf(endDropId) === -1
-    ) {
-      const dragIdObj = {};
-      dragIdObj[startDropId] = draggableId;
-      const newSelLocOrder = { ...selectedLocations };
-      const newDayOrder = { ...travelDays };
-      newSelLocOrder[startDropId].splice(source.index, 1);
-      newDayOrder[endDropId].locationIds.splice(
-        destination.index,
-        0,
-        dragIdObj,
-      );
-      setUserPlanData({
-        ...userPlan,
-        selectedLocations: newSelLocOrder,
-        travelDays: newDayOrder,
-      });
-      return;
-    } else if (
-      // 출발 day, 도착 day(같은 day에서도 사용)
-      categoryKeys.indexOf(startDropId) === -1 &&
-      categoryKeys.indexOf(endDropId) === -1
-    ) {
-      const dragIdObj = {};
-      const newDayOrder = { ...travelDays };
-      const temp = newDayOrder[startDropId].locationIds.splice(source.index, 1);
-      dragIdObj[Object.keys(temp[0])[0]] = draggableId;
-      newDayOrder[endDropId].locationIds.splice(
-        destination.index,
-        0,
-        dragIdObj,
-      );
-      setUserPlanData({
-        ...userPlan,
-        travelDays: newDayOrder,
-      });
-      return;
-    }
+    // if (
+    //   // 출발 selectedLocation, 도착 day
+    //   categoryKeys.indexOf(startDropId) !== -1 &&
+    //   categoryKeys.indexOf(endDropId) === -1
+    // ) {
+    //   const dragIdObj = {};
+    //   dragIdObj[startDropId] = draggableId;
+    //   const newSelLocOrder = { ...selectedLocations };
+    //   const newDayOrder = { ...travelDays };
+    //   newSelLocOrder[startDropId].splice(source.index, 1);
+    //   newDayOrder[endDropId].locationIds.splice(
+    //     destination.index,
+    //     0,
+    //     dragIdObj,
+    //   );
+    //   setUserPlanData({
+    //     ...userPlan,
+    //     selectedLocations: newSelLocOrder,
+    //     travelDays: newDayOrder,
+    //   });
+    //   return;
+    // } else if (
+    //   // 출발 day, 도착 day(같은 day에서도 사용)
+    //   categoryKeys.indexOf(startDropId) === -1 &&
+    //   categoryKeys.indexOf(endDropId) === -1
+    // ) {
+    //   const dragIdObj = {};
+    //   const newDayOrder = { ...travelDays };
+    //   const temp = newDayOrder[startDropId].locationIds.splice(source.index, 1);
+    //   dragIdObj[Object.keys(temp[0])[0]] = draggableId;
+    //   newDayOrder[endDropId].locationIds.splice(
+    //     destination.index,
+    //     0,
+    //     dragIdObj,
+    //   );
+    //   setUserPlanData({
+    //     ...userPlan,
+    //     travelDays: newDayOrder,
+    //   });
+    //   return;
+    // }
   };
 
   // 0322 카테고리 클릭시 visible state변경
   const onClickItem = (e) => {
-    console.log(e);
+    // console.log(selLoc[e]);
+    // console.log(e);
   };
 
   return (
     <>
-      {/* {console.log(systemLocations)} */}
       <DragDropContext onDragEnd={onDragEnd}>
         <Container>
           {/* 담은 블록 */}
           <Category>
-            {/* {category.map((e) => {
-              console.log(e);
+            {Object.keys(selLoc).map((cate) => {
               return (
                 <Div>
-                  <Item onClick={() => onClickItem(e)}>{e.kor}</Item>
-                  {systemLocations && (
-                    <CategoryBlock2 visible={visible}>
-                      <header>{e.kor}</header>
-                      <main></main>
-                    </CategoryBlock2>
-                  )}
+                  <Item onClick={() => onClickItem(cate)}>{cate}</Item>
+                  {console.log(selLoc[cate])}
+                  {/* {systemLocations && ( */}
+                  <CategoryBlock2>
+                    <header>{cate}</header>
+                    <main>
+                      <Droppable droppableId={cate} type="location">
+                        {(provided) => (
+                          <ul
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                          >
+                            {selLoc[cate].map((location, index) => {
+                              return (
+                                <Location
+                                  location={location}
+                                  index={index}
+                                  key={location.id}
+                                  // type={type}
+                                  onClick={onClick}
+                                />
+                              );
+                            })}
+                            {provided.placeholder}
+                          </ul>
+                        )}
+                      </Droppable>
+                    </main>
+                  </CategoryBlock2>
                 </Div>
               );
-            })} */}
+            })}
           </Category>
-          <Basket>
-            {/* {categoryKeys.map((category) => {
-              // 카테고리별로 데이터 전달
-              const locations = selectedLocations[category].map(
-                (locationId) => {
-                  let locObj = {};
-                  locObj = globalLocations[category][locationId];
-                  locObj['category'] = category;
-                  return locObj;
-                },
-              );
-              return (
-                <CategoryBlock
-                  key={category}
-                  locations={locations}
-                  type={category}
-                  onClick={onClick}
-                />
-              );
-            })} */}
-          </Basket>
           {/* 데이 */}
           <Days>
-            {/* {dayOrder &&
-              dayOrder.map((dayId) => {
+            {travelDays &&
+              travelDays.map((day) => {
                 // 데이 개수, 순서에 따라 저장된 데이터 전달(json)
-                const day = travelDays[dayId]; // object
-                const locations = day.locationIds.map((locationId) => {
-                  let locObj = {};
-                  let category = Object.keys(locationId).join();
-                  let key = locationId[category];
-                  locObj = globalLocations[category][key];
-                  locObj['category'] = category;
-                  return locObj;
+                const locations = day.locationIds.map((e, i) => {
+                  const type = day.locationType[i];
+                  return sysLoc[type][e]; // location 객체(세부정보가 담겨있는)
                 });
                 return (
                   <Day
@@ -244,7 +228,8 @@ const DndMainArea = ({ userPlan, globalLocations, setUserPlanData }) => {
                     // moveData={day.moveData}
                   />
                 );
-              })} */}
+                // }
+              })}
           </Days>
         </Container>
       </DragDropContext>

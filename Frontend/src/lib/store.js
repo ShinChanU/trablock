@@ -77,6 +77,16 @@ export const useStore = create((set, get) => ({
     Restaurant: [],
   },
 
+  dayLocChange: (id, loc, idx) => {
+    const days = get().userPlan.travelDays;
+    // const sel
+    days[id - 1].locationIds.splice(idx, 1);
+    set((state) => ({ userPlan: { ...state.userPlan } }));
+    // set((state) => ({
+    //   userPlan: { ...state.userPlan, travelDays: 'New Month' },
+    // }));
+  },
+
   // getSysLoc: async () => {
   //   const response = await axios.get('http://localhost:4000/locations');
   //   set({ sysLoc: response.data });
@@ -84,24 +94,41 @@ export const useStore = create((set, get) => ({
 
   // 0328 생성, 새로운 plan 생성 (프론트에서만 관리)
   newPlan: async () => {
+    // userPlan, sysLoc, sysCateLoc 설정
     set({ userPlan: {} });
-    // newPlan, getPlan 과 같음
     const response = await axios.get('http://localhost:4000/locations');
     set({ sysLoc: response.data });
-    console.log(get().sysLoc);
     const sort = get().sortLoc;
-    const test = await sort(get().sysLoc);
-    console.log(test);
-    // systemLocation 받아와서 카테고리 정렬까지 완료
+    const sortData = await sort(get().sysLoc);
+    set({ sysCateLoc: sortData });
   },
 
   // 0328 생성, 이미 존재하는 plan 받아오기
   getPlan: async (id) => {
+    // userPlan, sysLoc, sysCateLoc 설정
     const response = await axios.get(`http://localhost:4000/travelPlans/${id}`);
     set({ userPlan: response.data });
-    // newPlan, getPlan 과 같음
-    const locations = await axios.get('http://localhost:4000/locations');
+    const locations = await axios.get('http://localhost:4000/locations2');
     set({ sysLoc: locations.data });
+    // const sort = get().sortLoc;
+    // const sortData = await sort(get().sysLoc);
+    set({ sysCateLoc: get().sysLoc });
+    // const sortSelLoc = await sort(get().userPlan.selectedLocations);
+  },
+
+  selLocSort: async () => {
+    const selLocArr = get().userPlan.selectedLocations;
+    const sysLoc = get().sysLoc;
+    let obj = {};
+    let arr = [];
+    for (let key in selLocArr) {
+      arr = [];
+      selLocArr[key].map((e) => {
+        arr.push(sysLoc[key][e]);
+      });
+      obj[key] = arr;
+    }
+    set({ selLoc: obj });
   },
 
   // id값으로 판별
@@ -132,7 +159,6 @@ export const useStore = create((set, get) => ({
 
   sortLoc: (item) => {
     const obj = Object.values(item);
-    console.log(obj);
     let att = [];
     let cul = [];
     let fes = [];
@@ -258,7 +284,6 @@ export const planStore = create((set) => ({
 
   getPlans: async (id) => {
     const response = await axios.get(`http://localhost:4000/travelPlans`);
-    console.log(response.data);
     set({ travelPlans: response.data }); // 백에서 보내주는 데이터가 userPlan
   },
 }));

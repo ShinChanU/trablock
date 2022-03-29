@@ -23,83 +23,21 @@ const Buttons = styled.div`
 export let travelPlan = {};
 
 const BuildBlockForm = () => {
-  // const [userPlan, setUserPlan] = useState(null);
-  const [globalLocations, setGlobalLocations] = useState(null);
-  const [submitting, setSubmitting] = useState(true);
-  const { getPlan, userPlan, zipSelLoc } = useStore();
-  const { getSysLoc, sysCateLoc, sysLoc } = sysLocStore();
-  //
-  //
-
-  const getData = useCallback(async () => {
-    // const userPlanResult = await axios.get(
-    //   'http://localhost:8080/travelPlans/1',
-    // );
-    // setUserPlan(userPlanResult.data);
-    // const globalLocationsResult = await axios.get(
-    //   'http://localhost:8080/locations',
-    // );
-    // setGlobalLocations(globalLocationsResult.data);
-    getPlan(1).then((data) => console.log(data));
-    getSysLoc();
-    zipSelLoc([
-      {
-        id: 1,
-        name: '한라산',
-        address1: '',
-        address2: '',
-        coords: '',
-        image: 'https://i.ibb.co/zJMMHVD/image.jpg',
-        type: '1',
-        parking: true,
-        restDate: '',
-        useTime: '',
-      },
-      {
-        id: 2,
-        name: '곰막식당',
-        address1: '',
-        address2: '',
-        coords: '',
-        image: 'https://i.ibb.co/zJMMHVD/image.jpg',
-        type: '6',
-        parking: true,
-        restDate: '',
-        useTime: '',
-      },
-    ]);
-    console.log(sysLoc);
-    // getPlan(1).then((data) => console.log(data));
-    // console.log(getPlan(1));
-    // console.log(getSysLoc());
-  }, []);
+  const { selLocSort, selLoc, userPlan } = useStore();
 
   useEffect(() => {
-    if (submitting) {
-      getData();
-      // .then(() => setSubmitting(false))
-      // .then(console.log(userPlan));
-    }
-  }, [submitting, getData]);
-
-  // const setUserPlanData = (x) => {
-  //   setUserPlan(x);
-  //   travelPlan = userPlan;
-  //   console.log(userPlan);
-  // };
-
-  // travelPlan = userPlan;
+    selLocSort();
+  }, []);
 
   return (
     <>
-      {console.log(userPlan, sysCateLoc)}
-      {(!userPlan || !sysCateLoc) && '로딩 중..'}
-      {userPlan && sysCateLoc && (
+      {Object.keys(selLoc).length === 0 && <div>로딩 중....</div>}
+      {Object.keys(selLoc).length !== 0 && (
         <Container>
           <DndMainArea
             // setUserPlanData={setUserPlanData}
             userPlan={userPlan}
-            globalLocations={sysCateLoc}
+            selLoc={selLoc}
           />
           <Buttons>
             <CreateLoc size="30" />

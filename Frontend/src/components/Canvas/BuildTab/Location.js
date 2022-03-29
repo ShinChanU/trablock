@@ -60,7 +60,7 @@ const Location = memo(({ location, index, type, onClick, day }) => {
 
   return (
     <>
-      <Draggable draggableId={location.id} index={index} type={type}>
+      <Draggable draggableId={location.id} index={index} type="location">
         {(provided, snapshot) => (
           <Container
             ref={provided.innerRef}
@@ -71,7 +71,7 @@ const Location = memo(({ location, index, type, onClick, day }) => {
             <List>
               <Img src={location.image} alt="img" />
               <ListDiv>
-                <Name>{location.id}</Name>
+                <Name>{location.name}</Name>
                 {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
                 2021.01.26
               </ListDiv>

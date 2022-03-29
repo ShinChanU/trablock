@@ -71,8 +71,10 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
   }, [locations]);
 
   return (
+    // <></>
     <Container>
       <DayHeader day={day} />
+      {console.log(day, locations)}
       <Droppable droppableId={day.id} type="location">
         {(provided, snapshot) => (
           <LocationsList
@@ -80,9 +82,6 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
-            {/* <InitForm>
-              <EmptyBlock>블록 혹은 자체 생성한 블록을 넣어주세요.</EmptyBlock>
-            </InitForm> */}
             {locations[0] === undefined && (
               <InitForm>
                 <EmptyBlock>
@@ -90,7 +89,6 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
                 </EmptyBlock>
               </InitForm>
             )}
-            {/* {console.log(day, locations)} */}
             {locations.map((location, index) => {
               return (
                 <div key={location.id} ref={coordRef}>
@@ -104,7 +102,11 @@ const Day = memo(({ day, locations, onClick, moveData }) => {
                   {/* moveData 관리 수정 필요 // 0317 */}
                   {locations[index + 1] !== undefined && (
                     <MoveDataDiv
-                      //  moveData={moveData} 백엔트와 소통 이후 결정
+                      moveData={moveData}
+                      백엔트와
+                      소통
+                      이후
+                      결정
                       index={index}
                     />
                   )}

@@ -29,7 +29,7 @@ const StartLeave = styled.div`
 const DayHeader = ({ day }) => {
   return (
     <Container>
-      <DayNum>{day.order}</DayNum>
+      <DayNum>{day.id}일차</DayNum>
       <StartLeave>
         <div>출발시각/체류시간을 설정해주세요</div>
         <Time title="출발/체류시간" />
