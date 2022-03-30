@@ -10,7 +10,7 @@ const Container = styled.div`
   align-items: center;
   text-align: center;
   height: 50px;
-  background-color: ${oc.indigo[6]};
+  background-color: ${oc.teal[6]};
   color: white;
   padding: 5px;
   font-size: 20px;

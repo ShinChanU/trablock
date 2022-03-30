@@ -31,15 +31,15 @@ const DirectoryPage = () => {
       {travelPlans.length !== 0 && (
         <div>
           {travelPlans.map((e) => (
-            <>
-              <div key={e.id}>플랜 id: {e.id}</div>
+            <div key={e.id}>
+              <div>플랜 id: {e.id}</div>
               <Link
                 to={process.env.PUBLIC_URL + '/canvas/setting'}
                 onClick={() => onClick(e.id)}
               >
                 수정하러가기
               </Link>
-            </>
+            </div>
           ))}
         </div>
       )}

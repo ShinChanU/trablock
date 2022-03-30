@@ -23,7 +23,7 @@ const Buttons = styled.div`
 export let travelPlan = {};
 
 const BuildBlockForm = () => {
-  const { selLocSort, selLoc, userPlan } = useStore();
+  const { selLocSort, selLoc } = useStore();
 
   useEffect(() => {
     selLocSort();
@@ -34,11 +34,7 @@ const BuildBlockForm = () => {
       {Object.keys(selLoc).length === 0 && <div>로딩 중....</div>}
       {Object.keys(selLoc).length !== 0 && (
         <Container>
-          <DndMainArea
-            // setUserPlanData={setUserPlanData}
-            userPlan={userPlan}
-            selLoc={selLoc}
-          />
+          <DndMainArea />
           <Buttons>
             <CreateLoc size="30" />
           </Buttons>

@@ -27,7 +27,7 @@ const Div = styled.div`
     border-width: 10px 15px;
     top: 50%;
     margin-top: -10px;
-    border-color: transparent ${oc.indigo[2]} transparent transparent;
+    border-color: transparent ${oc.teal[6]} transparent transparent;
     left: -25px;
   }
   :hover {
@@ -41,7 +41,7 @@ const Span = styled.span`
   padding: 5px;
   color: white;
   /* background: blue; */
-  background-color: ${oc.indigo[2]};
+  background-color: ${oc.teal[6]};
   border-radius: 20px;
 `;
 
