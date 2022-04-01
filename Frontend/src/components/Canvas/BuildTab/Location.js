@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import palette from 'lib/styles/palette';
 import { Draggable } from 'react-beautiful-dnd';
@@ -58,16 +58,26 @@ const Btn = styled.div`
 `;
 
 const Location = memo(({ location, index, day }) => {
-  const { dayLocChange } = useStore();
+  const { dayLocDel, userPlan } = useStore();
+  let stayT = '';
+
+  if (day !== undefined) {
+    stayT = userPlan.travelDays[day.id - 1].stayTime[index + 1];
+  }
 
   const onClick = () => {
-    dayLocChange(day, location, index);
+    dayLocDel(day, location, index);
   };
 
   return (
     <>
       {/* location */}
-      <Draggable draggableId={location.id} index={index} type="location">
+      <Draggable
+        draggableId={String(location.id)}
+        index={index}
+        key={location.id}
+        type="location"
+      >
         {(provided, snapshot) => (
           <Container
             ref={provided.innerRef}
@@ -81,13 +91,15 @@ const Location = memo(({ location, index, day }) => {
               </ImgDiv>
               <ListDiv>
                 <Name>{location.name}</Name>
+                {!day && <>담기기 전!</>}
                 {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
-                도착시간
+                {day && stayT !== undefined && <>체류시간 {stayT}</>}
+                {day && stayT === undefined && <>체류시간을 설정해주세요.</>}
               </ListDiv>
               {/* day에 보여지는 location 만 버튼 생성 */}
               <Btn day={day}>
                 <Close size="18" onClick={onClick} tooltip={true} />
-                <Time title="체류시간" />
+                <Time title="체류시간" index={index} day={day} />
               </Btn>
             </List>
           </Container>

@@ -1,10 +1,11 @@
 // 시간 추가, 변경 버튼
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdMoreTime } from 'react-icons/md';
 import styled from 'styled-components';
 import ModalModule from 'components/common/modal/ModalModule';
 import TimeInput from 'components/Canvas/common/TimeInput';
 import ReactTooltip from 'react-tooltip';
+import { useStore } from 'lib/store';
 
 const TimeBtn = styled(MdMoreTime)`
   cursor: pointer;
@@ -17,13 +18,15 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Time = ({ title }) => {
+const Time = ({ title, day, index }) => {
+  const { setTimeData } = useStore();
+  // const { id, stayTime, startTime } = day;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [time, setTime] = useState({
-    startHour: '',
-    startMinute: '',
-    stayHour: '',
-    stayMinute: '',
+    startH: '',
+    startM: '',
+    stayH: '',
+    stayM: '',
   });
 
   const onChange = (e) => {
@@ -49,7 +52,12 @@ const Time = ({ title }) => {
     setModalIsOpen(false);
   };
 
-  const { startHour, startMinute, stayHour, stayMinute } = time;
+  const { startH, startM, stayH, stayM } = time;
+
+  const onSubmit = () => {
+    setTimeData(day.id, time, index);
+    closeModal();
+  };
 
   return (
     <>
@@ -62,6 +70,7 @@ const Time = ({ title }) => {
         openModal={openModal}
         closeModal={closeModal}
         title={title}
+        onSubmit={onSubmit}
       >
         <Container>
           {title === '출발/체류시간' && (
@@ -70,32 +79,34 @@ const Time = ({ title }) => {
               <TimeInput
                 onChange={onChange}
                 placeholder="시간"
-                name="startHour"
-                value={startHour}
+                name="startH"
+                value={startH}
               />
               <TimeInput
                 onChange={onChange}
                 placeholder="분"
-                name="startMinute"
-                value={startMinute}
+                name="startM"
+                value={startM}
               />
             </div>
           )}
-          <div>
-            체류시간
-            <TimeInput
-              onChange={onChange}
-              placeholder="시간"
-              name="stayHour"
-              value={stayHour}
-            />
-            <TimeInput
-              onChange={onChange}
-              placeholder="분"
-              name="stayMinute"
-              value={stayMinute}
-            />
-          </div>
+          {title === '체류시간' && (
+            <div>
+              체류시간
+              <TimeInput
+                onChange={onChange}
+                placeholder="시간"
+                name="stayH"
+                value={stayH}
+              />
+              <TimeInput
+                onChange={onChange}
+                placeholder="분"
+                name="stayM"
+                value={stayM}
+              />
+            </div>
+          )}
         </Container>
       </ModalModule>
     </>

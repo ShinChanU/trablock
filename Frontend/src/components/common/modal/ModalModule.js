@@ -50,7 +50,14 @@ const Btn = styled.div`
   text-align: right;
 `;
 
-const ModalModule = ({ modalIsOpen, closeModal, children, title, map }) => {
+const ModalModule = ({
+  modalIsOpen,
+  closeModal,
+  children,
+  title,
+  map,
+  onSubmit,
+}) => {
   return (
     <Modal
       className={modalIsOpen ? 'openModal modal' : 'modal'}
@@ -64,7 +71,7 @@ const ModalModule = ({ modalIsOpen, closeModal, children, title, map }) => {
         </Header>
         <main>{children}</main>
         <Btn>
-          <button onClick={closeModal}>확인</button>
+          <button onClick={onSubmit}>확인</button>
         </Btn>
       </Section>
       {map && (
@@ -75,7 +82,7 @@ const ModalModule = ({ modalIsOpen, closeModal, children, title, map }) => {
           </MapHeader>
           <SearchPlace />
           <Btn>
-            <button onClick={closeModal}>닫기</button>
+            <button onClick={onSubmit}>닫기</button>
           </Btn>
         </Section2>
       )}

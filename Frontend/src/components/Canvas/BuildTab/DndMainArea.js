@@ -1,9 +1,9 @@
-import React from 'react'; // useEffect
+import React, { useEffect } from 'react'; // useEffect
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import SelLocBasket from './dnd/SelLocBasket';
 import PlanDays from './dnd/PlanDays';
-import { useStore, testStore } from 'lib/store';
+import { useStore } from 'lib/store';
 
 const Container = styled.div`
   display: flex;
@@ -29,16 +29,16 @@ const Container = styled.div`
 // `;
 
 const DndMainArea = () => {
-  const { category, pushLocToDay } = useStore();
+  const { category, pushLocToDay, dayLocChange, userPlan } = useStore();
 
   const onDragEnd = (result) => {
     // dnd 구현, 0330,
-    const { destination, source, draggableId } = result;
+    const { destination, source } = result;
     if (!destination) return;
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
+    // 출발 selectedLocation, 도착 day
     if (
-      // 출발 selectedLocation, 도착 day
       category[startDropId] !== undefined &&
       category[endDropId] === undefined
     )
@@ -48,45 +48,18 @@ const DndMainArea = () => {
         source.droppableId,
         source.index,
       );
-    console.log(result);
-
-    //   const dragIdObj = {};
-    //   dragIdObj[startDropId] = draggableId;
-    //   const newSelLocOrder = { ...selectedLocations };
-    //   const newDayOrder = { ...travelDays };
-    //   newSelLocOrder[startDropId].splice(source.index, 1);
-    //   newDayOrder[endDropId].locationIds.splice(
-    //     destination.index,
-    //     0,
-    //     dragIdObj,
-    //   );
-    //   setUserPlanData({
-    //     ...userPlan,
-    //     selectedLocations: newSelLocOrder,
-    //     travelDays: newDayOrder,
-    //   });
-    //   return;
-    // }
-    // else if (
-    //   // 출발 day, 도착 day(같은 day에서도 사용)
-    //   categoryKeys.indexOf(startDropId) === -1 &&
-    //   categoryKeys.indexOf(endDropId) === -1
-    // ) {
-    //   const dragIdObj = {};
-    //   const newDayOrder = { ...travelDays };
-    //   const temp = newDayOrder[startDropId].locationIds.splice(source.index, 1);
-    //   dragIdObj[Object.keys(temp[0])[0]] = draggableId;
-    //   newDayOrder[endDropId].locationIds.splice(
-    //     destination.index,
-    //     0,
-    //     dragIdObj,
-    //   );
-    //   setUserPlanData({
-    //     ...userPlan,
-    //     travelDays: newDayOrder,
-    //   });
-    //   return;
-    // }
+    // 출발 day, 도착 day
+    else if (
+      category[startDropId] === undefined &&
+      category[endDropId] === undefined
+    ) {
+      dayLocChange(
+        destination.droppableId,
+        destination.index,
+        source.droppableId,
+        source.index,
+      );
+    }
   };
 
   return (

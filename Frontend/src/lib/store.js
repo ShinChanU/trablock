@@ -82,28 +82,39 @@ export const useStore = create(
     },
 
     // day에서 location 제거, dnd
-    dayLocChange: (day, loc, idx) => {
+    dayLocDel: (day, loc, idx) => {
       const days = get().userPlan.travelDays;
       const selLoc = get().selLoc;
       const dayInfo = days[day.id - 1];
-      const type = dayInfo.locationType[idx];
+      const type = dayInfo.locationTypes[idx];
       const location = dayInfo.locationIds.splice(idx, 1);
-      console.log(selLoc, type, location);
       selLoc[type].push(location[0]);
-      dayInfo.locationType.splice(idx, 1);
+      dayInfo.locationTypes.splice(idx, 1);
       set((state) => ({ userPlan: { ...state.userPlan } }));
     },
 
-    pushLocToDay: (dayId, dayIdx, cate, cateIdx) => {
+    // selLoc에서  day로 dnd
+    pushLocToDay: (toDayId, toLocIdx, frCateId, frLocIdx) => {
       const selLoc = get().selLoc;
       const days = get().userPlan.travelDays;
-      const loc = selLoc[cate].splice(cateIdx, 1);
-      const locArr = days[dayId - 1].locationIds;
-      const cateArr = days[dayId - 1].locationType;
-      locArr.splice(dayIdx, 0, loc[0]);
-      cateArr.splice(dayIdx, 0, cate);
-      // set((state) => ({ userPlan: { ...state.userPlan } }));
-      console.log(days);
+      const loc = selLoc[frCateId].splice(frLocIdx, 1);
+      const locArr = days[toDayId - 1].locationIds;
+      const cateArr = days[toDayId - 1].locationTypes;
+      locArr.splice(toLocIdx, 0, loc[0]);
+      cateArr.splice(toLocIdx, 0, frCateId);
+      set((state) => ({ userPlan: { ...state.userPlan } }));
+    },
+
+    // day에서 day로 dnd
+    dayLocChange: (toDayId, toLocIdx, frDayId, frLocIdx) => {
+      const toDay = parseInt(toDayId);
+      const fromDay = parseInt(frDayId);
+      const days = get().userPlan.travelDays;
+      const loc = days[fromDay - 1].locationIds.splice(frLocIdx, 1);
+      const cate = days[fromDay - 1].locationTypes.splice(frLocIdx, 1);
+      days[toDay - 1].locationIds.splice(toLocIdx, 0, loc[0]);
+      days[toDay - 1].locationTypes.splice(toLocIdx, 0, cate[0]);
+      set((state) => ({ userPlan: { ...state.userPlan } }));
     },
 
     // getSysLoc: async () => {
@@ -141,7 +152,7 @@ export const useStore = create(
       const travelDays = response.data.travelDays;
       for (let day of travelDays) {
         const arr = day.locationIds.map((e, i) => {
-          const type = day.locationType[i];
+          const type = day.locationTypes[i];
           return sysLoc[type][e];
         });
         day.locationIds = arr;
@@ -235,6 +246,18 @@ export const useStore = create(
         Lodge: lod,
         Restaurant: rest,
       };
+    },
+
+    // 출발, 체류시간 저장 0401
+    setTimeData: (dayId, time, index) => {
+      const { startH, startM, stayH, stayM } = time;
+      const startArr = get().userPlan.travelDays[dayId - 1].startTime;
+      const stayArr = get().userPlan.travelDays[dayId - 1].stayTime;
+      const start = `${startH} : ${startM}`;
+      const stay = `${stayH} : ${stayM}`;
+      startArr[index + 1] = start;
+      stayArr[index + 1] = stay;
+      set((state) => ({ userPlan: { ...state.userPlan } }));
     },
   })),
 );
