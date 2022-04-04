@@ -23,7 +23,8 @@ const Buttons = styled.div`
 export let travelPlan = {};
 
 const BuildBlockForm = () => {
-  const { selLocSort, selLoc } = useStore();
+  const { selLocSort, userPlan } = useStore();
+  const { loading } = userPlan;
 
   useEffect(() => {
     selLocSort();
@@ -31,8 +32,8 @@ const BuildBlockForm = () => {
 
   return (
     <>
-      {Object.keys(selLoc).length === 0 && <div>로딩 중....</div>}
-      {Object.keys(selLoc).length !== 0 && (
+      {loading === 0 && <div>로케이션을 담아오세요</div>}
+      {loading && (
         <Container>
           <DndMainArea />
           <Buttons>

@@ -63,22 +63,22 @@ export const useStore = create(
 
     sysCateLoc: {
       // 전체 location => 분류
-      Attractions: [],
-      Culture: [],
-      Festival: [],
+      attractions: [],
+      culture: [],
+      festival: [],
       Leports: [],
-      Lodge: [],
-      Restaurant: [],
+      lodge: [],
+      restaurant: [],
     },
 
     selCateLoc: {
       // 담은 location => 분류
-      Attractions: [],
-      Culture: [],
-      Festival: [],
-      Leports: [],
-      Lodge: [],
-      Restaurant: [],
+      attractions: [],
+      culture: [],
+      festival: [],
+      leports: [],
+      lodge: [],
+      restaurant: [],
     },
 
     // day에서 location 제거, dnd
@@ -125,8 +125,22 @@ export const useStore = create(
     // 0328 생성, 새로운 plan 생성 (프론트에서만 관리)
     newPlan: async () => {
       // userPlan, sysLoc, sysCateLoc 설정
-      set({ userPlan: {} });
-      const response = await axios.get('http://localhost:4000/locations');
+      set({
+        userPlan: {
+          concept: '',
+          depart: '',
+          destination: '',
+          name: '',
+          periods: '',
+          status: 'main',
+          thumbnail: '',
+          travelDays: [],
+          selectedLocations: {
+            attractions: [1, 2],
+          },
+        },
+      });
+      const response = await axios.get('http://localhost:4000/locations2');
       set({ sysLoc: response.data });
       const sort = get().sortLoc;
       const sortData = await sort(get().sysLoc);
@@ -140,23 +154,23 @@ export const useStore = create(
       const response = await axios.get(
         `http://localhost:4000/travelPlans/${id}`,
       );
+      const locations = await axios.get('http://localhost:4000/locations');
       set({ userPlan: response.data });
-      const locations = await axios.get('http://localhost:4000/locations2');
       set({ sysLoc: locations.data });
-      // const sort = get().sortLoc;
+      const sort = get().sortLoc;
       // const sortData = await sort(get().sysLoc);
-      set({ sysCateLoc: get().sysLoc });
-      // const sortSelLoc = await sort(get().userPlan.selectedLocations);
+      const sortSelLoc = await sort(get().userPlan.selectedLocations);
       // userPlan.travelDays 배열 속에 있는 모든 객체.locationIds 배열 속 데이터를 가지고 있는 객체
       const sysLoc = locations.data;
       const travelDays = response.data.travelDays;
-      for (let day of travelDays) {
-        const arr = day.locationIds.map((e, i) => {
-          const type = day.locationTypes[i];
-          return sysLoc[type][e];
-        });
-        day.locationIds = arr;
-      }
+      // day의 location 정보 불러오기(sysLoc에서)
+      // for (let day of travelDays) {
+      //   const arr = day.locations.map((e, i) => {
+      //     const type = day.locationTypes[i];
+      //     return sysLoc[type][e];
+      //   });
+      //   day.locationIds = arr;
+      // }
     },
     // travelDay.locationIds를 dayLoc 으로 초기화
 
@@ -165,15 +179,21 @@ export const useStore = create(
       const selLocArr = get().userPlan.selectedLocations;
       const sysLoc = get().sysLoc;
       let obj = {};
-      let arr = [];
       for (let key in selLocArr) {
-        arr = [];
+        let arr = [];
         selLocArr[key].map((e) => {
           arr.push(sysLoc[key][e]);
+          return arr;
         });
         obj[key] = arr;
       }
-      set({ selLoc: obj });
+      set((state) => ({
+        userPlan: {
+          ...state.userPlan,
+          selectedLocations: obj,
+          loading: true,
+        },
+      }));
     },
 
     // id값으로 판별
@@ -208,7 +228,7 @@ export const useStore = create(
     // },
 
     sortLoc: (item) => {
-      const obj = Object.values(item);
+      const obj = Object.keys(item);
       let att = [];
       let cul = [];
       let fes = [];
@@ -216,35 +236,35 @@ export const useStore = create(
       let lod = [];
       let rest = [];
       for (let x of obj) {
-        switch (x.type) {
-          case '1':
+        switch (x) {
+          case 'attractions':
             att.push(x);
             break;
-          case '2':
+          case 'cultures':
             cul.push(x);
             break;
-          case '3':
+          case 'festivals':
             fes.push(x);
             break;
-          case '4':
+          case 'leports':
             lepo.push(x);
             break;
-          case '5':
+          case 'lodges':
             lod.push(x);
             break;
-          case '6':
+          case 'restaurants':
             rest.push(x);
             break;
           default:
         }
       }
       return {
-        Attractions: att,
-        Culture: cul,
-        Festival: fes,
-        Leports: lepo,
-        Lodge: lod,
-        Restaurant: rest,
+        attractions: att,
+        culture: cul,
+        festival: fes,
+        leports: lepo,
+        lodge: lod,
+        restaurant: rest,
       };
     },
 

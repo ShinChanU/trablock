@@ -35,32 +35,42 @@ const DndMainArea = () => {
     // dnd 구현, 0330,
     const { destination, source } = result;
     if (!destination) return;
+
+    console.log(destination);
+    // switch(source.droppableId) {
+
+    // }
+
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
     // 출발 selectedLocation, 도착 day
-    if (
-      category[startDropId] !== undefined &&
-      category[endDropId] === undefined
-    )
-      pushLocToDay(
-        destination.droppableId,
-        destination.index,
-        source.droppableId,
-        source.index,
-      );
-    // 출발 day, 도착 day
-    else if (
-      category[startDropId] === undefined &&
-      category[endDropId] === undefined
-    ) {
-      dayLocChange(
-        destination.droppableId,
-        destination.index,
-        source.droppableId,
-        source.index,
-      );
-    }
+    // if (
+    //   category[startDropId] !== undefined &&
+    //   category[endDropId] === undefined
+    // )
+    //   pushLocToDay(
+    //     destination.droppableId,
+    //     destination.index,
+    //     source.droppableId,
+    //     source.index,
+    //   );
+    // // 출발 day, 도착 day
+    // else if (
+    //   category[startDropId] === undefined &&
+    //   category[endDropId] === undefined
+    // ) {
+    //   dayLocChange(
+    //     destination.droppableId,
+    //     destination.index,
+    //     source.droppableId,
+    //     source.index,
+    //   );
+    // }
   };
+
+  useEffect(() => {
+    console.log(userPlan);
+  }, []);
 
   return (
     <>
@@ -84,3 +94,6 @@ export default DndMainArea;
 // 0307
 // https://react-icons.github.io/react-icons/
 // https://technicolour.tistory.com/56
+
+// 0404
+// https://codesandbox.io/s/khno7?file=/src/App.js

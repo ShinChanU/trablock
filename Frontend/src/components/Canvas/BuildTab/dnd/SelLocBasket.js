@@ -41,8 +41,9 @@ const Basket = styled.div`
 `;
 
 const SelLocBasket = () => {
-  const { selLoc, category } = useStore();
-  const list = Object.keys(selLoc);
+  const { userPlan, category } = useStore();
+  const { selectedLocations } = userPlan;
+  const list = Object.keys(selectedLocations);
   const [type, setType] = useState(list[0]);
 
   const onClick = (cate) => {
@@ -60,12 +61,21 @@ const SelLocBasket = () => {
         ))}
       </List>
       {/* 현재 카테고리 담은 블록 */}
-      <Droppable droppableId={type} type="location">
-        {(provided) => (
-          <Basket ref={provided.innerRef} {...provided.droppableProps}>
-            {selLoc[type].map((location, index) => (
-              <Location key={location.id} location={location} index={index} /> // location
-            ))}
+      <Droppable
+        droppableId={type}
+        isDropDisabled={true}
+        // type="location"
+      >
+        {(provided, snapshot) => (
+          <Basket
+            ref={provided.innerRef}
+            // {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+            {selectedLocations &&
+              selectedLocations[type].map((location, index) => (
+                <Location key={location.id} location={location} index={index} /> // location
+              ))}
             {provided.placeholder}
           </Basket>
         )}

@@ -20,7 +20,7 @@ const DirectoryPage = () => {
 
   useEffect(() => {
     getPlans(); // 나중에는 userId를 파라미터로
-  }, []);
+  }, [getPlans]);
 
   const onClick = (id) => {
     getPlan(id);

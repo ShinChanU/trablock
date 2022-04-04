@@ -58,9 +58,12 @@ const PlanDays = () => {
       {travelDays.map((day, index) => (
         // 각 day
         <Container key={index}>
-          <DayHeader day={day} />
+          {/* <DayHeader day={day} /> */}
           {/* day 영역 */}
-          <Droppable droppableId={String(day.id)} type="location">
+          <Droppable
+            droppableId={String(day.days)}
+            // type="location"
+          >
             {(provided, snapshot) => (
               <LocationsList
                 ref={provided.innerRef}
@@ -68,7 +71,7 @@ const PlanDays = () => {
                 isDraggingOver={snapshot.isDraggingOver}
               >
                 {/* day에 location 존재하지 않을 때 */}
-                {day.locationIds[0] === undefined && (
+                {day.locations[0] === undefined && (
                   <InitForm>
                     <EmptyBlock>
                       블록 혹은 자체 생성한 블록을 넣어주세요.
@@ -76,7 +79,7 @@ const PlanDays = () => {
                   </InitForm>
                 )}
                 {/* location map */}
-                {day.locationIds.map((loc, idx) => {
+                {day.locations.map((loc, idx) => {
                   return (
                     <div key={idx}>
                       <Location
@@ -85,7 +88,7 @@ const PlanDays = () => {
                         index={idx}
                         day={day}
                       />
-                      {day.locationIds[idx + 1] !== undefined && (
+                      {day.locations[idx + 1] !== undefined && (
                         <MoveDataDiv
                         // moveData={moveData}
                         // 백엔트와
@@ -98,7 +101,6 @@ const PlanDays = () => {
                     </div>
                   );
                 })}
-
                 {provided.placeholder}
               </LocationsList>
             )}
