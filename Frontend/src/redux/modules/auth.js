@@ -21,7 +21,7 @@ export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
     form, // login, signup
-    key, // username, password, name ..
+    key, // userName, password, name ..
     value,
   }),
 );
@@ -31,19 +31,19 @@ export const initializeForm = createAction(INITIALIZE_FORM, (form) => form); // 
 export const signup = createAction(
   SIGNUP,
   ({
-    username,
+    userName,
     password,
     realName,
-    nickname,
+    nickName,
     birthday,
     phoneNum,
     gender,
     email,
   }) => ({
-    username,
+    userName,
     password,
     realName,
-    nickname,
+    nickName,
     birthday,
     phoneNum,
     gender,
@@ -51,8 +51,8 @@ export const signup = createAction(
   }),
 );
 
-export const login = createAction(LOGIN, ({ username, password }) => ({
-  username,
+export const login = createAction(LOGIN, ({ userName, password }) => ({
+  userName,
   password,
 }));
 // export const login = ({ type: LOGIN });
@@ -70,18 +70,18 @@ export function* authSaga() {
 const initialState = {
   // 불변성 유지하면서 객체 수정
   signup: {
-    username: '',
+    userName: '',
     password: '',
     passwordCheck: '',
     realName: '',
-    nickname: '',
+    nickName: '',
     birthday: '',
     phoneNum: '',
     gender: '',
     email: '',
   },
   login: {
-    username: '',
+    userName: '',
     password: '',
   },
   auth: null,
@@ -105,7 +105,7 @@ const auth = handleActions(
       { payload: { form, key, value } }, // action 대신 구조분해, action.payload.form, key.. 호출
     ) =>
       produce(state, (draft) => {
-        draft[form][key] = value; // ex. state.signup.username
+        draft[form][key] = value; // ex. state.signup.userName
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
@@ -116,7 +116,7 @@ const auth = handleActions(
     [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
       authError: null,
-      auth,
+      auth: auth,
     }),
     // 회원가입 실패
     [SIGNUP_FAILURE]: (state, { payload: error }) => ({
@@ -130,9 +130,9 @@ const auth = handleActions(
       auth,
     }),
     // 로그인 실패
-    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+    [LOGIN_FAILURE]: (state, action) => ({
       ...state,
-      authError: error,
+      authError: action.error,
     }),
   },
   initialState,

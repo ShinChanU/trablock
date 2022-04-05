@@ -2,23 +2,22 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, signup } from 'redux/modules/auth';
 import AuthForm from 'components/Auth/AuthForm';
-// import { useNavigate } from 'react-router-dom';
-// import { check } from 'redux/modules/user';
+import { useNavigate } from 'react-router-dom';
+import { check } from 'redux/modules/user';
 
 const SignupForm = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const {
-    form,
-    // auth, authError, userState
-  } = useSelector(({ auth, user }) => ({
-    // state.auth, state.user
-    form: auth.signup, // store이름 auth, auth.signup에(회원 정보 목록 있음)
-    auth: auth.auth,
-    authError: auth.authError,
-    userState: user.userState,
-  }));
+  const { form, auth, authError, userState } = useSelector(
+    ({ auth, user }) => ({
+      // state.auth, state.user
+      form: auth.signup, // store이름 auth, auth.signup에(회원 정보 목록 있음)
+      auth: auth.auth,
+      authError: auth.authError,
+      userState: user.userState,
+    }),
+  );
 
   // 인풋 변경 이벤트 핸들러
   const onChange = useCallback(
@@ -39,11 +38,11 @@ const SignupForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const {
-      username,
+      userName,
       password,
       passwordCheck,
       realName,
-      nickname,
+      nickName,
       birthday,
       phoneNum,
       gender,
@@ -51,7 +50,7 @@ const SignupForm = () => {
     } = form;
     // 필수항목 중 하나라도 비어 있다면
     if (
-      [username, password, passwordCheck, realName, nickname, email].includes(
+      [userName, password, passwordCheck, realName, nickName, email].includes(
         '',
       )
     ) {
@@ -67,10 +66,10 @@ const SignupForm = () => {
     }
     dispatch(
       signup({
-        username,
+        userName,
         password,
         realName,
-        nickname,
+        nickName,
         birthday,
         phoneNum,
         gender,
@@ -85,35 +84,38 @@ const SignupForm = () => {
   }, [dispatch]);
 
   // 회원가입 성공/실패 처리
-  // useEffect(() => {
-  //   if (authError) {
-  //     // 아이디가 이미 존재
-  //     if (authError.response.status === 409) {
-  //       setError('이미 존재하는 아이디입니다.');
-  //       return;
-  //     }
-  //     // 기타 이유
-  //     setError('회원가입 실패');
-  //     return;
-  //   }
-  //   if (auth) {
-  //     console.log('회원가입 성공');
-  //     console.log(auth);
-  //     dispatch(check());
-  //   }
-  // }, [auth, authError, dispatch]);
+  useEffect(() => {
+    if (authError) {
+      console.log(authError);
+      // console.log(authError.response.data.);
+      // 아이디가 이미 존재
+      if (authError.response.data.status === 500) {
+        setError('이미 존재하는 아이디입니다.');
+        return;
+      }
+      // 기타 이유
+      setError('회원가입 실패');
+      return;
+    }
+    if (auth) {
+      console.log('회원가입 성공');
+      console.log(auth);
+      dispatch(check());
+    }
+  }, [auth, authError, dispatch]);
 
   // user 값이 잘 설정되었는지 확인
-  // useEffect(() => {
-  //   if (userState) {
-  //     navigate('/');
-  //     try {
-  //       localStorage.setItem('userState', JSON.stringify(userState));
-  //     } catch (e) {
-  //       console.log('localStorage is not working');
-  //     }
-  //   }
-  // }, [userState, navigate]);
+  useEffect(() => {
+    console.log(userState);
+    if (userState) {
+      navigate('/'); // 수정 필요
+      try {
+        localStorage.setItem('userState', JSON.stringify(userState));
+      } catch (e) {
+        console.log('localStorage is not working');
+      }
+    }
+  }, [userState, navigate]);
 
   return (
     <AuthForm

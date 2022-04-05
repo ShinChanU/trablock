@@ -113,10 +113,10 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
               </StyledLabel> */}
               <StyledInput
                 autoComplete="username"
-                name="username"
+                name="userName"
                 placeholder="Username*"
                 onChange={onChange}
-                value={form.username}
+                value={form.userName}
               />
               {/* <AccountCircle /> */}
             </StyledDiv>
@@ -161,11 +161,11 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
                 <StyledDiv>
                   {/* <StyledLabel>닉네임<SpanRed>*</SpanRed></StyledLabel> */}
                   <StyledInput
-                    name="nickname"
+                    name="nickName"
                     placeholder="Nickname*"
                     type="text"
                     onChange={onChange}
-                    value={form.nickname}
+                    value={form.nickName}
                   />
                 </StyledDiv>
                 <StyledDiv>

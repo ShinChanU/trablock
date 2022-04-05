@@ -19,13 +19,14 @@ export default function createRequestSaga(type, request) {
         type: SUCCESS,
         payload: response.data,
       });
-    }
-    catch (e) {
+      console.log(response);
+    } catch (e) {
       yield put({
         type: FAILURE,
         payload: e,
         error: true,
       });
+      console.log(e);
     }
     yield put(finishLoading(type)); // 로딩 끝
   };
