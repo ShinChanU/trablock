@@ -37,7 +37,7 @@ const LoginForm = () => {
 
   // 폼 등록 이벤트 핸들러
   const onSubmit = (e) => {
-    console.log(e.targe.name);
+    // console.log(e.targe.name);
     e.preventDefault();
     const { userName, password } = form;
     dispatch(login({ userName, password }));
@@ -56,21 +56,22 @@ const LoginForm = () => {
     }
     if (auth) {
       console.log('로그인 성공');
-      dispatch(check());
-    }
-  }, [auth, authError, dispatch]);
-
-  useEffect(() => {
-    if (userState) {
-      console.log('check 성공');
       navigate(process.env.PUBLIC_URL + '/canvas/directory');
-      try {
-        localStorage.setItem('userState', JSON.stringify(userState));
-      } catch (e) {
-        console.log('localStorage is not working');
-      }
+      // dispatch(check());
     }
-  }, [userState, navigate]);
+  }, [auth, authError, dispatch, navigate]);
+
+  // useEffect(() => {
+  //   if (userState) {
+  //     console.log('check 성공');
+  //     navigate(process.env.PUBLIC_URL + '/canvas/directory');
+  //     try {
+  //       localStorage.setItem('userState', JSON.stringify(userState));
+  //     } catch (e) {
+  //       console.log('localStorage is not working');
+  //     }
+  //   }
+  // }, [userState, navigate]);
 
   return (
     <AuthForm

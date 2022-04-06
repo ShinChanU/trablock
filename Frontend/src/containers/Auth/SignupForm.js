@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, signup } from 'redux/modules/auth';
 import AuthForm from 'components/Auth/AuthForm';
 import { useNavigate } from 'react-router-dom';
-import { check } from 'redux/modules/user';
+// import { check } from 'redux/modules/user';
 
 const SignupForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [detailErr, setDetailErr] = useState({
     username: null,
@@ -107,22 +107,22 @@ const SignupForm = () => {
     if (auth) {
       console.log('회원가입 성공');
       console.log(auth);
-      dispatch(check());
+      // dispatch(check());
     }
   }, [auth, authError, dispatch]);
 
   // user 값이 잘 설정되었는지 확인
-  useEffect(() => {
-    console.log(userState);
-    if (userState) {
-      navigate('/'); // 수정 필요
-      try {
-        localStorage.setItem('userState', JSON.stringify(userState));
-      } catch (e) {
-        console.log('localStorage is not working');
-      }
-    }
-  }, [userState, navigate]);
+  // useEffect(() => {
+  //   console.log(userState);
+  //   if (userState) {
+  //     navigate('/'); // 수정 필요
+  //     try {
+  //       localStorage.setItem('userState', JSON.stringify(userState));
+  //     } catch (e) {
+  //       console.log('localStorage is not working');
+  //     }
+  //   }
+  // }, [userState, navigate]);
 
   const onBlur = (e) => {
     let { name, value } = e.target;

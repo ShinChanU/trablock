@@ -27,15 +27,15 @@ export const signup = ({
   });
 
 // // 로그인 상태 확인
-// export const check = () => client.get('/api/auth/check');
-export const check = () => {
-  return {
-    data: true,
-  };
-};
+export const check = () => client.get('/api/auth/check');
+// export const check = () => {
+//   return {
+//     data: true,
+//   };
+// };
 
 // 로그아웃
-// export const logout = () => client.post('/api/logout');
-export const logout = (ctx) => {
-  ctx.status = 204;
-};
+export const logout = () => client.post('/api/logout');
+// export const logout = (ctx) => {
+//   ctx.status = 204;
+// };

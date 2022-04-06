@@ -116,7 +116,7 @@ const auth = handleActions(
     [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
       authError: null,
-      auth: auth,
+      auth,
     }),
     // 회원가입 실패
     [SIGNUP_FAILURE]: (state, { payload: error }) => ({
