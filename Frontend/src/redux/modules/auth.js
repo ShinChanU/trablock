@@ -130,9 +130,9 @@ const auth = handleActions(
       auth,
     }),
     // 로그인 실패
-    [LOGIN_FAILURE]: (state, action) => ({
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      authError: action.error,
+      authError: error,
     }),
   },
   initialState,

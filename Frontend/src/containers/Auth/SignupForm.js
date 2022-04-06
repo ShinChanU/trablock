@@ -8,6 +8,14 @@ import { check } from 'redux/modules/user';
 const SignupForm = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [detailErr, setDetailErr] = useState({
+    username: null,
+    password: null,
+    passwordCheck: null,
+    realName: null,
+    nickName: null,
+    phoneNum: null,
+  });
   const dispatch = useDispatch();
   const { form, auth, authError, userState } = useSelector(
     ({ auth, user }) => ({
@@ -60,8 +68,10 @@ const SignupForm = () => {
     if (password !== passwordCheck) {
       // 패스워드 다르면 오류출력 후 초기화
       setError('비밀번호가 일치하지 않습니다.');
-      changeField({ form: 'signup', key: 'password', value: '' });
-      changeField({ form: 'signup', key: 'passwordCheck', value: '' });
+      dispatch(changeField({ form: 'signup', key: 'password', value: '' }));
+      dispatch(
+        changeField({ form: 'signup', key: 'passwordCheck', value: '' }),
+      );
       return;
     }
     dispatch(
@@ -86,15 +96,12 @@ const SignupForm = () => {
   // 회원가입 성공/실패 처리
   useEffect(() => {
     if (authError) {
-      console.log(authError);
-      // console.log(authError.response.data.);
       // 아이디가 이미 존재
-      if (authError.response.data.status === 500) {
-        setError('이미 존재하는 아이디입니다.');
-        return;
-      }
+      setError(authError.response.data.message);
+      // return;
+      // }
       // 기타 이유
-      setError('회원가입 실패');
+      // setError('회원가입 실패');
       return;
     }
     if (auth) {
@@ -117,6 +124,49 @@ const SignupForm = () => {
     }
   }, [userState, navigate]);
 
+  const onBlur = (e) => {
+    let { name, value } = e.target;
+    if (name === 'password') {
+      const regex = new RegExp(
+        '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$',
+      ); // 문자, 숫자, 특수문자 조합 8자 이상
+      if (!regex.test(value))
+        setDetailErr({
+          ...detailErr,
+          password: '비밀번호 양식을 확인해주세요.',
+        });
+      else
+        setDetailErr({
+          ...detailErr,
+          password: null,
+        });
+    } else if (name === 'passwordCheck') {
+      const { password } = form;
+      if (password !== value)
+        setDetailErr({
+          ...detailErr,
+          passwordCheck: '비밀번호가 일치하지 않습니다.',
+        });
+      else
+        setDetailErr({
+          ...detailErr,
+          passwordCheck: null,
+        });
+    } else if (name === 'birthday') {
+      const { birthday } = form;
+      if (birthday.length === 8) {
+        let tmp = birthday.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        dispatch(changeField({ form: 'signup', key: 'birthday', value: tmp }));
+      }
+    } else if (name === 'phoneNum') {
+      const { phoneNum } = form;
+      if (phoneNum.length === 11) {
+        let tmp = phoneNum.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        dispatch(changeField({ form: 'signup', key: 'phoneNum', value: tmp }));
+      }
+    }
+  };
+
   return (
     <AuthForm
       type="signup"
@@ -124,6 +174,8 @@ const SignupForm = () => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
+      detailErr={detailErr}
+      onBlur={onBlur}
     />
   );
 };
