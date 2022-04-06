@@ -1,0 +1,24 @@
+###
+post http://localhost:8080/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "userName": "test",
+  "password": "1234"
+}
+
+
+###
+post http://localhost:8080/api/auth/signup HTTP/1.1
+Content-Type: application/json 
+
+{
+  "userName": "2",
+  "password": "test",
+  "realName": "test",
+  "nickName": "test",
+  "birthday": "test",
+  "gender": "MALE",
+  "phoneNum": "test",
+  "email": "test"
+}
