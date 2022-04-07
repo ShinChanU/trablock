@@ -54,7 +54,8 @@
     "styled-components": "^5.3.3",
     "uuid": "^8.3.2",
     "web-vitals": "^1.0.1",
-    "zustand": "^3.7.1"
+    "zustand": "^3.7.1",
+    "zustand-persist": "^0.4.0"
   },
   "scripts": {
     "start": "node server",

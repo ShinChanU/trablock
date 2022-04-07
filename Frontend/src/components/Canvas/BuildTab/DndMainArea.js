@@ -36,24 +36,24 @@ const DndMainArea = () => {
     const { destination, source } = result;
     if (!destination) return;
 
-    console.log(destination);
     // switch(source.droppableId) {
 
     // }
 
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
+    console.log(startDropId);
     // 출발 selectedLocation, 도착 day
-    // if (
-    //   category[startDropId] !== undefined &&
-    //   category[endDropId] === undefined
-    // )
-    //   pushLocToDay(
-    //     destination.droppableId,
-    //     destination.index,
-    //     source.droppableId,
-    //     source.index,
-    //   );
+    if (
+      category[startDropId] !== undefined &&
+      category[endDropId] === undefined
+    )
+      pushLocToDay(
+        destination.droppableId,
+        destination.index,
+        source.droppableId,
+        source.index,
+      );
     // // 출발 day, 도착 day
     // else if (
     //   category[startDropId] === undefined &&

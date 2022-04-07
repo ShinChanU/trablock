@@ -1,20 +1,21 @@
 import axios from 'axios';
 import create from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 export const useStore = create(
-  devtools((set, get) => ({
+  (set, get) => ({
     userPlan: {
       // db 전용
-      id: '',
       concept: '',
       depart: '',
       destination: '',
       name: '',
       periods: '',
-      status: '',
-      travelDays: '',
-      dbSelectedLocations: [], // 변수 확인, id값만 담기는 배열
+      status: 'main',
+      thumbnail: '',
+      travelDays: [],
+      selectedLocations: {}, // cate: [id, id ... ]
+      userLocations: [], // [{}, {} ...]
     },
 
     selLoc: [], // 객체가 담기는 배열
@@ -95,14 +96,15 @@ export const useStore = create(
 
     // selLoc에서  day로 dnd
     pushLocToDay: (toDayId, toLocIdx, frCateId, frLocIdx) => {
-      const selLoc = get().selLoc;
-      const days = get().userPlan.travelDays;
-      const loc = selLoc[frCateId].splice(frLocIdx, 1);
-      const locArr = days[toDayId - 1].locationIds;
-      const cateArr = days[toDayId - 1].locationTypes;
-      locArr.splice(toLocIdx, 0, loc[0]);
-      cateArr.splice(toLocIdx, 0, frCateId);
-      set((state) => ({ userPlan: { ...state.userPlan } }));
+      console.log(toDayId, toLocIdx, frCateId, frLocIdx);
+      // const selLoc = get().selLoc;
+      // const days = get().userPlan.travelDays;
+      // const loc = selLoc[frCateId].splice(frLocIdx, 1);
+      // const locArr = days[toDayId - 1].locationIds;
+      // const cateArr = days[toDayId - 1].locationTypes;
+      // locArr.splice(toLocIdx, 0, loc[0]);
+      // cateArr.splice(toLocIdx, 0, frCateId);
+      // set((state) => ({ userPlan: { ...state.userPlan } }));
     },
 
     // day에서 day로 dnd
@@ -140,7 +142,7 @@ export const useStore = create(
           },
         },
       });
-      const response = await axios.get('http://localhost:4000/locations2');
+      const response = await axios.get('http://localhost:4000/locations');
       set({ sysLoc: response.data });
       const sort = get().sortLoc;
       const sortData = await sort(get().sysLoc);
@@ -279,15 +281,21 @@ export const useStore = create(
       stayArr[index + 1] = stay;
       set((state) => ({ userPlan: { ...state.userPlan } }));
     },
-  })),
+  }),
+  // {
+  //   name: 'plan storage',
+  //   getStorage: () => sessionStorage,
+  // },
 );
 
 // 여행 보관함에서 사용
-export const planStore = create((set) => ({
+export const planStore = create((set, get) => ({
   travelPlans: [],
 
   getPlans: async (id) => {
     const response = await axios.get(`http://localhost:4000/travelPlans`);
     set({ travelPlans: response.data }); // 백에서 보내주는 데이터가 userPlan
+    set((state) => ({ ...state.userPlan, test: 'test' }));
+    // console.log(get().userPlan);
   },
 }));

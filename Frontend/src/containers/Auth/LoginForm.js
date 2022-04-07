@@ -56,22 +56,22 @@ const LoginForm = () => {
     }
     if (auth) {
       console.log('로그인 성공');
-      navigate(process.env.PUBLIC_URL + '/canvas/directory');
+      // navigate(process.env.PUBLIC_URL + '/canvas/directory');
       // dispatch(check());
     }
   }, [auth, authError, dispatch, navigate]);
 
-  // useEffect(() => {
-  //   if (userState) {
-  //     console.log('check 성공');
-  //     navigate(process.env.PUBLIC_URL + '/canvas/directory');
-  //     try {
-  //       localStorage.setItem('userState', JSON.stringify(userState));
-  //     } catch (e) {
-  //       console.log('localStorage is not working');
-  //     }
-  //   }
-  // }, [userState, navigate]);
+  useEffect(() => {
+    // if (userState) {
+    //   console.log('check 성공');
+    //   navigate(process.env.PUBLIC_URL + '/canvas/directory');
+    //   try {
+    //     localStorage.setItem('userState', JSON.stringify(userState));
+    //   } catch (e) {
+    //     console.log('localStorage is not working');
+    //   }
+    // }
+  }, [userState, navigate]);
 
   return (
     <AuthForm

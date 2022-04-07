@@ -72,6 +72,7 @@ const SelLocBasket = () => {
             // {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
+            {console.log(selectedLocations)}
             {selectedLocations &&
               selectedLocations[type].map((location, index) => (
                 <Location key={location.id} location={location} index={index} /> // location
