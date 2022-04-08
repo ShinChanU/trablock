@@ -69,7 +69,7 @@ const DndMainArea = () => {
   };
 
   useEffect(() => {
-    console.log(userPlan);
+    // console.log(userPlan);
   }, []);
 
   return (

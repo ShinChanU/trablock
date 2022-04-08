@@ -33,7 +33,7 @@ const textMap = {
 };
 
 const CanvasForm = ({ type }) => {
-  const text = textMap[type];
+  // const text = textMap[type];
 
   return (
     <CanvasDiv>
