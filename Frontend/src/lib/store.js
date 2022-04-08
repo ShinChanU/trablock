@@ -1,6 +1,8 @@
 import axios from 'axios';
 import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
+import uuid from 'react-uuid';
+import { cloneDeep } from 'lodash';
 
 export const useStore = create(
   devtools(
@@ -84,39 +86,33 @@ export const useStore = create(
       // },
 
       // day에서 location 제거, dnd
-      dayLocDel: (day, loc, idx) => {
-        const days = get().userPlan.travelDays;
-        const selLoc = get().selLoc;
-        const dayInfo = days[day.id - 1];
-        const type = dayInfo.locationTypes[idx];
-        const location = dayInfo.locationIds.splice(idx, 1);
-        selLoc[type].push(location[0]);
-        dayInfo.locationTypes.splice(idx, 1);
+      dayLocDel: (dayId, idx) => {
+        const dayLocArr = get().userPlan.travelDays[dayId - 1].locations;
+        dayLocArr.splice(idx, 1);
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
       // selLoc에서  day로 dnd
       pushLocToDay: (toDayId, toLocIdx, frCateId, frLocIdx) => {
-        console.log(toDayId, toLocIdx, frCateId, frLocIdx);
-        // const selLoc = get().selLoc;
-        // const days = get().userPlan.travelDays;
-        // const loc = selLoc[frCateId].splice(frLocIdx, 1);
-        // const locArr = days[toDayId - 1].locationIds;
-        // const cateArr = days[toDayId - 1].locationTypes;
-        // locArr.splice(toLocIdx, 0, loc[0]);
-        // cateArr.splice(toLocIdx, 0, frCateId);
-        // set((state) => ({ userPlan: { ...state.userPlan } }));
+        const selLoc = get().userPlan.selectedLocations;
+        const loc = cloneDeep(selLoc[frCateId][frLocIdx]); // 깊은 복사
+        const days = get().userPlan.travelDays;
+        const dayLocArr = days[toDayId - 1];
+        loc['copy_id'] = uuid(); // copy_id 지정
+        dayLocArr.locations.splice(toLocIdx, 0, loc);
+        set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
       // day에서 day로 dnd
       dayLocChange: (toDayId, toLocIdx, frDayId, frLocIdx) => {
-        const toDay = parseInt(toDayId);
-        const fromDay = parseInt(frDayId);
-        const days = get().userPlan.travelDays;
-        const loc = days[fromDay - 1].locationIds.splice(frLocIdx, 1);
-        const cate = days[fromDay - 1].locationTypes.splice(frLocIdx, 1);
-        days[toDay - 1].locationIds.splice(toLocIdx, 0, loc[0]);
-        days[toDay - 1].locationTypes.splice(toLocIdx, 0, cate[0]);
+        const startDayLocArr = get().userPlan.travelDays[frDayId - 1].locations;
+        const endDayLocArr = get().userPlan.travelDays[toDayId - 1].locations;
+        const [loc] = startDayLocArr.splice(frLocIdx, 1);
+        endDayLocArr.splice(toLocIdx, 0, loc);
+        // const fromDay = parseInt(frDayId);
+        // const loc = days[fromDay - 1].locationIds.splice(frLocIdx, 1);
+        // const cate = days[fromDay - 1].locationTypes.splice(frLocIdx, 1);
+        // days[toDay - 1].locationIds.splice(toLocIdx, 0, loc[0]);
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
@@ -188,7 +184,6 @@ export const useStore = create(
           });
           obj[key] = arr;
         }
-        console.log(obj);
         set((state) => ({
           userPlan: {
             ...state.userPlan,

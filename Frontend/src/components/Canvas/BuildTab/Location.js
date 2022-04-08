@@ -28,6 +28,7 @@ const Clone = styled(Container)`
 const List = styled.li`
   display: flex;
   list-style: none;
+  width: 100%;
   /* background-color: ${palette.gray[0]}; */
   /* border-radius: 4px; */
   padding: 5px;
@@ -43,9 +44,11 @@ const Img = styled.img`
 `;
 
 const ListDiv = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
   margin-left: 10px;
   font-weight: bold;
-  flex: 1;
 `;
 
 const Name = styled.div`
@@ -83,7 +86,7 @@ const getRenderItem = (items, className) => (provided, snapshot, rubric) => {
   );
 };
 
-const Location = ({ location, index, day }) => {
+const Location = ({ location, index, day, id }) => {
   const { dayLocDel, userPlan } = useStore();
   // let stayT = '';
 
@@ -91,17 +94,17 @@ const Location = ({ location, index, day }) => {
   //   stayT = userPlan.travelDays[day.id - 1].stayTime[index + 1];
   // }
 
-  // const onClick = () => {
-  //   dayLocDel(day, location, index);
-  // };
+  const onClick = () => {
+    dayLocDel(day.days, index);
+  };
 
   return (
     <>
       {/* location */}
       <Draggable
-        draggableId={String(location.id)}
+        draggableId={String(id)}
         index={index}
-        key={location.id}
+        key={id}
         // type="location"
       >
         {(provided, snapshot) => (
@@ -118,21 +121,26 @@ const Location = ({ location, index, day }) => {
                   <Img src={location.image} alt="img" />
                 </ImgDiv>
                 <ListDiv>
-                  {location.name}
+                  <div>{location.name}</div>
+
+                  {/* <div>
+                    <div>{location.name}</div>
+                    <div>도착 예정 시간 (체류 시간)</div>
+                  </div>  */}
                   {/* {!day && <>담기기 전!</>} */}
                   {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
                   {/* {day && stayT !== undefined && <>체류시간 {stayT}</>}
                   {day && stayT === undefined && <>체류시간을 설정해주세요.</>} */}
+                  <Btn day={day}>
+                    <Close size="18" onClick={onClick} tooltip={true} />
+                    <Time title="체류시간" index={index} day={day} />
+                  </Btn>
                 </ListDiv>
                 {/* day에 보여지는 location 만 버튼 생성 */}
-                {/* <Btn day={day}>
-                  <Close size="18" onClick={onClick} tooltip={true} />
-                  <Time title="체류시간" index={index} day={day} />
-                </Btn> */}
               </List>
             </Container>
             {/* 0404 작성중 */}
-            {snapshot.isDragging && (
+            {snapshot.isDragging && !day && (
               <Clone>
                 <List>
                   <ImgDiv>

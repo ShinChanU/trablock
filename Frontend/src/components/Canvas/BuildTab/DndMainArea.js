@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SelLocBasket from './dnd/SelLocBasket';
 import PlanDays from './dnd/PlanDays';
 import { useStore } from 'lib/store';
+import uuid from 'react-uuid';
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +43,6 @@ const DndMainArea = () => {
 
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
-    console.log(startDropId);
     // 출발 selectedLocation, 도착 day
     if (
       category[startDropId] !== undefined &&
@@ -54,18 +54,18 @@ const DndMainArea = () => {
         source.droppableId,
         source.index,
       );
-    // // 출발 day, 도착 day
-    // else if (
-    //   category[startDropId] === undefined &&
-    //   category[endDropId] === undefined
-    // ) {
-    //   dayLocChange(
-    //     destination.droppableId,
-    //     destination.index,
-    //     source.droppableId,
-    //     source.index,
-    //   );
-    // }
+    // 출발 day, 도착 day
+    else if (
+      category[startDropId] === undefined &&
+      category[endDropId] === undefined
+    ) {
+      dayLocChange(
+        destination.droppableId,
+        destination.index,
+        source.droppableId,
+        source.index,
+      );
+    }
   };
 
   useEffect(() => {

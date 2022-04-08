@@ -85,6 +85,7 @@ const PlanDays = () => {
                       <Location
                         key={idx}
                         location={loc}
+                        id={loc.copy_id}
                         index={idx}
                         day={day}
                       />
