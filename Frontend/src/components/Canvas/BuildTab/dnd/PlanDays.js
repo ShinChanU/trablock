@@ -58,7 +58,7 @@ const PlanDays = () => {
       {travelDays.map((day, index) => (
         // 각 day
         <Container key={index}>
-          {/* <DayHeader day={day} /> */}
+          <DayHeader day={day} />
           {/* day 영역 */}
           <Droppable
             droppableId={String(day.days)}

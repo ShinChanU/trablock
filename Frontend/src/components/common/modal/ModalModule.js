@@ -57,6 +57,7 @@ const ModalModule = ({
   title,
   map,
   onSubmit,
+  day,
 }) => {
   return (
     <Modal

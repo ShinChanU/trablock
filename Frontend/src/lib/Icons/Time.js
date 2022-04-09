@@ -45,6 +45,7 @@ const Time = ({ title, day, index }) => {
   };
 
   const openModal = () => {
+    console.log(day.locations[index]);
     setModalIsOpen(true);
   };
 
@@ -54,8 +55,9 @@ const Time = ({ title, day, index }) => {
 
   const { startH, startM, stayH, stayM } = time;
 
-  const onSubmit = () => {
-    setTimeData(day.id, time, index);
+  const onSubmit = (e) => {
+    console.log(time);
+    setTimeData(day.days, index, time);
     closeModal();
   };
 
@@ -63,7 +65,7 @@ const Time = ({ title, day, index }) => {
     <>
       <TimeBtn size="18" onClick={openModal} data-tip data-for="time" />
       <ReactTooltip id="time" place="right" type="info" effect="solid">
-        <div>체류시간 을 설정해주세요.</div>
+        <div>여행계획에 필요한 시간을 설정해주세요.</div>
       </ReactTooltip>
       <ModalModule
         modalIsOpen={modalIsOpen}
@@ -71,11 +73,12 @@ const Time = ({ title, day, index }) => {
         closeModal={closeModal}
         title={title}
         onSubmit={onSubmit}
+        day={day}
       >
         <Container>
-          {title === '출발/체류시간' && (
+          {title === '출발시각' && (
             <div>
-              출발시간
+              출발시각
               <TimeInput
                 onChange={onChange}
                 placeholder="시간"

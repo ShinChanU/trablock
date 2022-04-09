@@ -5,6 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import Time from 'lib/Icons/Time';
 import Close from 'lib/Icons/Close';
 import { useStore } from 'lib/store';
+import oc from 'open-color';
 
 const Container = styled.div`
   display: flex;
@@ -13,10 +14,28 @@ const Container = styled.div`
   width: 220px;
   margin: auto;
   margin-bottom: 10px;
-  /* padding: 8px; */
   box-shadow: 3px 3px 3px 3px ${palette.gray[5]};
   border-radius: 4px;
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
+`;
+
+const Div = styled.div`
+  ${(props) =>
+    props.index === 0 &&
+    props.day &&
+    css`
+      > div {
+        margin-bottom: 0px;
+        box-shadow: 0px 0px 0px 0px ${palette.gray[5]};
+      }
+      background-color: ${oc.teal[6]};
+      padding-bottom: 10px;
+    `}
+`;
+
+const LocTime = styled.div`
+  font-weight: normal;
+  font-size: 12px;
 `;
 
 const Clone = styled(Container)`
@@ -108,21 +127,44 @@ const Location = ({ location, index, day, id }) => {
         // type="location"
       >
         {(provided, snapshot) => (
-          <>
+          <Div index={index} day={day}>
             <Container
               ref={provided.innerRef}
               {...provided.dragHandleProps}
               {...provided.draggableProps}
               isDragging={snapshot.isDragging}
               style={provided.draggableProps.style}
+              index={index}
+              day={day}
             >
               <List>
                 <ImgDiv>
                   <Img src={location.image} alt="img" />
                 </ImgDiv>
                 <ListDiv>
-                  <div>{location.name}</div>
-
+                  <div>
+                    <div>{location.name}</div>
+                    {day ? (
+                      <LocTime>
+                        {index === 0 ? (
+                          <>
+                            {location.startTime
+                              ? `출발시각 : ${location.startTime}`
+                              : `출발지의 출발시각을 입력해주세용`}
+                          </>
+                        ) : (
+                          <>
+                            {location.stayTime
+                              ? `체류시간 : ${location.stayTime}`
+                              : `체류시간과 이동수단 및 시간을 입력해주세용`}
+                          </>
+                        )}
+                      </LocTime>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                  {/* <div>{}</div> */}
                   {/* <div>
                     <div>{location.name}</div>
                     <div>도착 예정 시간 (체류 시간)</div>
@@ -133,7 +175,11 @@ const Location = ({ location, index, day, id }) => {
                   {day && stayT === undefined && <>체류시간을 설정해주세요.</>} */}
                   <Btn day={day}>
                     <Close size="18" onClick={onClick} tooltip={true} />
-                    <Time title="체류시간" index={index} day={day} />
+                    <Time
+                      title={index === 0 ? '출발시각' : '체류시간'}
+                      index={index}
+                      day={day}
+                    />
                   </Btn>
                 </ListDiv>
                 {/* day에 보여지는 location 만 버튼 생성 */}
@@ -150,7 +196,7 @@ const Location = ({ location, index, day, id }) => {
                 </List>
               </Clone>
             )}
-          </>
+          </Div>
         )}
       </Draggable>
     </>

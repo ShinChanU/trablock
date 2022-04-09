@@ -269,16 +269,32 @@ export const useStore = create(
       },
 
       // 출발, 체류시간 저장 0401
-      setTimeData: (dayId, time, index) => {
+      setTimeData: (dayId, index, time) => {
+        const loc = get().userPlan.travelDays[dayId - 1].locations[index];
         const { startH, startM, stayH, stayM } = time;
-        const startArr = get().userPlan.travelDays[dayId - 1].startTime;
-        const stayArr = get().userPlan.travelDays[dayId - 1].stayTime;
-        const start = `${startH} : ${startM}`;
-        const stay = `${stayH} : ${stayM}`;
-        startArr[index + 1] = start;
-        stayArr[index + 1] = stay;
+        if (stayH !== '') {
+          // 체류시간
+          loc['stayTime'] = `${stayH}:${stayM}`;
+        } else if (startH !== '') {
+          // 출발시각
+          loc['startTime'] = `${startH}:${startM}`;
+        }
+        console.log(loc);
+        // const startArr = get().userPlan.travelDays[dayId - 1].startTime;
+        // const stayArr = get().userPlan.travelDays[dayId - 1].stayTime;
+        // const start = `${startH} : ${startM}`;
+        // const stay = `${stayH} : ${stayM}`;
+        // startArr[index + 1] = start;
+        // stayArr[index + 1] = stay;
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
+
+      // 출발시간, 체류시간, 이동수단, 이동시간, 도착시간
+      startTime: '',
+      stayTime: '',
+      vehicles: [],
+      movingTime: '',
+      arriveTime: '',
     }),
     // {
     //   name: 'plan storage',
