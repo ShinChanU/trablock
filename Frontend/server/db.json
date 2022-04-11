@@ -3,6 +3,7 @@
     {
       "id": 1,
       "status": "STAY",
+      "depart": "2022/04/11",
       "travelDays": [
         {
           "days": 1,

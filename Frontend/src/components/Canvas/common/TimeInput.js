@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Input = styled.input`
   width: 60px;
-  margin-left: 5px;
-  margin-right: 5px;
+  /* margin-left: 5px; */
+  margin-right: 10px;
 `;
 
 const TimeInput = ({ placeholder, value, name, onChange }) => {

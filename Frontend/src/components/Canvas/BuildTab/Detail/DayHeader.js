@@ -1,5 +1,5 @@
 import oc from 'open-color';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Time from 'lib/Icons/Time';
 import { useStore } from 'lib/store';
@@ -28,12 +28,26 @@ const StartLeave = styled.div`
 `;
 
 const DayHeader = ({ day }) => {
-  const { userPlan } = useStore();
-  // const startT = userPlan.travelDays[day.id - 1].startTime[0];
+  const { userPlan, setDepart } = useStore();
+  const [dates, setDates] = useState('');
+
+  const addDays = (date, days) => {
+    // day 추가
+    let result = new Date(date);
+    result.setDate(result.getDate() + days);
+    setDates(setDepart(result));
+  };
+
+  useEffect(() => {
+    let dayCnt = day.days - 1;
+    addDays(userPlan.depart, dayCnt);
+  }, []);
 
   return (
     <Container>
-      <DayNum>{day.days}일차</DayNum>
+      <DayNum>
+        {day.days}일차 ({dates})
+      </DayNum>
       {/* <StartLeave>
         {startT ? (
           <>출발시각 {startT}</>

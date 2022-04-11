@@ -21,6 +21,16 @@ export const useStore = create(
         userLocations: [], // [{}, {} ...]
       },
 
+      setDepart: (input) => {
+        const pD =
+          input.getFullYear() +
+          '/' +
+          (input.getMonth() + 1).toString().padStart(2, '0') +
+          '/' +
+          input.getDate().toString().padStart(2, '0');
+        return pD;
+      },
+
       // selLoc: [], // 객체가 담기는 배열
 
       // dayLoc: [],
@@ -269,16 +279,22 @@ export const useStore = create(
       },
 
       // 출발, 체류시간 저장 0401
-      setTimeData: (dayId, index, time) => {
+      setTimeData: (dayId, index, time, flag) => {
         const loc = get().userPlan.travelDays[dayId - 1].locations[index];
-        const { startH, startM, stayH, stayM } = time;
-        if (stayH !== '') {
-          // 체류시간
-          loc['stayTime'] = `${stayH}:${stayM}`;
-        } else if (startH !== '') {
-          // 출발시각
-          loc['startTime'] = `${startH}:${startM}`;
+        console.log(loc, time);
+        const { startH, startM, stayH, stayM, hour, minute } = time;
+        if (flag === 'move') {
+          loc['movingTime'] = `${hour}:${minute}`;
+        } else {
+          if (stayH !== '') {
+            // 체류시간
+            loc['stayTime'] = `${stayH}:${stayM}`;
+          } else if (startH !== '') {
+            // 출발시각
+            loc['startTime'] = `${startH}:${startM}`;
+          }
         }
+
         console.log(loc);
         // const startArr = get().userPlan.travelDays[dayId - 1].startTime;
         // const stayArr = get().userPlan.travelDays[dayId - 1].stayTime;

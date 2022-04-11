@@ -55,7 +55,7 @@ const Time = ({ title, day, index }) => {
 
   const { startH, startM, stayH, stayM } = time;
 
-  const onSubmit = (e) => {
+  const onSubmit = () => {
     console.log(time);
     setTimeData(day.days, index, time);
     closeModal();

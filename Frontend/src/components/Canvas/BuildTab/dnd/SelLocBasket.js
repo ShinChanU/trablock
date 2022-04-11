@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useStore } from 'lib/store';
-import Location from '../Location';
+import Location from '../Detail/Location';
 import styled from 'styled-components';
 import oc from 'open-color';
 import { Droppable } from 'react-beautiful-dnd';

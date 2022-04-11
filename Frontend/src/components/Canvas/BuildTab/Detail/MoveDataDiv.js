@@ -7,7 +7,8 @@ import 'lib/styles/Modal.css';
 // import ModalModule from './ModalModule';
 import ModalModule from 'components/common/modal/ModalModule';
 import MoveSettingChild from './MoveSettingChild';
-import Map from './Map';
+import { useStore } from 'lib/store';
+// import Map from '../Map';
 
 const Container = styled.div`
   position: relative;
@@ -58,10 +59,49 @@ const BubbleDiv = styled.div`
     `}
 `;
 
-const MoveDataDiv = ({ moveData, index }) => {
+const MoveDataDiv = ({ day, index }) => {
+  const { userPlan, setTimeData } = useStore();
+  const vehicleList = ['car', 'bus', 'walk', 'bike'];
+  const [isChecked, setIsChecked] = useState(false);
+  const [checkVehicles, setCheckVehicles] = useState(new Set());
+  const [time, setTime] = useState({
+    hour: '',
+    minute: '',
+  });
   const [moveObj, setMoveObj] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const checkedVehicleHandler = (value, isChecked) => {
+    if (isChecked) {
+      checkVehicles.add(value);
+      setCheckVehicles(checkVehicles);
+    } else if (!isChecked && checkVehicles.has(value)) {
+      checkVehicles.delete(value);
+      setCheckVehicles(checkVehicles);
+    }
+    console.log(checkVehicles);
+  };
+
+  const checkHandler = ({ target }) => {
+    setIsChecked(!isChecked);
+    checkedVehicleHandler(target.value, target.checked);
+    console.log(target.value, target.checked);
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    let tmpVal = value;
+    if (value < 0) {
+      tmpVal = 0;
+    }
+    if (value.length > 3) {
+      tmpVal = Math.floor(value / 10);
+    }
+    setTime({
+      ...time,
+      [name]: tmpVal,
+    });
+  };
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -71,15 +111,29 @@ const MoveDataDiv = ({ moveData, index }) => {
   };
 
   const getTime = (time) => {
-    let hour = 0;
-    let minute = time;
-    if (time > 60) {
-      hour = Math.floor(time / 60);
-      minute = time % 60;
-      return `${hour} h ${minute} min`;
-    } else {
-      return `${minute} min`;
+    let hour = Number(time.hour);
+    let minute = Number(time.minute);
+    if (minute > 60) {
+      hour += Math.floor(minute / 60);
+      minute = minute % 60;
+      // return `${hour} h ${minute} min`;
     }
+    if (hour === 0) {
+      // return `${minute} min`;
+    } else {
+      // return `${hour} h ${minute} min`;
+    }
+    return [hour, minute];
+  };
+
+  const onSubmit = (e) => {
+    let tmp = getTime(time);
+    setTime({
+      hour: tmp[0],
+      minute: tmp[1],
+    });
+    setTimeData(day.days, index, time, 'move');
+    closeModal();
   };
 
   return (
@@ -88,8 +142,12 @@ const MoveDataDiv = ({ moveData, index }) => {
         <Span>
           <MdMode onClick={openModal} />
         </Span>
+        {console.log(
+          userPlan.travelDays[day.days - 1].locations[index].movingTime,
+        )}
+        {/* 작업중 0411 */}
       </Div>
-      {/* {moveData[index] === undefined && (
+      {/* {userPlan.movingTime === undefined && (
         <Div>
           <Span>
             <MdMode onClick={openModal} />
@@ -114,9 +172,15 @@ const MoveDataDiv = ({ moveData, index }) => {
         openModal={openModal}
         closeModal={closeModal}
         title="이동수단"
+        onSubmit={onSubmit}
       >
-        <MoveSettingChild />
-        {/* 내부요소, chlidren */}
+        <MoveSettingChild
+          vehicleList={vehicleList}
+          checkHandler={checkHandler}
+          onChange={onChange}
+          time={time}
+        />
+        {/* 내부요소, children */}
       </ModalModule>
     </Container>
   );

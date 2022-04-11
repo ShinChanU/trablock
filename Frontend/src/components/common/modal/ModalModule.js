@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 import Close from 'lib/Icons/Close';
 import 'lib/styles/Modal.css';
-import Map from 'components/Canvas/BuildTab/Map';
+// import Map from 'components/Canvas/BuildTab/Map/Map';
 import SearchPlace from 'components/Canvas/BuildTab/Map/SearchPlace';
 
 const Header = styled.div`

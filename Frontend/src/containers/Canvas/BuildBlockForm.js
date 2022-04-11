@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import DndMainArea from 'components/Canvas/BuildTab/DndMainArea';
+import MainArea from 'components/Canvas/BuildTab/MainArea';
 import CreateLoc from 'lib/Icons/CreateLoc';
 import palette from 'lib/styles/palette';
 import { useStore, sysLocStore } from 'lib/store';
@@ -35,7 +35,7 @@ const BuildBlockForm = () => {
       {loading === 0 && <div>로케이션을 담아오세요</div>}
       {loading && (
         <Container>
-          <DndMainArea />
+          <MainArea />
           <Buttons>
             <CreateLoc size="30" />
           </Buttons>

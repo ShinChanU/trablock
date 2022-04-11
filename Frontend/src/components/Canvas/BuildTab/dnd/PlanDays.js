@@ -2,10 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useStore } from 'lib/store';
 import oc from 'open-color';
-import Location from '../Location';
-import DayHeader from '../DayHeader';
+import DayHeader from 'components/Canvas/BuildTab/Detail/DayHeader';
 import { Droppable } from 'react-beautiful-dnd';
-import MoveDataDiv from '../MoveDataDiv';
+import MoveDataDiv from '../Detail/MoveDataDiv';
+import Location from 'components/Canvas/BuildTab/Detail/Location';
 
 const Days = styled.div`
   display: flex;
@@ -91,12 +91,15 @@ const PlanDays = () => {
                       />
                       {day.locations[idx + 1] !== undefined && (
                         <MoveDataDiv
-                        // moveData={moveData}
-                        // 백엔트와
-                        // 소통
-                        // 이후
-                        // 결정
-                        // index={index}
+                          day={day}
+                          index={idx}
+
+                          // moveData={moveData}
+                          // 백엔트와
+                          // 소통
+                          // 이후
+                          // 결정
+                          // index={index}
                         />
                       )}
                     </div>

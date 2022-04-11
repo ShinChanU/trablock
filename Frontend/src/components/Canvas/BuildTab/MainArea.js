@@ -29,7 +29,7 @@ const Container = styled.div`
 //   }
 // `;
 
-const DndMainArea = () => {
+const MainArea = () => {
   const { category, pushLocToDay, dayLocChange, userPlan } = useStore();
 
   const onDragEnd = (result) => {
@@ -86,7 +86,7 @@ const DndMainArea = () => {
   );
 };
 
-export default DndMainArea;
+export default MainArea;
 
 // 참고 레퍼런스
 // https://codesandbox.io/s/react-beautiful-dnd-example-forked-9l3wz8?file=/src/index.js

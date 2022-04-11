@@ -149,7 +149,7 @@ const Location = ({ location, index, day, id }) => {
                         {index === 0 ? (
                           <>
                             {location.startTime
-                              ? `출발시각 : ${location.startTime}`
+                              ? `${location.startTime} 출발`
                               : `출발지의 출발시각을 입력해주세용`}
                           </>
                         ) : (
