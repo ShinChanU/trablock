@@ -279,12 +279,12 @@ export const useStore = create(
       },
 
       // 출발, 체류시간 저장 0401
-      setTimeData: (dayId, index, time, flag) => {
+      setTimeData: (dayId, index, time, flag, vehicles) => {
         const loc = get().userPlan.travelDays[dayId - 1].locations[index];
-        console.log(loc, time);
         const { startH, startM, stayH, stayM, hour, minute } = time;
         if (flag === 'move') {
           loc['movingTime'] = `${hour}:${minute}`;
+          loc['vehicles'] = vehicles;
         } else {
           if (stayH !== '') {
             // 체류시간
@@ -294,14 +294,6 @@ export const useStore = create(
             loc['startTime'] = `${startH}:${startM}`;
           }
         }
-
-        console.log(loc);
-        // const startArr = get().userPlan.travelDays[dayId - 1].startTime;
-        // const stayArr = get().userPlan.travelDays[dayId - 1].stayTime;
-        // const start = `${startH} : ${startM}`;
-        // const stay = `${stayH} : ${stayM}`;
-        // startArr[index + 1] = start;
-        // stayArr[index + 1] = stay;
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 

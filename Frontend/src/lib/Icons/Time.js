@@ -45,7 +45,6 @@ const Time = ({ title, day, index }) => {
   };
 
   const openModal = () => {
-    console.log(day.locations[index]);
     setModalIsOpen(true);
   };
 
@@ -56,7 +55,6 @@ const Time = ({ title, day, index }) => {
   const { startH, startM, stayH, stayM } = time;
 
   const onSubmit = () => {
-    console.log(time);
     setTimeData(day.days, index, time);
     closeModal();
   };

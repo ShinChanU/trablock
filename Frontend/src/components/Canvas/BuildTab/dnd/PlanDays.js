@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useStore } from 'lib/store';
 import oc from 'open-color';
@@ -52,6 +52,10 @@ const LocationsList = styled('div')`
 const PlanDays = () => {
   const { userPlan } = useStore();
   const { travelDays } = userPlan;
+
+  useEffect(() => {
+    console.log(userPlan);
+  }, []);
 
   return (
     <Days>

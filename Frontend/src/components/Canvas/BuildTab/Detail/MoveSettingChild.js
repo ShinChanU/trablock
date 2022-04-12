@@ -47,47 +47,13 @@ const Time = styled.div`
 //   margin-right: 5px;
 // `;
 
-const MoveSettingChild = ({ vehicleList, checkHandler, onChange, time }) => {
-  // const vehicleList = ['car', 'bus', 'walk', 'bike'];
-  // const [isChecked, setIsChecked] = useState(false);
-  // const [checkVehicles, setCheckVehicles] = useState(new Set());
-  // const [time, setTime] = useState({
-  //   hour: '',
-  //   minute: '',
-  // });
-
-  // const checkedVehicleHandler = (value, isChecked) => {
-  //   if (isChecked) {
-  //     checkVehicles.add(value);
-  //     setCheckVehicles(checkVehicles);
-  //   } else if (!isChecked && checkVehicles.has(value)) {
-  //     checkVehicles.delete(value);
-  //     setCheckVehicles(checkVehicles);
-  //   }
-  //   console.log(checkVehicles);
-  // };
-
-  // const checkHandler = ({ target }) => {
-  //   setIsChecked(!isChecked);
-  //   checkedVehicleHandler(target.value, target.checked);
-  //   console.log(target.value, target.checked);
-  // };
-
-  // const onChange = (e) => {
-  //   const { name, value } = e.target;
-  //   let tmpVal = value;
-  //   if (value < 0) {
-  //     tmpVal = 0;
-  //   }
-  //   if (value.length > 3) {
-  //     tmpVal = Math.floor(value / 10);
-  //   }
-  //   setTime({
-  //     ...time,
-  //     [name]: tmpVal,
-  //   });
-  // };
-
+const MoveSettingChild = ({
+  vehicleList,
+  checkHandler,
+  onChange,
+  time,
+  checkVehicles,
+}) => {
   return (
     <Container>
       <VehicleDiv>
@@ -103,6 +69,8 @@ const MoveSettingChild = ({ vehicleList, checkHandler, onChange, time }) => {
               type="checkbox"
               value={e}
               onChange={(e) => checkHandler(e)}
+              key={i}
+              checked={checkVehicles.includes(e) ? true : false}
             />
           ))}
         </Vehicle>
@@ -121,20 +89,6 @@ const MoveSettingChild = ({ vehicleList, checkHandler, onChange, time }) => {
           name="minute"
           value={time.minute}
         />
-        {/* <TimeInput
-          type="number"
-          placeholder="시간"
-          value={time.hour}
-          onChange={onChange}
-          name="hour"
-        />
-        <TimeInput
-          type="number"
-          placeholder="분"
-          value={time.minute}
-          onChange={onChange}
-          name="minute"
-        /> */}
         <div>
           {time.hour}시간 {time.minute}분 소요
         </div>

@@ -9,6 +9,12 @@ import ModalModule from 'components/common/modal/ModalModule';
 import MoveSettingChild from './MoveSettingChild';
 import { useStore } from 'lib/store';
 // import Map from '../Map';
+import {
+  MdDirectionsCar,
+  MdDirectionsBus,
+  MdDirectionsWalk,
+  MdDirectionsBike,
+} from 'react-icons/md';
 
 const Container = styled.div`
   position: relative;
@@ -50,13 +56,20 @@ const Span = styled.span`
 
 const BubbleDiv = styled.div`
   display: flex;
+  align-items: center;
   ${(props) =>
     props.margin &&
     css`
-      padding-left: 10px;
-      color: red;
+      /* padding-left: 10px; */
+      /* color: red; */
       /* margin-left: 30px; */
     `}
+`;
+
+const TimeDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
 `;
 
 const MoveDataDiv = ({ day, index }) => {
@@ -70,6 +83,7 @@ const MoveDataDiv = ({ day, index }) => {
   });
   const [moveObj, setMoveObj] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const locInfo = userPlan.travelDays[day.days - 1].locations[index];
 
   const checkedVehicleHandler = (value, isChecked) => {
     if (isChecked) {
@@ -79,13 +93,11 @@ const MoveDataDiv = ({ day, index }) => {
       checkVehicles.delete(value);
       setCheckVehicles(checkVehicles);
     }
-    console.log(checkVehicles);
   };
 
   const checkHandler = ({ target }) => {
     setIsChecked(!isChecked);
     checkedVehicleHandler(target.value, target.checked);
-    console.log(target.value, target.checked);
   };
 
   const onChange = (e) => {
@@ -126,47 +138,67 @@ const MoveDataDiv = ({ day, index }) => {
     return [hour, minute];
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = () => {
     let tmp = getTime(time);
     setTime({
       hour: tmp[0],
       minute: tmp[1],
     });
-    setTimeData(day.days, index, time, 'move');
+    setTimeData(day.days, index, time, 'move', [...checkVehicles]);
     closeModal();
   };
 
   return (
     <Container>
-      <Div>
-        <Span>
-          <MdMode onClick={openModal} />
-        </Span>
-        {console.log(
-          userPlan.travelDays[day.days - 1].locations[index].movingTime,
-        )}
-        {/* 작업중 0411 */}
-      </Div>
-      {/* {userPlan.movingTime === undefined && (
+      {locInfo.movingTime === undefined && (
         <Div>
           <Span>
             <MdMode onClick={openModal} />
           </Span>
         </Div>
       )}
-      {moveData[index] !== undefined && (
+      {locInfo.movingTime !== undefined && (
         <Div>
           <Span>
             <BubbleDiv>
-              {moveObj.vehicle}
               <BubbleDiv margin>
-                <div>{getTime(moveObj.time)}</div>
+                {locInfo.vehicles.map((e) => {
+                  switch (e) {
+                    case 'car':
+                      return (
+                        <div key={e}>
+                          <MdDirectionsCar />
+                        </div>
+                      );
+                    case 'bus':
+                      return (
+                        <div key={e}>
+                          <MdDirectionsBus />
+                        </div>
+                      );
+                    case 'walk':
+                      return (
+                        <div key={e}>
+                          <MdDirectionsWalk />
+                        </div>
+                      );
+                    case 'bike':
+                      return (
+                        <div key={e}>
+                          <MdDirectionsBike />
+                        </div>
+                      );
+                    default:
+                      break;
+                  }
+                })}
+                <TimeDiv>{locInfo.movingTime}</TimeDiv>
                 <MdMode onClick={openModal} />
               </BubbleDiv>
             </BubbleDiv>
           </Span>
         </Div>
-      )} */}
+      )}
       <ModalModule
         modalIsOpen={modalIsOpen}
         openModal={openModal}
@@ -179,8 +211,8 @@ const MoveDataDiv = ({ day, index }) => {
           checkHandler={checkHandler}
           onChange={onChange}
           time={time}
+          checkVehicles={[...checkVehicles]}
         />
-        {/* 내부요소, children */}
       </ModalModule>
     </Container>
   );
