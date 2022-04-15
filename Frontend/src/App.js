@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   // Routes, Route,
   useRoutes,
@@ -9,8 +9,13 @@ import CanvasMainPage from 'pages/CanvasPages/CanvasMainPage';
 import HeaderContainer from './containers/common/HeaderContainer';
 // import LandingPage from 'pages/LandingPage';
 import Modal from 'react-modal';
+import { onSilentRefresh } from 'lib/api/auth';
 
 function App() {
+  useEffect(() => {
+    onSilentRefresh('bearer e');
+  }, []);
+
   return (
     <>
       <HeaderContainer />

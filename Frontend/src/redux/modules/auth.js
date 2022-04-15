@@ -26,7 +26,9 @@ export const changeField = createAction(
   }),
 );
 
+// createAction(타입, 현재 상태)
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form); // signup, login
+// export const initializeForm = (form) => ({type: INITIALIZE_FORM, form})
 
 export const signup = createAction(
   SIGNUP,
@@ -97,6 +99,18 @@ const initialState = {
 //       }
 //   }
 // }
+
+// const auth = (state = initState, action) => {
+//   switch (action.type) {
+//     case CHANGE_USER:
+//       return { ...state, user: action.user };
+//   }
+// };
+
+// import { handleActions } from 'redux-actions';
+// const reducer = handleActions({
+//   [CHANGE_USER]: (state, action) => ({ ...state, user: action.user }),
+// });
 
 const auth = handleActions(
   {

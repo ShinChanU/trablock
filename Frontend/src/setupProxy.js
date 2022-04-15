@@ -9,12 +9,5 @@ module.exports = function (app) {
       //   '^/api': '' // URL ^/api -> 공백 변경
       // }
     }),
-    createProxyMiddleware('/user', {
-      target: 'http://localhost:8080',
-      changeOrigin: true,
-      // pathRewrite: {
-      //   '^/api': '' // URL ^/api -> 공백 변경
-      // }
-    }),
   );
 };

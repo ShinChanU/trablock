@@ -10,7 +10,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer, { rootSaga } from 'redux/modules';
 import createSagaMiddleware from 'redux-saga';
 import { tempSetUser, check } from 'redux/modules/user';
+import { CookiesProvider } from 'react-cookie';
+import axios from 'axios';
+import { setCookie, getCookie } from 'lib/cookies';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+
+axios.defaults.withCredentials = true;
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
