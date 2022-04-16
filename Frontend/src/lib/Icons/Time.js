@@ -18,31 +18,20 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const Input = styled.input`
+  margin-left: 10px;
+`;
+
 const Time = ({ title, day, index }) => {
   const { setTimeData } = useStore();
   // const { id, stayTime, startTime } = day;
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [time, setTime] = useState({
-    startH: '',
-    startM: '',
-    stayH: '',
-    stayM: '',
+  const [stayTime, setStayTime] = useState({
+    hour: '00',
+    min: '00',
   });
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    let tmpVal = value;
-    if (value < 0) {
-      tmpVal = 0;
-    }
-    if (value.length > 3) {
-      tmpVal = Math.floor(value / 10);
-    }
-    setTime({
-      ...time,
-      [name]: tmpVal,
-    });
-  };
+  const [startTime, setStartTime] = useState('00:00');
+  const { hour, min } = stayTime;
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -52,10 +41,41 @@ const Time = ({ title, day, index }) => {
     setModalIsOpen(false);
   };
 
-  const { startH, startM, stayH, stayM } = time;
+  const onChangeStartTime = (e) => {
+    setStartTime(e.target.value);
+  };
 
-  const onSubmit = () => {
-    setTimeData(day.days, index, time);
+  const onChangeStayTime = (e) => {
+    const { name, value } = e.target;
+    if (parseInt(value) < 0) {
+      setStayTime({
+        ...stayTime,
+        [name]: 0,
+      });
+    } else if (name === 'hour' && parseInt(value) >= 24) {
+      setStayTime({
+        ...stayTime,
+        hour: '23',
+      });
+    } else if (name === 'min' && parseInt(value) >= 60) {
+      setStayTime({
+        ...stayTime,
+        min: '59',
+      });
+    } else {
+      setStayTime({
+        ...stayTime,
+        [name]: value,
+      });
+    }
+  };
+
+  const onSubmit = (e) => {
+    if (index === 0) {
+      setTimeData(day.days, index, startTime, 'time');
+    } else {
+      setTimeData(day.days, index, stayTime, 'time');
+    }
     closeModal();
   };
 
@@ -77,34 +97,33 @@ const Time = ({ title, day, index }) => {
           {title === '출발시각' && (
             <div>
               출발시각
-              <TimeInput
-                onChange={onChange}
-                placeholder="시간"
-                name="startH"
-                value={startH}
-              />
-              <TimeInput
-                onChange={onChange}
-                placeholder="분"
-                name="startM"
-                value={startM}
+              <Input
+                type="time"
+                value={startTime}
+                onChange={onChangeStartTime}
               />
             </div>
           )}
           {title === '체류시간' && (
             <div>
               체류시간
-              <TimeInput
-                onChange={onChange}
+              <Input
+                type="number"
+                onChange={onChangeStayTime}
                 placeholder="시간"
-                name="stayH"
-                value={stayH}
+                name="hour"
+                value={hour}
+                min="0"
+                max="23"
               />
-              <TimeInput
-                onChange={onChange}
+              <Input
+                type="number"
+                onChange={onChangeStayTime}
                 placeholder="분"
-                name="stayM"
-                value={stayM}
+                name="min"
+                value={min}
+                min="0"
+                max="59"
               />
             </div>
           )}

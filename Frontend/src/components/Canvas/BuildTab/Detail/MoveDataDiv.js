@@ -78,8 +78,8 @@ const MoveDataDiv = ({ day, index }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [checkVehicles, setCheckVehicles] = useState(new Set());
   const [time, setTime] = useState({
-    hour: '',
-    minute: '',
+    hour: '00',
+    min: '00',
   });
   const [moveObj, setMoveObj] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -102,17 +102,27 @@ const MoveDataDiv = ({ day, index }) => {
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    let tmpVal = value;
-    if (value < 0) {
-      tmpVal = 0;
+    if (parseInt(value) < 0) {
+      setTime({
+        ...time,
+        [name]: 0,
+      });
+    } else if (name === 'hour' && parseInt(value) >= 24) {
+      setTime({
+        ...time,
+        hour: '23',
+      });
+    } else if (name === 'min' && parseInt(value) >= 60) {
+      setTime({
+        ...time,
+        min: '59',
+      });
+    } else {
+      setTime({
+        ...time,
+        [name]: value,
+      });
     }
-    if (value.length > 3) {
-      tmpVal = Math.floor(value / 10);
-    }
-    setTime({
-      ...time,
-      [name]: tmpVal,
-    });
   };
   const openModal = () => {
     setModalIsOpen(true);
@@ -139,11 +149,6 @@ const MoveDataDiv = ({ day, index }) => {
   };
 
   const onSubmit = () => {
-    let tmp = getTime(time);
-    setTime({
-      hour: tmp[0],
-      minute: tmp[1],
-    });
     setTimeData(day.days, index, time, 'move', [...checkVehicles]);
     closeModal();
   };

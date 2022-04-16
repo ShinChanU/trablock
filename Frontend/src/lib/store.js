@@ -109,6 +109,11 @@ export const useStore = create(
         const days = get().userPlan.travelDays;
         const dayLocArr = days[toDayId - 1];
         loc['copy_id'] = uuid(); // copy_id 지정
+        loc.startTime = '';
+        loc.stayTime = '';
+        loc.vehicles = [];
+        loc.movingTime = '';
+        loc.arriveTime = '';
         dayLocArr.locations.splice(toLocIdx, 0, loc);
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
@@ -119,10 +124,6 @@ export const useStore = create(
         const endDayLocArr = get().userPlan.travelDays[toDayId - 1].locations;
         const [loc] = startDayLocArr.splice(frLocIdx, 1);
         endDayLocArr.splice(toLocIdx, 0, loc);
-        // const fromDay = parseInt(frDayId);
-        // const loc = days[fromDay - 1].locationIds.splice(frLocIdx, 1);
-        // const cate = days[fromDay - 1].locationTypes.splice(frLocIdx, 1);
-        // days[toDay - 1].locationIds.splice(toLocIdx, 0, loc[0]);
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
@@ -278,31 +279,65 @@ export const useStore = create(
         };
       },
 
-      // 출발, 체류시간 저장 0401
-      setTimeData: (dayId, index, time, flag, vehicles) => {
-        const loc = get().userPlan.travelDays[dayId - 1].locations[index];
-        const { startH, startM, stayH, stayM, hour, minute } = time;
-        if (flag === 'move') {
-          loc['movingTime'] = `${hour}:${minute}`;
-          loc['vehicles'] = vehicles;
-        } else {
-          if (stayH !== '') {
-            // 체류시간
-            loc['stayTime'] = `${stayH}:${stayM}`;
-          } else if (startH !== '') {
-            // 출발시각
-            loc['startTime'] = `${startH}:${startM}`;
-          }
+      calcTime: (timeA, timeB) => {
+        // time 형태는 hh:mm
+        let [aHour, aMin] = timeA.split(':');
+        let [bHour, bMin] = timeB.split(':');
+        let rHour = Number(aHour) + Number(bHour);
+        let rMin = Number(aMin) + Number(bMin);
+        if (rMin >= 60) {
+          rHour++;
+          rMin -= 60;
         }
+        if (rHour >= 24) rHour = rHour % 24;
+        return `${rHour}:${rMin}`;
+      },
+
+      // 출발, 체류시간 저장 0401
+      // 0416 수정중
+      // location과 시간데이터를 분리해서 적용시켜야하나...
+      // dnd가 마구잡이로 진행시 시간 데이터가 섞이는 경우 발생..
+      // 재설계가 필요한가...
+      setTimeData: (dayId, index, time, flag, vehiclesArr) => {
+        const nowLoc = get().userPlan.travelDays[dayId - 1].locations[index];
+        const nextLoc =
+          get().userPlan.travelDays[dayId - 1].locations[index + 1];
+
+        if (flag === 'time') {
+          if (index === 0) {
+            nowLoc['startTime'] = time;
+          } else {
+            const { hour, min } = time;
+            nowLoc['stayTime'] = `${hour}:${min}`;
+            if (nowLoc.arriveTime !== '') {
+              nowLoc.startTime = get().calcTime(
+                nowLoc.arriveTime,
+                nowLoc.stayTime,
+              );
+            }
+          }
+        } else if (flag === 'move') {
+          const { hour, min } = time;
+          nowLoc['movingTime'] = `${hour}:${min}`;
+          nowLoc['vehicles'] = vehiclesArr;
+        }
+
+        if (nowLoc['startTime'] !== '' && nowLoc['movingTime'] !== '') {
+          nextLoc.arriveTime = get().calcTime(
+            nowLoc['startTime'],
+            nowLoc['movingTime'],
+          );
+        }
+        console.log(nowLoc);
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
       // 출발시간, 체류시간, 이동수단, 이동시간, 도착시간
-      startTime: '',
-      stayTime: '',
-      vehicles: [],
-      movingTime: '',
-      arriveTime: '',
+      // startTime: '',
+      // stayTime: '',
+      // vehicles: [],
+      // movingTime: '',
+      // arriveTime: '',
     }),
     // {
     //   name: 'plan storage',

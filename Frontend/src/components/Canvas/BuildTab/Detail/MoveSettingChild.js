@@ -6,7 +6,7 @@ import {
   MdDirectionsWalk,
   MdDirectionsBike,
 } from 'react-icons/md';
-import TimeInput from 'components/Canvas/common/TimeInput';
+// import TimeInput from 'components/Canvas/common/TimeInput';
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +36,10 @@ const Input = styled.input`
   height: 16px;
 `;
 
+const TimeInput = styled.input`
+  margin-left: 10px;
+`;
+
 const Time = styled.div`
   margin-left: 20px;
   margin-right: 10px;
@@ -54,6 +58,7 @@ const MoveSettingChild = ({
   time,
   checkVehicles,
 }) => {
+  const { hour, min } = time;
   return (
     <Container>
       <VehicleDiv>
@@ -76,21 +81,25 @@ const MoveSettingChild = ({
         </Vehicle>
       </VehicleDiv>
       <Time>
-        <div>소요 시간(선택)</div>
+        <div>이동 시간</div>
         <TimeInput
           onChange={onChange}
           placeholder="시간"
           name="hour"
-          value={time.hour}
+          value={hour}
+          min="0"
+          max="23"
         />
         <TimeInput
           onChange={onChange}
           placeholder="분"
-          name="minute"
-          value={time.minute}
+          name="min"
+          value={min}
+          min="0"
+          max="59"
         />
         <div>
-          {time.hour}시간 {time.minute}분 소요
+          {hour}시간 {min}분 소요
         </div>
       </Time>
     </Container>

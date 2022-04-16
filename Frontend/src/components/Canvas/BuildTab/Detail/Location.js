@@ -19,6 +19,11 @@ const Container = styled.div`
   background: ${(props) => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
+const Span = styled.span`
+  font-weight: normal;
+  font-size: 10px;
+`;
+
 const Div = styled.div`
   ${(props) =>
     props.index === 0 &&
@@ -125,7 +130,7 @@ const Location = ({ location, index, day, id }) => {
   return (
     <>
       {/* location */}
-      {day && console.log(day.locations[index - 1])}
+      {/* {day && console.log(day.locations[index - 1])} */}
       <Draggable
         draggableId={String(id)}
         index={index}
@@ -149,7 +154,12 @@ const Location = ({ location, index, day, id }) => {
                 </ImgDiv>
                 <ListDiv>
                   <div>
-                    <div>{location.name}</div>
+                    <div>
+                      <>{location.name}</>
+                      {day && index !== 0 && location.arriveTime !== '' && (
+                        <Span>(도착 시간: {location.arriveTime})</Span>
+                      )}
+                    </div>
                     {day ? (
                       <LocTime>
                         {index === 0 ? (
