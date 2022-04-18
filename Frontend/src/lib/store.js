@@ -100,22 +100,33 @@ export const useStore = create(
         // locArr와 index 가 오면 해당 location 데이터 수정
         if (flag === 'add') {
           // loc이 추가가되어서 재 정렬 필요
-          let prevLoc = arr[i - 2];
-          let nowLoc = arr[i];
-          if (i !== 1) {
+          let nowLoc = arr[i + 1];
+          if (i !== 0) {
+            let prevLoc = arr[i - 1];
             prevLoc.movingTime = '';
             prevLoc.vehicles = [];
           }
           nowLoc.startTime = '';
           nowLoc.arriveTime = '';
+        } else if (flag === 'del') {
+          let prevLoc = arr[i - 1];
+          let nowLoc = arr[i];
+          if (i !== 0) {
+            prevLoc.movingTime = '';
+            prevLoc.vehicles = [];
+          }
+          nowLoc.startTime = '';
+          nowLoc.arriveTime = '';
+        } else if (flag === 'time') {
         }
-        console.log(arr);
       },
 
       // day에서 location 제거, dnd
       dayLocDel: (dayId, idx) => {
         const dayLocArr = get().userPlan.travelDays[dayId - 1].locations;
         dayLocArr.splice(idx, 1);
+        if (idx !== 0 && idx !== dayLocArr.length)
+          get().autoTimeSet(dayLocArr, idx, 'del');
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
@@ -141,9 +152,8 @@ export const useStore = create(
           }
         }
         dayLocArr.locations.splice(toLocIdx, 0, loc);
-        console.log('Test');
-        for (let i = toLocIdx + 1; i < dayLocArr.locations.length; i++)
-          get().autoTimeSet(dayLocArr.locations, i, 'add');
+        if (toLocIdx !== dayLocArr.locations.length - 1)
+          get().autoTimeSet(dayLocArr.locations, toLocIdx, 'add');
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
@@ -153,7 +163,6 @@ export const useStore = create(
         const startDayLocArr = get().userPlan.travelDays[frDayId - 1].locations;
         const endDayLocArr = get().userPlan.travelDays[toDayId - 1].locations;
         const [loc] = startDayLocArr.splice(frLocIdx, 1);
-        console.log(loc);
         if (toLocIdx !== 0) {
           const prevLoc = endDayLocArr[toLocIdx - 1];
           if (prevLoc['startTime'] !== '' && prevLoc['movingTime'] !== '') {
@@ -169,6 +178,64 @@ export const useStore = create(
         loc.movingTime = '';
         loc.vehicles = [];
         endDayLocArr.splice(toLocIdx, 0, loc);
+        set((state) => ({ userPlan: { ...state.userPlan } }));
+      },
+
+      calcTime: (timeA, timeB) => {
+        // time 형태는 hh:mm
+        let [aHour, aMin] = timeA.split(':');
+        let [bHour, bMin] = timeB.split(':');
+        let rHour = Number(aHour) + Number(bHour);
+        let rMin = Number(aMin) + Number(bMin);
+        if (rMin >= 60) {
+          rHour++;
+          rMin -= 60;
+        }
+        if (rHour >= 24) rHour = rHour % 24;
+        return `${rHour}:${rMin}`;
+      },
+
+      // 출발, 체류시간 저장 0401
+      // 0416 수정중
+      // location과 시간데이터를 분리해서 적용시켜야하나...
+      // dnd가 마구잡이로 진행시 시간 데이터가 섞이는 경우 발생..
+      // 재설계가 필요한가...
+      setTimeData: (dayId, index, time, flag, vehiclesArr) => {
+        const locArr = get().userPlan.travelDays[dayId - 1].locations;
+        const nowLoc = locArr[index];
+        const nextLoc = locArr[index + 1];
+
+        // get().autoTimeSet(locArr, index, "time");
+
+        // 0419
+        // for 문 활용 입력된 값 기준 뒤의 loc 값들 수정.(start, arrive)
+
+        if (flag === 'time') {
+          if (index === 0) {
+            nowLoc['startTime'] = time;
+          } else {
+            const { hour, min } = time;
+            nowLoc['stayTime'] = `${hour}:${min}`;
+            if (nowLoc.arriveTime !== '') {
+              // nowLoc.startTime = get().calcTime(
+              //   nowLoc.arriveTime,
+              //   nowLoc.stayTime,
+              // );
+            }
+          }
+        } else if (flag === 'move') {
+          const { hour, min } = time;
+          nowLoc['movingTime'] = `${hour}:${min}`;
+          nowLoc['vehicles'] = vehiclesArr;
+        }
+
+        if (nowLoc['startTime'] !== '' && nowLoc['movingTime'] !== '') {
+          nextLoc.arriveTime = get().calcTime(
+            nowLoc['startTime'],
+            nowLoc['movingTime'],
+          );
+        }
+        console.log(nowLoc);
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
@@ -323,66 +390,6 @@ export const useStore = create(
           restaurant: rest,
         };
       },
-
-      calcTime: (timeA, timeB) => {
-        // time 형태는 hh:mm
-        let [aHour, aMin] = timeA.split(':');
-        let [bHour, bMin] = timeB.split(':');
-        let rHour = Number(aHour) + Number(bHour);
-        let rMin = Number(aMin) + Number(bMin);
-        if (rMin >= 60) {
-          rHour++;
-          rMin -= 60;
-        }
-        if (rHour >= 24) rHour = rHour % 24;
-        return `${rHour}:${rMin}`;
-      },
-
-      // 출발, 체류시간 저장 0401
-      // 0416 수정중
-      // location과 시간데이터를 분리해서 적용시켜야하나...
-      // dnd가 마구잡이로 진행시 시간 데이터가 섞이는 경우 발생..
-      // 재설계가 필요한가...
-      setTimeData: (dayId, index, time, flag, vehiclesArr) => {
-        const nowLoc = get().userPlan.travelDays[dayId - 1].locations[index];
-        const nextLoc =
-          get().userPlan.travelDays[dayId - 1].locations[index + 1];
-
-        if (flag === 'time') {
-          if (index === 0) {
-            nowLoc['startTime'] = time;
-          } else {
-            const { hour, min } = time;
-            nowLoc['stayTime'] = `${hour}:${min}`;
-            if (nowLoc.arriveTime !== '') {
-              // nowLoc.startTime = get().calcTime(
-              //   nowLoc.arriveTime,
-              //   nowLoc.stayTime,
-              // );
-            }
-          }
-        } else if (flag === 'move') {
-          const { hour, min } = time;
-          nowLoc['movingTime'] = `${hour}:${min}`;
-          nowLoc['vehicles'] = vehiclesArr;
-        }
-
-        if (nowLoc['startTime'] !== '' && nowLoc['movingTime'] !== '') {
-          nextLoc.arriveTime = get().calcTime(
-            nowLoc['startTime'],
-            nowLoc['movingTime'],
-          );
-        }
-        console.log(nowLoc);
-        set((state) => ({ userPlan: { ...state.userPlan } }));
-      },
-
-      // 출발시간, 체류시간, 이동수단, 이동시간, 도착시간
-      // startTime: '',
-      // stayTime: '',
-      // vehicles: [],
-      // movingTime: '',
-      // arriveTime: '',
     }),
     // {
     //   name: 'plan storage',
