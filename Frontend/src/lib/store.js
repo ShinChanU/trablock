@@ -95,6 +95,23 @@ export const useStore = create(
       //   restaurant: [],
       // },
 
+      autoTimeSet: (arr, i, flag) => {
+        // 0418 작업중
+        // locArr와 index 가 오면 해당 location 데이터 수정
+        if (flag === 'add') {
+          // loc이 추가가되어서 재 정렬 필요
+          let prevLoc = arr[i - 2];
+          let nowLoc = arr[i];
+          if (i !== 1) {
+            prevLoc.movingTime = '';
+            prevLoc.vehicles = [];
+          }
+          nowLoc.startTime = '';
+          nowLoc.arriveTime = '';
+        }
+        console.log(arr);
+      },
+
       // day에서 location 제거, dnd
       dayLocDel: (dayId, idx) => {
         const dayLocArr = get().userPlan.travelDays[dayId - 1].locations;
@@ -114,15 +131,43 @@ export const useStore = create(
         loc.vehicles = [];
         loc.movingTime = '';
         loc.arriveTime = '';
+        if (toLocIdx !== 0) {
+          const prevLoc = dayLocArr.locations[toLocIdx - 1];
+          if (prevLoc['startTime'] !== '' && prevLoc['movingTime'] !== '') {
+            loc.arriveTime = get().calcTime(
+              prevLoc['startTime'],
+              prevLoc['movingTime'],
+            );
+          }
+        }
         dayLocArr.locations.splice(toLocIdx, 0, loc);
+        console.log('Test');
+        for (let i = toLocIdx + 1; i < dayLocArr.locations.length; i++)
+          get().autoTimeSet(dayLocArr.locations, i, 'add');
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
       // day에서 day로 dnd
+      // startTime, vehicles, movingTime 초기화, arriveTime 재지정 필요
       dayLocChange: (toDayId, toLocIdx, frDayId, frLocIdx) => {
         const startDayLocArr = get().userPlan.travelDays[frDayId - 1].locations;
         const endDayLocArr = get().userPlan.travelDays[toDayId - 1].locations;
         const [loc] = startDayLocArr.splice(frLocIdx, 1);
+        console.log(loc);
+        if (toLocIdx !== 0) {
+          const prevLoc = endDayLocArr[toLocIdx - 1];
+          if (prevLoc['startTime'] !== '' && prevLoc['movingTime'] !== '') {
+            loc.arriveTime = get().calcTime(
+              prevLoc['startTime'],
+              prevLoc['movingTime'],
+            );
+          }
+        } else {
+          loc.stayTime = '';
+        }
+        loc.startTime = '';
+        loc.movingTime = '';
+        loc.vehicles = [];
         endDayLocArr.splice(toLocIdx, 0, loc);
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
@@ -310,10 +355,10 @@ export const useStore = create(
             const { hour, min } = time;
             nowLoc['stayTime'] = `${hour}:${min}`;
             if (nowLoc.arriveTime !== '') {
-              nowLoc.startTime = get().calcTime(
-                nowLoc.arriveTime,
-                nowLoc.stayTime,
-              );
+              // nowLoc.startTime = get().calcTime(
+              //   nowLoc.arriveTime,
+              //   nowLoc.stayTime,
+              // );
             }
           }
         } else if (flag === 'move') {

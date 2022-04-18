@@ -113,10 +113,9 @@ const getRenderItem = (items, className) => (provided, snapshot, rubric) => {
 const Location = ({ location, index, day, id }) => {
   const { dayLocDel, userPlan } = useStore();
 
-  // useEffect(() => {
-  //   // console.log(day);
-  //   if (day.locations) console.log(day.locations);
-  // }, []);
+  useEffect(() => {
+    console.log(day);
+  }, [day]);
   // let stayT = '';
 
   // if (day !== undefined) {
@@ -124,7 +123,7 @@ const Location = ({ location, index, day, id }) => {
   // }
 
   const onClick = () => {
-    dayLocDel(day.days, index);
+    dayLocDel(day.days, index); // 함수수정,
   };
 
   return (
@@ -170,8 +169,7 @@ const Location = ({ location, index, day, id }) => {
                           </>
                         ) : (
                           <>
-                            {location.stayTime &&
-                            day.locations[index - 1].startTime
+                            {location.stayTime
                               ? `체류시간 : ${location.stayTime}`
                               : '체류시간과 이동수단 및 시간을 입력해주세용'}
                           </>

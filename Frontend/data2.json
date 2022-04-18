@@ -15,18 +15,24 @@
           "location": [
             {
               "id": 13,
-              "type": "attraction",
-              "startTime": "12:30",
-              "stayTime": "",
-              "vehicles": "car",
-              "movingTime": "1:00"
+              "type": "attraction"
             },
             {
               "id": 25,
-              "type": "lodge",
-              "startTime": "15:30",
-              "stayTime": "13:30",
-              "vehicles": "",
+              "type": "lodge"
+            }
+          ],
+          "timeData": [
+            {
+              "startTime": "",
+              "stayTime": "",
+              "vehicles": [],
+              "movingTime": ""
+            },
+            {
+              "startTime": "",
+              "stayTime": "",
+              "vehicles": [],
               "movingTime": ""
             }
           ]
