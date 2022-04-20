@@ -46,10 +46,13 @@ const Div = styled.div`
 const Span = styled.span`
   /* border: 1px solid black; */
   display: inline-block;
+  vertical-align: middle;
+  /* margin: auto; */
+  /* align-items: center; */
   padding: 5px;
   color: white;
+  line-height: 30px;
   /* background: blue; */
-  /* background-color: ${oc.teal[6]}; */
   background-color: black;
   border-radius: 20px;
 `;
@@ -198,7 +201,7 @@ const MoveDataDiv = ({ day, index }) => {
                   }
                 })}
                 <TimeDiv>{locInfo.movingTime}</TimeDiv>
-                <MdMode onClick={openModal} />
+                <MdMode onClick={openModal} size="20px" />
               </BubbleDiv>
             </BubbleDiv>
           </Span>

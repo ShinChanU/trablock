@@ -97,7 +97,6 @@ const PlanDays = () => {
                         <MoveDataDiv
                           day={day}
                           index={idx}
-
                           // moveData={moveData}
                           // 백엔트와
                           // 소통

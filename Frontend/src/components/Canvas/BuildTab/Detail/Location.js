@@ -111,11 +111,13 @@ const getRenderItem = (items, className) => (provided, snapshot, rubric) => {
 };
 
 const Location = ({ location, index, day, id }) => {
-  const { dayLocDel, userPlan } = useStore();
+  const { dayLocDel, userPlan, splitTime } = useStore();
 
-  useEffect(() => {
-    console.log(day);
-  }, [day]);
+  if (location.stayTime !== '') {
+    console.log('test');
+  }
+  // useEffect(() => {
+  // }, [location]);
   // let stayT = '';
 
   // if (day !== undefined) {
@@ -124,6 +126,19 @@ const Location = ({ location, index, day, id }) => {
 
   const onClick = () => {
     dayLocDel(day.days, index); // 함수수정,
+  };
+
+  // 0421 수정
+  const timer = (x, flag) => {
+    let [hour, min] = splitTime(x);
+    let hourStr, minStr;
+    if (flag === 'start') {
+      hourStr = hour === '00' ? '0시' : `${parseInt(hour)}시`;
+    } else {
+      hourStr = hour === '00' ? '' : `${parseInt(hour)}시간`;
+    }
+    minStr = min === '00' ? `0분` : `${parseInt(min)}분`;
+    return `${hourStr} ${minStr}`;
   };
 
   return (
@@ -164,13 +179,13 @@ const Location = ({ location, index, day, id }) => {
                         {index === 0 ? (
                           <>
                             {location.startTime
-                              ? `${location.startTime} 출발`
+                              ? `${timer(location.startTime, 'start')} 출발`
                               : `출발지의 출발시각을 입력해주세용`}
                           </>
                         ) : (
                           <>
                             {location.stayTime
-                              ? `체류시간 : ${location.stayTime}`
+                              ? `${timer(location.stayTime, 'stay')} 체류`
                               : '체류시간과 이동수단 및 시간을 입력해주세용'}
                           </>
                         )}

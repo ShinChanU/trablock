@@ -118,6 +118,13 @@ export const useStore = create(
           nowLoc.startTime = '';
           nowLoc.arriveTime = '';
         } else if (flag === 'time') {
+          let prevLoc = arr[i - 1];
+          let nowLoc = arr[i];
+          let startT = prevLoc.startTime;
+          let movT = prevLoc.movingTime;
+          if (startT !== '' && movT !== '')
+            nowLoc.arriveTime = get().calcTime(startT, movT);
+          console.log(nowLoc);
         }
       },
 
@@ -181,6 +188,13 @@ export const useStore = create(
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
+      splitTime: (time) => {
+        let [hour, min] = time.split(':');
+        parseInt(hour);
+        parseInt(min);
+        return [hour, min];
+      },
+
       calcTime: (timeA, timeB) => {
         // time 형태는 hh:mm
         let [aHour, aMin] = timeA.split(':');
@@ -205,8 +219,6 @@ export const useStore = create(
         const nowLoc = locArr[index];
         const nextLoc = locArr[index + 1];
 
-        // get().autoTimeSet(locArr, index, "time");
-
         // 0419
         // for 문 활용 입력된 값 기준 뒤의 loc 값들 수정.(start, arrive)
 
@@ -214,14 +226,21 @@ export const useStore = create(
           if (index === 0) {
             nowLoc['startTime'] = time;
           } else {
-            const { hour, min } = time;
-            nowLoc['stayTime'] = `${hour}:${min}`;
-            if (nowLoc.arriveTime !== '') {
-              // nowLoc.startTime = get().calcTime(
-              //   nowLoc.arriveTime,
-              //   nowLoc.stayTime,
-              // );
+            let { hour, min } = time;
+            // if (parseInt(hour) === 0) hour =
+            if (hour === '' && min === '') nowLoc['stayTime'] = '';
+            else {
+              if (hour === '0' || hour === '') hour = '00';
+              if (min === '0' || min === '') min = '00';
+
+              nowLoc['stayTime'] = `${hour}:${min}`;
             }
+            // if (nowLoc.arriveTime !== '') {
+            // nowLoc.startTime = get().calcTime(
+            //   nowLoc.arriveTime,
+            //   nowLoc.stayTime,
+            // );
+            // }
           }
         } else if (flag === 'move') {
           const { hour, min } = time;
@@ -229,13 +248,17 @@ export const useStore = create(
           nowLoc['vehicles'] = vehiclesArr;
         }
 
-        if (nowLoc['startTime'] !== '' && nowLoc['movingTime'] !== '') {
-          nextLoc.arriveTime = get().calcTime(
-            nowLoc['startTime'],
-            nowLoc['movingTime'],
-          );
-        }
+        // if (nowLoc['startTime'] !== '' && nowLoc['movingTime'] !== '') {
+        //   nextLoc.arriveTime = get().calcTime(
+        //     nowLoc['startTime'],
+        //     nowLoc['movingTime'],
+        //   );
+        // }
         console.log(nowLoc);
+        // get().autoTimeSet(locArr, index, "time");
+        for (let i = index + 1; i < locArr.length; i++) {
+          get().autoTimeSet(locArr, i, 'time');
+        }
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 

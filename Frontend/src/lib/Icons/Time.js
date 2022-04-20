@@ -6,6 +6,7 @@ import ModalModule from 'components/common/modal/ModalModule';
 import TimeInput from 'components/Canvas/common/TimeInput';
 import ReactTooltip from 'react-tooltip';
 import { useStore } from 'lib/store';
+import produce from 'immer';
 
 const TimeBtn = styled(MdMoreTime)`
   cursor: pointer;
@@ -27,11 +28,11 @@ const Time = ({ title, day, index }) => {
   // const { id, stayTime, startTime } = day;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [stayTime, setStayTime] = useState({
-    hour: '00',
-    min: '00',
+    hour: '',
+    min: '',
   });
   const [startTime, setStartTime] = useState('00:00');
-  const { hour, min } = stayTime;
+  // const { hour, min } = stayTime;
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -47,6 +48,15 @@ const Time = ({ title, day, index }) => {
 
   const onChangeStayTime = (e) => {
     const { name, value } = e.target;
+    // if()
+    if (value.length > 2) {
+      console.log(name);
+      setStayTime({
+        ...stayTime,
+        [name]: '00',
+      });
+      return;
+    }
     if (parseInt(value) < 0) {
       setStayTime({
         ...stayTime,
@@ -71,6 +81,8 @@ const Time = ({ title, day, index }) => {
   };
 
   const onSubmit = (e) => {
+    console.log(day.days, index);
+    console.log(startTime, stayTime);
     if (index === 0) {
       setTimeData(day.days, index, startTime, 'time');
     } else {
@@ -79,6 +91,7 @@ const Time = ({ title, day, index }) => {
     closeModal();
   };
 
+  const { hour, min } = stayTime;
   return (
     <>
       <TimeBtn size="18" onClick={openModal} data-tip data-for="time" />
@@ -105,27 +118,35 @@ const Time = ({ title, day, index }) => {
             </div>
           )}
           {title === '체류시간' && (
-            <div>
-              체류시간
-              <Input
-                type="number"
-                onChange={onChangeStayTime}
-                placeholder="시간"
-                name="hour"
-                value={hour}
-                min="0"
-                max="23"
-              />
-              <Input
-                type="number"
-                onChange={onChangeStayTime}
-                placeholder="분"
-                name="min"
-                value={min}
-                min="0"
-                max="59"
-              />
-            </div>
+            <>
+              <div>
+                <Input
+                  type="number"
+                  onChange={onChangeStayTime}
+                  placeholder="시간"
+                  name="hour"
+                  value={hour}
+                  min="0"
+                  max="23"
+                />
+                &nbsp;시간
+                <Input
+                  type="number"
+                  onChange={onChangeStayTime}
+                  placeholder="분"
+                  name="min"
+                  value={min}
+                  min="0"
+                  max="59"
+                />
+                &nbsp;분
+              </div>
+              <div>
+                {parseInt(hour) > 0 ? `${hour}시간` : ''}
+                {parseInt(min) > 0 ? ` ${min}분` : ''}
+                {parseInt(hour) > 0 || parseInt(min) > 0 ? ' 체류 예상' : ''}
+              </div>
+            </>
           )}
         </Container>
       </ModalModule>
