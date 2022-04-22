@@ -96,10 +96,7 @@ export const useStore = create(
       // },
 
       autoTimeSet: (arr, i, flag) => {
-        // 0418 작업중
-        // locArr와 index 가 오면 해당 location 데이터 수정
         if (flag === 'add') {
-          // loc이 추가가되어서 재 정렬 필요
           let nowLoc = arr[i + 1];
           if (i !== 0) {
             let prevLoc = arr[i - 1];
@@ -119,12 +116,16 @@ export const useStore = create(
           nowLoc.arriveTime = '';
         } else if (flag === 'time') {
           let prevLoc = arr[i - 1];
-          let nowLoc = arr[i];
           let startT = prevLoc.startTime;
           let movT = prevLoc.movingTime;
+          let nowLoc = arr[i];
+          let stayT = nowLoc.stayTime;
           if (startT !== '' && movT !== '')
             nowLoc.arriveTime = get().calcTime(startT, movT);
-          console.log(nowLoc);
+          else nowLoc.arriveTime = '';
+
+          if (stayT !== '' && nowLoc.arriveTime !== '')
+            nowLoc.startTime = get().calcTime(stayT, nowLoc.arriveTime);
         }
       },
 
@@ -132,8 +133,9 @@ export const useStore = create(
       dayLocDel: (dayId, idx) => {
         const dayLocArr = get().userPlan.travelDays[dayId - 1].locations;
         dayLocArr.splice(idx, 1);
-        if (idx !== 0 && idx !== dayLocArr.length)
-          get().autoTimeSet(dayLocArr, idx, 'del');
+        for (let i = idx; i < dayLocArr.length; i++) {
+          get().autoTimeSet(dayLocArr, i, 'del');
+        }
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
@@ -151,21 +153,18 @@ export const useStore = create(
         loc.arriveTime = '';
         if (toLocIdx !== 0) {
           const prevLoc = dayLocArr.locations[toLocIdx - 1];
-          if (prevLoc['startTime'] !== '' && prevLoc['movingTime'] !== '') {
-            loc.arriveTime = get().calcTime(
-              prevLoc['startTime'],
-              prevLoc['movingTime'],
-            );
-          }
+          prevLoc.vehicles = [];
+          prevLoc.movingTime = '';
         }
         dayLocArr.locations.splice(toLocIdx, 0, loc);
-        if (toLocIdx !== dayLocArr.locations.length - 1)
-          get().autoTimeSet(dayLocArr.locations, toLocIdx, 'add');
+        console.log(toLocIdx, dayLocArr.locations);
+        for (let i = toLocIdx; i < dayLocArr.locations.length - 1; i++) {
+          get().autoTimeSet(dayLocArr.locations, i, 'add');
+        }
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
       // day에서 day로 dnd
-      // startTime, vehicles, movingTime 초기화, arriveTime 재지정 필요
       dayLocChange: (toDayId, toLocIdx, frDayId, frLocIdx) => {
         const startDayLocArr = get().userPlan.travelDays[frDayId - 1].locations;
         const endDayLocArr = get().userPlan.travelDays[toDayId - 1].locations;
@@ -185,6 +184,15 @@ export const useStore = create(
         loc.movingTime = '';
         loc.vehicles = [];
         endDayLocArr.splice(toLocIdx, 0, loc);
+        if (toDayId !== frDayId) {
+          for (let i = frLocIdx; i < startDayLocArr.length; i++) {
+            get().autoTimeSet(startDayLocArr, i, 'del');
+          }
+        }
+        let index = toLocIdx < frLocIdx ? toLocIdx : frLocIdx;
+        for (let i = index; i < endDayLocArr.length; i++) {
+          get().autoTimeSet(endDayLocArr, i, 'del');
+        }
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
@@ -206,60 +214,66 @@ export const useStore = create(
           rMin -= 60;
         }
         if (rHour >= 24) rHour = rHour % 24;
+        if (rHour / 10 < 1) rHour = `0${rHour}`;
+        if (rMin / 10 < 1) rMin = `0${rMin}`;
         return `${rHour}:${rMin}`;
       },
 
-      // 출발, 체류시간 저장 0401
-      // 0416 수정중
-      // location과 시간데이터를 분리해서 적용시켜야하나...
-      // dnd가 마구잡이로 진행시 시간 데이터가 섞이는 경우 발생..
-      // 재설계가 필요한가...
+      // 출발, 체류시간 저장
       setTimeData: (dayId, index, time, flag, vehiclesArr) => {
         const locArr = get().userPlan.travelDays[dayId - 1].locations;
         const nowLoc = locArr[index];
-        const nextLoc = locArr[index + 1];
-
-        // 0419
-        // for 문 활용 입력된 값 기준 뒤의 loc 값들 수정.(start, arrive)
-
+        console.log(time);
         if (flag === 'time') {
           if (index === 0) {
             nowLoc['startTime'] = time;
           } else {
             let { hour, min } = time;
-            // if (parseInt(hour) === 0) hour =
-            if (hour === '' && min === '') nowLoc['stayTime'] = '';
-            else {
+            if (hour === '' && min === '') {
+              nowLoc['stayTime'] = '';
+              nowLoc['startTime'] = '';
+            } else {
               if (hour === '0' || hour === '') hour = '00';
               if (min === '0' || min === '') min = '00';
-
               nowLoc['stayTime'] = `${hour}:${min}`;
+              if (nowLoc.arriveTime !== '') {
+                nowLoc.startTime = get().calcTime(
+                  nowLoc.arriveTime,
+                  nowLoc.stayTime,
+                );
+              }
             }
-            // if (nowLoc.arriveTime !== '') {
-            // nowLoc.startTime = get().calcTime(
-            //   nowLoc.arriveTime,
-            //   nowLoc.stayTime,
-            // );
-            // }
           }
         } else if (flag === 'move') {
-          const { hour, min } = time;
-          nowLoc['movingTime'] = `${hour}:${min}`;
-          nowLoc['vehicles'] = vehiclesArr;
+          let { hour, min } = time;
+          if (hour === '' && min === '') {
+            nowLoc['vehicles'] = [];
+            nowLoc['movingTime'] = '';
+          } else {
+            if (hour === '0' || hour === '') hour = '00';
+            if (min === '0' || min === '') min = '00';
+            nowLoc['movingTime'] = `${hour}:${min}`;
+            nowLoc['vehicles'] = vehiclesArr;
+          }
         }
-
-        // if (nowLoc['startTime'] !== '' && nowLoc['movingTime'] !== '') {
-        //   nextLoc.arriveTime = get().calcTime(
-        //     nowLoc['startTime'],
-        //     nowLoc['movingTime'],
-        //   );
-        // }
-        console.log(nowLoc);
-        // get().autoTimeSet(locArr, index, "time");
         for (let i = index + 1; i < locArr.length; i++) {
           get().autoTimeSet(locArr, i, 'time');
         }
         set((state) => ({ userPlan: { ...state.userPlan } }));
+      },
+
+      // 화면에서 보여주는 시간 함수
+      setViewTime: (time, flag) => {
+        let [hour, min] = get().splitTime(time);
+        let hourStr, minStr;
+        if (flag === 'start') {
+          hourStr = hour === '00' ? '0시' : `${parseInt(hour)}시`;
+        } else {
+          hourStr = hour === '00' ? '' : `${parseInt(hour)}시간`;
+        }
+        if (hourStr !== '' && min === '00') minStr = '';
+        else minStr = min === '00' ? `0분` : `${parseInt(min)}분`;
+        return `${hourStr} ${minStr}`;
       },
 
       // getSysLoc: async () => {

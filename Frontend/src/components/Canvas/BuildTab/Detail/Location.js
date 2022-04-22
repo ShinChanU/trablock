@@ -111,34 +111,10 @@ const getRenderItem = (items, className) => (provided, snapshot, rubric) => {
 };
 
 const Location = ({ location, index, day, id }) => {
-  const { dayLocDel, userPlan, splitTime } = useStore();
-
-  if (location.stayTime !== '') {
-    console.log('test');
-  }
-  // useEffect(() => {
-  // }, [location]);
-  // let stayT = '';
-
-  // if (day !== undefined) {
-  //   stayT = userPlan.travelDays[day.id - 1].stayTime[index + 1];
-  // }
+  const { dayLocDel, setViewTime } = useStore();
 
   const onClick = () => {
     dayLocDel(day.days, index); // 함수수정,
-  };
-
-  // 0421 수정
-  const timer = (x, flag) => {
-    let [hour, min] = splitTime(x);
-    let hourStr, minStr;
-    if (flag === 'start') {
-      hourStr = hour === '00' ? '0시' : `${parseInt(hour)}시`;
-    } else {
-      hourStr = hour === '00' ? '' : `${parseInt(hour)}시간`;
-    }
-    minStr = min === '00' ? `0분` : `${parseInt(min)}분`;
-    return `${hourStr} ${minStr}`;
   };
 
   return (
@@ -179,13 +155,16 @@ const Location = ({ location, index, day, id }) => {
                         {index === 0 ? (
                           <>
                             {location.startTime
-                              ? `${timer(location.startTime, 'start')} 출발`
+                              ? `${setViewTime(
+                                  location.startTime,
+                                  'start',
+                                )} 출발`
                               : `출발지의 출발시각을 입력해주세용`}
                           </>
                         ) : (
                           <>
                             {location.stayTime
-                              ? `${timer(location.stayTime, 'stay')} 체류`
+                              ? `${setViewTime(location.stayTime, 'stay')} 체류` // 0422 출발시간도 보여줄까?
                               : '체류시간과 이동수단 및 시간을 입력해주세용'}
                           </>
                         )}
@@ -194,15 +173,6 @@ const Location = ({ location, index, day, id }) => {
                       ''
                     )}
                   </div>
-                  {/* <div>{}</div> */}
-                  {/* <div>
-                    <div>{location.name}</div>
-                    <div>도착 예정 시간 (체류 시간)</div>
-                  </div>  */}
-                  {/* {!day && <>담기기 전!</>} */}
-                  {/* id는 일단 한글 name으로 설정해둚, 모든 location의 id가 다르게 생성되어야함 */}
-                  {/* {day && stayT !== undefined && <>체류시간 {stayT}</>}
-                  {day && stayT === undefined && <>체류시간을 설정해주세요.</>} */}
                   <Btn day={day}>
                     <Close size="18" onClick={onClick} tooltip={true} />
                     <Time
@@ -212,7 +182,6 @@ const Location = ({ location, index, day, id }) => {
                     />
                   </Btn>
                 </ListDiv>
-                {/* day에 보여지는 location 만 버튼 생성 */}
               </List>
             </Container>
             {/* 0404 작성중 */}

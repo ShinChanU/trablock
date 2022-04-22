@@ -83,6 +83,7 @@ const MoveSettingChild = ({
       <Time>
         <div>이동 시간</div>
         <TimeInput
+          type="number"
           onChange={onChange}
           placeholder="시간"
           name="hour"
@@ -91,6 +92,7 @@ const MoveSettingChild = ({
           max="23"
         />
         <TimeInput
+          type="number"
           onChange={onChange}
           placeholder="분"
           name="min"
@@ -99,7 +101,9 @@ const MoveSettingChild = ({
           max="59"
         />
         <div>
-          {hour}시간 {min}분 소요
+          {parseInt(hour) > 0 ? `${hour}시간` : ''}
+          {parseInt(min) > 0 ? ` ${min}분` : ''}
+          {parseInt(hour) > 0 || parseInt(min) > 0 ? ' 이동 예상' : ''}
         </div>
       </Time>
     </Container>

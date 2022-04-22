@@ -18,6 +18,7 @@ import {
 
 const Container = styled.div`
   position: relative;
+  width: 500px; // 이동 데이터 풍선과 관련
 `;
 
 const Div = styled.div`
@@ -34,7 +35,6 @@ const Div = styled.div`
     border-width: 10px 15px;
     top: 50%;
     margin-top: -10px;
-    /* border-color: transparent ${oc.teal[6]} transparent transparent; */
     border-color: transparent black transparent transparent;
     left: -25px;
   }
@@ -67,35 +67,42 @@ const BubbleDiv = styled.div`
       /* color: red; */
       /* margin-left: 30px; */
     `}
+  > div {
+    margin-right: 5px;
+  }
 `;
 
 const TimeDiv = styled.div`
-  display: flex;
-  align-items: center;
   margin-right: 5px;
 `;
 
 const MoveDataDiv = ({ day, index }) => {
-  const { userPlan, setTimeData } = useStore();
+  const { userPlan, setTimeData, setViewTime, splitTime } = useStore();
   const vehicleList = ['car', 'bus', 'walk', 'bike'];
   const [isChecked, setIsChecked] = useState(false);
   const [checkVehicles, setCheckVehicles] = useState(new Set());
   const [time, setTime] = useState({
-    hour: '00',
-    min: '00',
+    hour: '',
+    min: '',
   });
-  const [moveObj, setMoveObj] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const locInfo = userPlan.travelDays[day.days - 1].locations[index];
 
-  const checkedVehicleHandler = (value, isChecked) => {
-    if (isChecked) {
-      checkVehicles.add(value);
-      setCheckVehicles(checkVehicles);
-    } else if (!isChecked && checkVehicles.has(value)) {
-      checkVehicles.delete(value);
-      setCheckVehicles(checkVehicles);
+  useEffect(() => {
+    if (locInfo.movingTime !== '') {
+      let [hour, min] = splitTime(locInfo.movingTime);
+      console.log(hour, min);
+      setTime({
+        hour,
+        min,
+      });
     }
+  }, [locInfo.movingTime, splitTime, locInfo.vehicles, checkVehicles]);
+
+  const checkedVehicleHandler = (value, isChecked) => {
+    if (isChecked) setCheckVehicles((prev) => new Set(prev.add(value)));
+    else if (!isChecked && checkVehicles.has(value))
+      setCheckVehicles((prev) => new Set([...prev].filter((x) => x !== value)));
   };
 
   const checkHandler = ({ target }) => {
@@ -105,6 +112,14 @@ const MoveDataDiv = ({ day, index }) => {
 
   const onChange = (e) => {
     const { name, value } = e.target;
+    if (value.length > 2) {
+      console.log(value.substr(0, 2));
+      setTime({
+        ...time,
+        [name]: value.substr(0, 2),
+      });
+      return;
+    }
     if (parseInt(value) < 0) {
       setTime({
         ...time,
@@ -135,23 +150,8 @@ const MoveDataDiv = ({ day, index }) => {
     setModalIsOpen(false);
   };
 
-  const getTime = (time) => {
-    let hour = Number(time.hour);
-    let minute = Number(time.minute);
-    if (minute > 60) {
-      hour += Math.floor(minute / 60);
-      minute = minute % 60;
-      // return `${hour} h ${minute} min`;
-    }
-    if (hour === 0) {
-      // return `${minute} min`;
-    } else {
-      // return `${hour} h ${minute} min`;
-    }
-    return [hour, minute];
-  };
-
   const onSubmit = () => {
+    console.log(...checkVehicles);
     setTimeData(day.days, index, time, 'move', [...checkVehicles]);
     closeModal();
   };
@@ -200,7 +200,9 @@ const MoveDataDiv = ({ day, index }) => {
                       break;
                   }
                 })}
-                <TimeDiv>{locInfo.movingTime}</TimeDiv>
+                {locInfo.movingTime && (
+                  <TimeDiv>{setViewTime(locInfo.movingTime)}</TimeDiv>
+                )}
                 <MdMode onClick={openModal} size="20px" />
               </BubbleDiv>
             </BubbleDiv>
@@ -227,11 +229,3 @@ const MoveDataDiv = ({ day, index }) => {
 };
 
 export default MoveDataDiv;
-
-// ,
-//           "moveData": [
-//             {
-//               "vehicle": "car",
-//               "time": "100"
-//             }
-//           ]

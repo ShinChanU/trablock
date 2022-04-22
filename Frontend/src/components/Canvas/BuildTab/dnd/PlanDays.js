@@ -94,16 +94,7 @@ const PlanDays = () => {
                         day={day}
                       />
                       {day.locations[idx + 1] !== undefined && (
-                        <MoveDataDiv
-                          day={day}
-                          index={idx}
-                          // moveData={moveData}
-                          // 백엔트와
-                          // 소통
-                          // 이후
-                          // 결정
-                          // index={index}
-                        />
+                        <MoveDataDiv day={day} index={idx} />
                       )}
                     </div>
                   );
@@ -119,52 +110,3 @@ const PlanDays = () => {
 };
 
 export default PlanDays;
-
-/* {day.map((location, index) => {
-          return (
-            <>
-              <div>asd</div> */
-
-/* <div key={location.id} ref={coordRef}>
-              <Location
-              key={location.id}
-              location={location}
-              index={index}
-              onClick={onClick}
-              day={day}
-            />
-              moveData 관리 수정 필요 // 0317
-              {locations[index + 1] !== undefined && (
-              <MoveDataDiv
-                moveData={moveData}
-                백엔트와
-                소통
-                이후
-                결정
-                index={index}
-              />
-            )}
-          </div> */
-
-/* </>
-          );
-        })} */
-
-// </LocationsList>
-// ))}
-// );
-
-// 0317
-// 로케이션 블록 좌표 찾아서 moveDataDiv로 넘겨줘서, css에 position 잡을 때 사용 예정
-// useEffect(() => {
-// const ele = document.querySelectorAll('.test');
-// // const value = ele.getBoundingClientRect();
-// for (let i = 0; i < ele.length; i++) {
-//   console.log(ele[i].getBoundingClientRect());
-// }
-// console.log(coordRef);
-// .map((e) => e.getBoundingClientRect())
-// if (!coordRef.current) return;
-// const coord = coordRef.current.getBoundingClientRect();
-// console.log(coordRef.current, coord.top);
-// }, [locations]);

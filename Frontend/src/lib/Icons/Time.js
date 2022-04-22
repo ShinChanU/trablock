@@ -25,14 +25,12 @@ const Input = styled.input`
 
 const Time = ({ title, day, index }) => {
   const { setTimeData } = useStore();
-  // const { id, stayTime, startTime } = day;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [stayTime, setStayTime] = useState({
     hour: '',
     min: '',
   });
   const [startTime, setStartTime] = useState('00:00');
-  // const { hour, min } = stayTime;
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -48,12 +46,11 @@ const Time = ({ title, day, index }) => {
 
   const onChangeStayTime = (e) => {
     const { name, value } = e.target;
-    // if()
     if (value.length > 2) {
       console.log(name);
       setStayTime({
         ...stayTime,
-        [name]: '00',
+        [name]: value.substr(0, 2),
       });
       return;
     }
