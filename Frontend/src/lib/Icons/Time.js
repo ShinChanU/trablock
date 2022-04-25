@@ -78,8 +78,6 @@ const Time = ({ title, day, index }) => {
   };
 
   const onSubmit = (e) => {
-    console.log(day.days, index);
-    console.log(startTime, stayTime);
     if (index === 0) {
       setTimeData(day.days, index, startTime, 'time');
     } else {

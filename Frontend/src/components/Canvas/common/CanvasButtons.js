@@ -10,6 +10,7 @@ import {
   planDestination,
 } from 'containers/Canvas/TravelSettingForm';
 import { travelPlan } from 'containers/Canvas/BuildBlockForm';
+import { useStore } from 'lib/store';
 
 const AllButtonsDiv = styled.div`
   height: 50px;
@@ -49,6 +50,7 @@ const siteMap = ['setting', 'select', 'build', 'share'];
 
 const CanvasButtons = () => {
   const location = useLocation();
+  const { canvasPost } = useStore();
 
   // location.pathname은 '/canvas/setting'
   // const idx = siteMap.indexOf(location.pathname.substring(8));
@@ -112,6 +114,12 @@ const CanvasButtons = () => {
   //   alert('첫 페이지입니다.');
   // };
 
+  // 0425 test
+  const onClick = () => {
+    // console.log('test');
+    canvasPost();
+  };
+
   return (
     <AllButtonsDiv>
       <Div>
@@ -140,9 +148,12 @@ const CanvasButtons = () => {
             >
               {idx !== 3 && (
                 <StyledButton
-                  onClick={() => {
-                    onClickNext(idx);
-                  }}
+                  onClick={
+                    onClick
+                    //   () => {
+                    //   onClickNext(idx);
+                    // }
+                  }
                 >
                   다음으로 &gt;
                 </StyledButton>

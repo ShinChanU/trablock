@@ -1,14 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdMode } from 'react-icons/md';
-import oc from 'open-color';
-// import Modal from 'react-modal';
 import 'lib/styles/Modal.css';
-// import ModalModule from './ModalModule';
 import ModalModule from 'components/common/modal/ModalModule';
 import MoveSettingChild from './MoveSettingChild';
 import { useStore } from 'lib/store';
-// import Map from '../Map';
 import {
   MdDirectionsCar,
   MdDirectionsBus,
@@ -44,15 +40,11 @@ const Div = styled.div`
 `;
 
 const Span = styled.span`
-  /* border: 1px solid black; */
   display: inline-block;
   vertical-align: middle;
-  /* margin: auto; */
-  /* align-items: center; */
   padding: 5px;
   color: white;
   line-height: 30px;
-  /* background: blue; */
   background-color: black;
   border-radius: 20px;
 `;
@@ -89,15 +81,14 @@ const MoveDataDiv = ({ day, index }) => {
   const locInfo = userPlan.travelDays[day.days - 1].locations[index];
 
   useEffect(() => {
-    if (locInfo.movingTime !== '') {
-      let [hour, min] = splitTime(locInfo.movingTime);
-      console.log(hour, min);
+    if (locInfo['moving_time'] !== '') {
+      let [hour, min] = splitTime(locInfo['moving_time']);
       setTime({
         hour,
         min,
       });
     }
-  }, [locInfo.movingTime, splitTime, locInfo.vehicles, checkVehicles]);
+  }, [locInfo, splitTime, locInfo.vehicles, checkVehicles]);
 
   const checkedVehicleHandler = (value, isChecked) => {
     if (isChecked) setCheckVehicles((prev) => new Set(prev.add(value)));
@@ -113,7 +104,6 @@ const MoveDataDiv = ({ day, index }) => {
   const onChange = (e) => {
     const { name, value } = e.target;
     if (value.length > 2) {
-      console.log(value.substr(0, 2));
       setTime({
         ...time,
         [name]: value.substr(0, 2),
@@ -151,21 +141,20 @@ const MoveDataDiv = ({ day, index }) => {
   };
 
   const onSubmit = () => {
-    console.log(...checkVehicles);
     setTimeData(day.days, index, time, 'move', [...checkVehicles]);
     closeModal();
   };
 
   return (
     <Container>
-      {locInfo.movingTime === undefined && (
+      {locInfo['moving_time'] === undefined && (
         <Div>
           <Span>
             <MdMode onClick={openModal} />
           </Span>
         </Div>
       )}
-      {locInfo.movingTime !== undefined && (
+      {locInfo['moving_time'] !== undefined && (
         <Div>
           <Span>
             <BubbleDiv>
@@ -199,9 +188,10 @@ const MoveDataDiv = ({ day, index }) => {
                     default:
                       break;
                   }
+                  return '';
                 })}
-                {locInfo.movingTime && (
-                  <TimeDiv>{setViewTime(locInfo.movingTime)}</TimeDiv>
+                {locInfo['moving_time'] && (
+                  <TimeDiv>{setViewTime(locInfo['moving_time'])}</TimeDiv>
                 )}
                 <MdMode onClick={openModal} size="20px" />
               </BubbleDiv>

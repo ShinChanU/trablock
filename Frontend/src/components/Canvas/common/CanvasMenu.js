@@ -32,23 +32,23 @@ const List = styled.ul`
   /* margin-top: 100px; */
 `;
 
-const Item = styled.li`
-  padding: 10px 0px;
-  /* border: 2px solid ${oc.teal[2]}; */
-  /* background-color: ${oc.teal[6]}; */
-  /* background-color: ${(props) =>
-    props.selected ? `${oc.teal[6]}` : 'white'}; */
-  /* background-color: rgb(109, 144, 176); */
-  /* font-size: 20px; // 반응형 고민
-  font-weight: 550; */
-  /* width: 25vw; */
-  /* padding-bottom: 20px; */
-  /* margin-left: 20%; */
-  list-style: none;
-  a {
-    /* color: ${(props) => (props.selected ? `black` : 'white')}; */
-  }
-`;
+// const Item = styled.li`
+//   padding: 10px 0px;
+//   /* border: 2px solid ${oc.teal[2]}; */
+//   /* background-color: ${oc.teal[6]}; */
+//   /* background-color: ${(props) =>
+//     props.selected ? `${oc.teal[6]}` : 'white'}; */
+//   /* background-color: rgb(109, 144, 176); */
+//   /* font-size: 20px; // 반응형 고민
+//   font-weight: 550; */
+//   /* width: 25vw; */
+//   /* padding-bottom: 20px; */
+//   /* margin-left: 20%; */
+//   list-style: none;
+//   a {
+//     /* color: ${(props) => (props.selected ? `black` : 'white')}; */
+//   }
+// `;
 
 const MenuLink = styled(Link)`
   display: flex;

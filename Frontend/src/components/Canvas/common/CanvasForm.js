@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BuildBlockForm from 'containers/Canvas/BuildBlockForm';
 import TravelSettingForm from 'containers/Canvas/TravelSettingForm';
-import PlanName from './PlanName';
+// import PlanName from './PlanName';
 
 const CanvasDiv = styled.div`
   /* position: absolute; */
@@ -19,18 +19,6 @@ const CanvasDiv = styled.div`
   /* padding-right: 20px; */
   /* width: 100%; */
 `;
-
-const H1 = styled.div`
-  /* font-size: $font-lg; */
-  font-size: 30px;
-`;
-
-const textMap = {
-  setting: '여행 설정',
-  select: '블록 선택',
-  build: '여행 캔버스',
-  share: '여행 공유',
-};
 
 const CanvasForm = ({ type }) => {
   // const text = textMap[type];

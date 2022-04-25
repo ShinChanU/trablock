@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'; // useEffect
+import React from 'react'; // useEffect
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import SelLocBasket from './dnd/SelLocBasket';
 import PlanDays from './dnd/PlanDays';
 import { useStore } from 'lib/store';
-import uuid from 'react-uuid';
 
 const Container = styled.div`
   display: flex;
@@ -33,14 +32,9 @@ const MainArea = () => {
   const { category, pushLocToDay, dayLocChange, userPlan } = useStore();
 
   const onDragEnd = (result) => {
-    // dnd 구현, 0330,
     const { destination, source } = result;
+
     if (!destination) return;
-
-    // switch(source.droppableId) {
-
-    // }
-
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
     // 출발 selectedLocation, 도착 day
@@ -66,11 +60,8 @@ const MainArea = () => {
         source.index,
       );
     }
-  };
-
-  useEffect(() => {
     console.log(userPlan);
-  }, []);
+  };
 
   return (
     <>

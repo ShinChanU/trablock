@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
 import { shadow } from 'lib/styleUtils';
-import palette from 'lib/styles/palette';
+// import palette from 'lib/styles/palette';
 
 const buttonStyle = css`
   border: 3px solid ${oc.teal[6]};

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   MdDirectionsCar,
@@ -25,10 +25,6 @@ const Vehicle = styled.div`
   margin-bottom: 5px;
 `;
 
-const VehicleBox = styled.div`
-  margin-right: 10px;
-`;
-
 const Input = styled.input`
   margin: 0px;
   margin-right: 5px;
@@ -44,12 +40,6 @@ const Time = styled.div`
   margin-left: 20px;
   margin-right: 10px;
 `;
-
-// const TimeInput = styled.input`
-//   width: 60px;
-//   margin-left: 5px;
-//   margin-right: 5px;
-// `;
 
 const MoveSettingChild = ({
   vehicleList,

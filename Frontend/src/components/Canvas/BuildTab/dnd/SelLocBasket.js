@@ -41,7 +41,7 @@ const Basket = styled.div`
 `;
 
 const SelLocBasket = () => {
-  const { userPlan, category, sysLoc } = useStore();
+  const { userPlan, category } = useStore();
   const { selectedLocations } = userPlan;
   const list = Object.keys(selectedLocations);
   const [type, setType] = useState(list[0]);
@@ -78,11 +78,11 @@ const SelLocBasket = () => {
             {Object.keys(selectedLocations).length > 0 &&
               selectedLocations[type].map((location, index) => (
                 <Location
-                  key={location.id}
+                  key={location.location_id}
                   location={location}
                   index={index}
-                  id={location.id}
-                /> // location
+                  id={location.location_id}
+                />
               ))}
             {provided.placeholder}
           </Basket>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { useStore } from 'lib/store';
 import oc from 'open-color';
@@ -53,10 +53,6 @@ const PlanDays = () => {
   const { userPlan } = useStore();
   const { travelDays } = userPlan;
 
-  useEffect(() => {
-    console.log(userPlan);
-  }, []);
-
   return (
     <Days>
       {travelDays.map((day, index) => (
@@ -64,10 +60,7 @@ const PlanDays = () => {
         <Container key={index}>
           <DayHeader day={day} />
           {/* day 영역 */}
-          <Droppable
-            droppableId={String(day.days)}
-            // type="location"
-          >
+          <Droppable droppableId={String(day.days)}>
             {(provided, snapshot) => (
               <LocationsList
                 ref={provided.innerRef}
@@ -89,7 +82,7 @@ const PlanDays = () => {
                       <Location
                         key={idx}
                         location={loc}
-                        id={loc.copy_id}
+                        id={loc.copy_location_id}
                         index={idx}
                         day={day}
                       />
