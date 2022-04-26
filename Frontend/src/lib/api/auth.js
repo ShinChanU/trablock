@@ -1,6 +1,5 @@
 import axios from 'axios';
 import client from './client';
-import { setCookie, getCookie } from 'lib/cookies';
 
 // 0416 현재
 // ac-to, re-to 헤더로 옴
@@ -8,25 +7,27 @@ import { setCookie, getCookie } from 'lib/cookies';
 // login 시 api/user/test 시행,
 // 새로고침시 쿠키 확인후 re-to 으로 ac-to 갱신 => 로그인 시도
 
-export const onSilentRefresh = (accessToken) => {
+export const onSilentRefresh = (res) => {
   // re-to 쿠키로 전달
-  const refreshT = getCookie('refreshToken');
+  const accessToken = localStorage.getItem('accessToken');
+  console.log(accessToken);
   axios
     .get('/api/user/test', {
       headers: {
         accessToken: accessToken,
-        refreshToken: refreshT,
       },
     })
     .then((res) => {
+      console.log(res);
       if (res.status === 200) {
-        if (res.headers.accessToken) {
-          // 응답헤더에 ac-to 있으면 토큰 교체
-          onLoginSuccess(res);
-        } else {
-          // 응답헤더에 ac-to 없으면 완전 통과
-          console.log('로그인 성공'); // user 설정
-        }
+        console.log('로그인 성공'); // user 설정
+        // if (res.headers.accessToken) {
+        //   // 응답헤더에 ac-to 있으면 토큰 교체
+        //   onLoginSuccess(res);
+        // } else {
+        //   // 응답헤더에 ac-to 없으면 완전 통과
+        //   console.log('로그인 성공'); // user 설정
+        // }
       } else {
         console.log('재 로그인 필요'); // logout
       }
@@ -35,21 +36,38 @@ export const onSilentRefresh = (accessToken) => {
 };
 
 const onLoginSuccess = (res) => {
-  console.log(res);
-  const accessToken = res.headers.accesstoken;
-  axios.defaults.headers.common['accessToken'] = `${accessToken}`;
-  setTimeout(() => onSilentRefresh(accessToken), 10000);
+  const { accesstoken } = res.headers;
+  axios.defaults.headers.common['accessToken'] = accesstoken;
+  onSilentRefresh(res);
+  // setTimeout(onSilentRefresh, JWT_EXPIRRY_TIME - 60000); // ac-to 만료 1분전으로 지정
+  // setTimeout(() => onSilentRefresh(), 10000);
 };
 
 // 로그인
 export const login = ({ userName, password }) => {
-  return client
-    .post('/api/login', { userName, password }, { withCreadentials: true })
-    .then((res) => {
-      setCookie('refreshToken', res.headers.refreshtoken);
-      onLoginSuccess(res);
-      return res;
-    });
+  return client.post('/api/login', { userName, password }).then((res) => {
+    onLoginSuccess(res);
+    console.log(res);
+    // const { accesstoken } = res.headers;
+    // axios.defaults.headers.common['accessToken'] = accesstoken;
+    // const refreshT = getCookie('refreshToken');
+    // axios
+    //   .get('/api/user/test', {
+    //     headers: {
+    //       refreshToken: refreshT,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   });
+
+    return res;
+  });
+  // .then((res) => {
+  //   setCookie('refreshToken', res.headers.refreshtoken);
+  //   onLoginSuccess(res);
+  //   return res;
+  // });
 };
 
 // 회원가입
