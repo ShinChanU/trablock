@@ -131,6 +131,7 @@ export const useStore = create(
         const locations = await axios.get('http://localhost:4000/locations');
         set({ userPlan: response.data });
         set({ sysLoc: locations.data });
+        console.log(get().userPlan);
         // const sort = get().sortLoc;
         // const sortData = await sort(get().sysLoc);
         // const sortSelLoc = await sort(get().userPlan.selectedLocations);
@@ -434,12 +435,19 @@ export const useStore = create(
       },
 
       // 다음으로 누를 때 백으로 전송
-      canvasPost: () => {
+      canvasPost: async () => {
         let { selectedLocations } = get().userPlan;
+        let tmp = [];
         for (let key of Object.keys(selectedLocations))
-          selectedLocations[key] = get().zipSelLoc(selectedLocations[key]);
-        set((state) => ({ userPlan: { ...state.userPlan } }));
-        console.log(get().userPlan);
+          tmp = [...tmp, ...get().zipSelLoc(selectedLocations[key])];
+        console.log(selectedLocations);
+        const response = await axios.post(`http://localhost:4000/travelPlans`, {
+          travelDays: get().userPlan.travelDays,
+          selectedLocations: tmp,
+        });
+        console.log(response); // 성공하면 success
+        // set((state) => ({ userPlan: { ...state.userPlan } }));
+        // console.log(get().userPlan);
       },
     }),
     // {

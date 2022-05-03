@@ -15,48 +15,55 @@
         }
       ],
       "selectedLocations": {
-        "attractions": [1, 2],
-        "restaurants": [3, 4],
-        "lodges": [5, 6]
+        "attractions": [
+          1,
+          2
+        ],
+        "restaurants": [
+          3,
+          4
+        ],
+        "lodges": [
+          5,
+          6
+        ]
       },
       "userLocations": []
     },
     {
       "id": 2,
-      "status": "STAY",
       "travelDays": [
         {
-          "days": 1,
           "locations": [
             {
-              "location_id": 13,
-              "status": "select",
-              "sequence": 1,
-              "location_type": "attraction",
-              "start_time": "12:30",
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "df6d42-d3a-e52d-2ecd-bde4afd73fcb",
+              "start_time": "00:00",
               "stay_time": "",
-              "vehicle": "car",
-              "moving_time": "1:00"
+              "vehicles": [
+                "bike"
+              ],
+              "moving_time": "12:2",
+              "arrive_time": "",
+              "sequence": 1
             },
             {
-              "location_id": 13,
-              "status": "select",
-              "sequence": 2,
-              "location_type": "attraction",
-              "start_time": "12:30",
-              "stay_time": "",
-              "vehicle": "car",
-              "moving_time": "1:00"
-            },
-            {
-              "location_id": 25,
-              "status": "select",
-              "sequence": 3,
-              "location_type": "attraction",
-              "start_time": "12:30",
-              "stay_time": "",
-              "vehicle": "car",
-              "moving_time": "1:00"
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "276a015-41e-bb25-14ec-dd5d32e1bee2",
+              "start_time": "12:04",
+              "stay_time": "00:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "12:02",
+              "sequence": 2
             }
           ]
         },
@@ -64,57 +71,471 @@
           "days": 2,
           "locations": [
             {
-              "location_id": 13,
-              "status": "select",
-              "sequence": 1,
-              "location_type": "attraction",
-              "start_time": "12:30",
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "f3283ee-ebde-221f-613b-11c84af5f5a",
+              "start_time": "00:02",
               "stay_time": "",
-              "vehicle": "car",
-              "moving_time": "1:00"
+              "vehicles": [
+                "walk"
+              ],
+              "moving_time": "2:12",
+              "arrive_time": "",
+              "sequence": 1
             },
             {
-              "location_id": 13,
-              "status": "select",
-              "sequence": 2,
-              "location_type": "attraction",
-              "start_time": "12:30",
-              "stay_time": "",
-              "vehicle": "car",
-              "moving_time": "1:00"
-            },
-            {
-              "location_id": 25,
-              "status": "select",
-              "sequence": 3,
-              "location_type": "attraction",
-              "start_time": "12:30",
-              "stay_time": "",
-              "vehicle": "car",
-              "moving_time": "1:00"
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "location_id": 1,
+              "name": "한라산",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "2c0ec0f-e0c7-5b84-e256-e06aaf3212e",
+              "start_time": "14:16",
+              "stay_time": "12:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "02:14",
+              "sequence": 2
             }
           ]
         }
       ],
       "selectedLocations": {
-        "attractions": [1, 2],
-        "restaurants": [3, 4],
-        "lodges": [5, 6]
-      },
-      "userLocations": [
+        "attractions": [
+          1,
+          2
+        ],
+        "restaurants": [
+          3,
+          4
+        ],
+        "lodges": [
+          5,
+          6
+        ]
+      }
+    },
+    {
+      "travelDays": [
         {
-          "user_location_id": "100",
-          "type": "",
-          "name": "우리집",
-          "address": ""
+          "days": 1,
+          "locations": []
         },
         {
-          "user_location_id": "101",
-          "type": "",
-          "name": "나만의 여행지",
-          "address": ""
+          "days": 2,
+          "locations": []
         }
-      ]
+      ],
+      "id": 3
+    },
+    {
+      "travelDays": [
+        {
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "df6d42-d3a-e52d-2ecd-bde4afd73fcb",
+              "start_time": "",
+              "stay_time": "",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "276a015-41e-bb25-14ec-dd5d32e1bee2",
+              "start_time": "",
+              "stay_time": "",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "",
+              "sequence": 2
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "f3283ee-ebde-221f-613b-11c84af5f5a",
+              "start_time": "",
+              "stay_time": "",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "location_id": 1,
+              "name": "한라산",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "2c0ec0f-e0c7-5b84-e256-e06aaf3212e",
+              "start_time": "",
+              "stay_time": "",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "",
+              "sequence": 2
+            }
+          ]
+        }
+      ],
+      "selectedLocations": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "id": 4
+    },
+    {
+      "travelDays": [
+        {
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "df6d42-d3a-e52d-2ecd-bde4afd73fcb",
+              "start_time": "00:00",
+              "stay_time": "",
+              "vehicles": [
+                "bike"
+              ],
+              "moving_time": "12:2",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "276a015-41e-bb25-14ec-dd5d32e1bee2",
+              "start_time": "12:04",
+              "stay_time": "00:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "12:02",
+              "sequence": 2
+            }
+          ]
+        },
+        {
+          "days": 2,
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "f3283ee-ebde-221f-613b-11c84af5f5a",
+              "start_time": "00:02",
+              "stay_time": "",
+              "vehicles": [
+                "walk"
+              ],
+              "moving_time": "2:12",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "location_id": 1,
+              "name": "한라산",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "2c0ec0f-e0c7-5b84-e256-e06aaf3212e",
+              "start_time": "14:16",
+              "stay_time": "12:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "02:14",
+              "sequence": 2
+            }
+          ]
+        }
+      ],
+      "selectedLocations": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "id": 5
+    },
+    {
+      "travelDays": [
+        {
+          "days": 1,
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "df6d42-d3a-e52d-2ecd-bde4afd73fcb",
+              "start_time": "00:00",
+              "stay_time": "",
+              "vehicles": [
+                "bike"
+              ],
+              "moving_time": "12:2",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "276a015-41e-bb25-14ec-dd5d32e1bee2",
+              "start_time": "12:04",
+              "stay_time": "00:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "12:02",
+              "sequence": 2
+            }
+          ]
+        },
+        {
+          "days": 2,
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "f3283ee-ebde-221f-613b-11c84af5f5a",
+              "start_time": "00:02",
+              "stay_time": "",
+              "vehicles": [
+                "walk"
+              ],
+              "moving_time": "2:12",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "location_id": 1,
+              "name": "한라산",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "2c0ec0f-e0c7-5b84-e256-e06aaf3212e",
+              "start_time": "14:16",
+              "stay_time": "12:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "02:14",
+              "sequence": 2
+            }
+          ]
+        }
+      ],
+      "selectedLocations": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "id": 6
+    },
+    {
+      "travelDays": [
+        {
+          "days": 1,
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "df6d42-d3a-e52d-2ecd-bde4afd73fcb",
+              "start_time": "00:00",
+              "stay_time": "",
+              "vehicles": [
+                "bike"
+              ],
+              "moving_time": "12:2",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "276a015-41e-bb25-14ec-dd5d32e1bee2",
+              "start_time": "12:14",
+              "stay_time": "00:12",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "12:02",
+              "sequence": 2
+            }
+          ]
+        },
+        {
+          "days": 2,
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "f3283ee-ebde-221f-613b-11c84af5f5a",
+              "start_time": "00:02",
+              "stay_time": "",
+              "vehicles": [
+                "walk"
+              ],
+              "moving_time": "2:12",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "location_id": 1,
+              "name": "한라산",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "2c0ec0f-e0c7-5b84-e256-e06aaf3212e",
+              "start_time": "14:16",
+              "stay_time": "12:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "02:14",
+              "sequence": 2
+            }
+          ]
+        }
+      ],
+      "selectedLocations": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "id": 7
+    },
+    {
+      "travelDays": [
+        {
+          "days": 1,
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "3fbeae-58e-7152-ee1-3031578d808",
+              "start_time": "00:00",
+              "stay_time": "",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "276a015-41e-bb25-14ec-dd5d32e1bee2",
+              "start_time": "",
+              "stay_time": "00:12",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "",
+              "sequence": 2
+            }
+          ]
+        },
+        {
+          "days": 2,
+          "locations": [
+            {
+              "location_id": 2,
+              "name": "만장굴",
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "f3283ee-ebde-221f-613b-11c84af5f5a",
+              "start_time": "00:02",
+              "stay_time": "",
+              "vehicles": [
+                "walk"
+              ],
+              "moving_time": "2:12",
+              "arrive_time": "",
+              "sequence": 1
+            },
+            {
+              "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+              "location_id": 1,
+              "name": "한라산",
+              "summary": "간단한 설명",
+              "detail": "자세한 설명...",
+              "copy_location_id": "2c0ec0f-e0c7-5b84-e256-e06aaf3212e",
+              "start_time": "14:16",
+              "stay_time": "12:2",
+              "vehicles": [],
+              "moving_time": "",
+              "arrive_time": "02:14",
+              "sequence": 2
+            }
+          ]
+        }
+      ],
+      "selectedLocations": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "id": 8
     }
   ],
   "users": [

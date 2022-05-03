@@ -29,7 +29,8 @@ const Container = styled.div`
 // `;
 
 const MainArea = () => {
-  const { category, pushLocToDay, dayLocChange, userPlan } = useStore();
+  const { category, pushLocToDay, dayLocChange, userPlan, canvasPost } =
+    useStore();
 
   const onDragEnd = (result) => {
     const { destination, source } = result;
@@ -63,6 +64,11 @@ const MainArea = () => {
     console.log(userPlan);
   };
 
+  const onClick = () => {
+    console.log(userPlan);
+    canvasPost();
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -72,6 +78,7 @@ const MainArea = () => {
           {/* 데이 */}
           <PlanDays />
         </Container>
+        <button onClick={onClick}>저장!!!</button>
       </DragDropContext>
     </>
   );
