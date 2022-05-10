@@ -19,8 +19,9 @@ const Container = styled.div`
 
 const DayNum = styled.div``;
 
-const DayHeader = ({ day }) => {
+const DayHeader = ({ index }) => {
   const { userPlan, setDepart } = useStore();
+  const { planForm } = userPlan;
   const [dates, setDates] = useState('');
 
   const addDays = useCallback(
@@ -34,14 +35,15 @@ const DayHeader = ({ day }) => {
   );
 
   useEffect(() => {
-    let dayCnt = day.days - 1;
-    addDays(userPlan.depart, dayCnt);
-  }, [addDays, day.days, userPlan.depart]);
+    let dayCnt = index;
+    console.log(dayCnt, planForm.depart);
+    addDays(planForm.depart, dayCnt);
+  }, [addDays, index, planForm.depart]);
 
   return (
     <Container>
       <DayNum>
-        {day.days}일차 ({dates})
+        {index + 1}일차 ({dates})
       </DayNum>
     </Container>
   );

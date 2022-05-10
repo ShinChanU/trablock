@@ -34,6 +34,7 @@ const MainArea = () => {
 
   const onDragEnd = (result) => {
     const { destination, source } = result;
+    console.log(result);
 
     if (!destination) return;
     const startDropId = source.droppableId;

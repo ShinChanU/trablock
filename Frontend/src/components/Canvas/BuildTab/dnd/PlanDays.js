@@ -51,16 +51,16 @@ const LocationsList = styled('div')`
 
 const PlanDays = () => {
   const { userPlan } = useStore();
-  const { travelDays } = userPlan;
+  const { travelDay } = userPlan.dayForm;
 
   return (
     <Days>
-      {travelDays.map((day, index) => (
+      {travelDay.map((day, index) => (
         // 각 day
         <Container key={index}>
-          <DayHeader day={day} />
+          <DayHeader index={index} />
           {/* day 영역 */}
-          <Droppable droppableId={String(day.days)}>
+          <Droppable droppableId={String(index)}>
             {(provided, snapshot) => (
               <LocationsList
                 ref={provided.innerRef}
@@ -68,7 +68,7 @@ const PlanDays = () => {
                 isDraggingOver={snapshot.isDraggingOver}
               >
                 {/* day에 location 존재하지 않을 때 */}
-                {day.locations[0] === undefined && (
+                {day[0] === undefined && (
                   <InitForm>
                     <EmptyBlock>
                       블록 혹은 자체 생성한 블록을 넣어주세요.
@@ -76,18 +76,20 @@ const PlanDays = () => {
                   </InitForm>
                 )}
                 {/* location map */}
-                {day.locations.map((loc, idx) => {
+                {day.map((loc, idx) => {
+                  console.log(loc, idx);
+                  // idx: 해당 loc index
                   return (
                     <div key={idx}>
                       <Location
                         key={idx}
                         location={loc}
-                        id={loc.copy_location_id}
+                        id={loc.copyLocationId}
                         index={idx}
-                        day={day}
+                        day={index} // ?
                       />
-                      {day.locations[idx + 1] !== undefined && (
-                        <MoveDataDiv day={day} index={idx} />
+                      {day[idx + 1] !== undefined && (
+                        <MoveDataDiv day={index} index={idx} />
                       )}
                     </div>
                   );

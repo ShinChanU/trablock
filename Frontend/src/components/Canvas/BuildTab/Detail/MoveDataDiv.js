@@ -78,17 +78,17 @@ const MoveDataDiv = ({ day, index }) => {
     min: '',
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const locInfo = userPlan.travelDays[day.days - 1].locations[index];
+  const locMovingInfo = userPlan.dayForm.travelDay[day][index].movingData;
 
   useEffect(() => {
-    if (locInfo['moving_time'] !== '') {
-      let [hour, min] = splitTime(locInfo['moving_time']);
+    if (locMovingInfo['movingTime'] !== '') {
+      let [hour, min] = splitTime(locMovingInfo['movingTime']);
       setTime({
         hour,
         min,
       });
     }
-  }, [locInfo, splitTime, locInfo.vehicles, checkVehicles]);
+  }, [locMovingInfo, splitTime, locMovingInfo.vehicle, checkVehicles]);
 
   const checkedVehicleHandler = (value, isChecked) => {
     if (isChecked) setCheckVehicles((prev) => new Set(prev.add(value)));
@@ -141,25 +141,25 @@ const MoveDataDiv = ({ day, index }) => {
   };
 
   const onSubmit = () => {
-    setTimeData(day.days, index, time, 'move', [...checkVehicles]);
+    setTimeData(day, index, time, 'move', [...checkVehicles]);
     closeModal();
   };
 
   return (
     <Container>
-      {locInfo['moving_time'] === undefined && (
+      {locMovingInfo['movingTime'] === undefined && (
         <Div>
           <Span>
             <MdMode onClick={openModal} />
           </Span>
         </Div>
       )}
-      {locInfo['moving_time'] !== undefined && (
+      {locMovingInfo['movingTime'] !== undefined && (
         <Div>
           <Span>
             <BubbleDiv>
               <BubbleDiv margin>
-                {locInfo.vehicles.map((e) => {
+                {/* {locMovingInfo.vehicle.map((e) => {
                   switch (e) {
                     case 'car':
                       return (
@@ -189,9 +189,9 @@ const MoveDataDiv = ({ day, index }) => {
                       break;
                   }
                   return '';
-                })}
-                {locInfo['moving_time'] && (
-                  <TimeDiv>{setViewTime(locInfo['moving_time'])}</TimeDiv>
+                })} */}
+                {locMovingInfo['movingTime'] && (
+                  <TimeDiv>{setViewTime(locMovingInfo['movingTime'])}</TimeDiv>
                 )}
                 <MdMode onClick={openModal} size="20px" />
               </BubbleDiv>

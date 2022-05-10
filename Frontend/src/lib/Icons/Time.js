@@ -79,9 +79,9 @@ const Time = ({ title, day, index }) => {
 
   const onSubmit = (e) => {
     if (index === 0) {
-      setTimeData(day.days, index, startTime, 'time');
+      setTimeData(day, index, startTime, 'time');
     } else {
-      setTimeData(day.days, index, stayTime, 'time');
+      setTimeData(day, index, stayTime, 'time');
     }
     closeModal();
   };

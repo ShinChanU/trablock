@@ -60,7 +60,7 @@ export const useStore = create(
         // set({})
         let result = [];
         for (let x of item) {
-          result.push(x['location_id']);
+          result.push(x['id']);
         }
         return result;
       },
@@ -252,42 +252,40 @@ export const useStore = create(
       // location 위치 변경시 각 time 데이터 자동 변경 함수
       autoTimeSet: (arr, i, flag) => {
         if (flag === 'add') {
-          let nowLoc = arr[i + 1];
+          let nowLoc = arr[i + 1].movingData;
           if (i !== 0) {
-            let prevLoc = arr[i - 1];
-            prevLoc['moving_time'] = '';
-            prevLoc['vehicles'] = [];
+            let prevLoc = arr[i - 1].movingData;
+            prevLoc['movingTime'] = '';
+            prevLoc['vehicle'] = '';
           }
-          nowLoc['start_time'] = '';
-          nowLoc['arrive_time'] = '';
-          nowLoc['sequence'] = i + 2;
+          nowLoc['startTime'] = '';
+          nowLoc['arriveTime'] = '';
         } else if (flag === 'del') {
           let prevLoc = arr[i - 1];
-          let nowLoc = arr[i];
+          let nowLoc = arr[i].movingData;
           if (i !== 0) {
-            prevLoc['moving_time'] = '';
-            prevLoc['vehicles'] = [];
+            prevLoc.movingData['movingTime'] = '';
+            prevLoc.movingData['vehicle'] = '';
           }
-          nowLoc['start_time'] = '';
-          nowLoc['arrive_time'] = '';
-          nowLoc['sequence'] = i + 1;
+          nowLoc['startTime'] = '';
+          nowLoc['arriveTime'] = '';
         } else if (flag === 'time') {
-          let prevLoc = arr[i - 1];
-          let startT = prevLoc['start_time'];
-          let movT = prevLoc['moving_time'];
-          let nowLoc = arr[i];
-          let stayT = nowLoc['stay_time'];
+          let prevLoc = arr[i - 1].movingData;
+          let startT = prevLoc['startTime'];
+          let movT = prevLoc['movingTime'];
+          let nowLoc = arr[i].movingData;
+          let stayT = nowLoc['stayTime'];
           if (startT !== '' && movT !== '')
-            nowLoc['arrive_time'] = get().calcTime(startT, movT);
-          else nowLoc['arrive_time'] = '';
-          if (stayT !== '' && nowLoc['arrive_time'] !== '')
-            nowLoc['start_time'] = get().calcTime(stayT, nowLoc['arrive_time']);
+            nowLoc['arriveTime'] = get().calcTime(startT, movT);
+          else nowLoc['arriveTime'] = '';
+          if (stayT !== '' && nowLoc['arriveTime'] !== '')
+            nowLoc['startTime'] = get().calcTime(stayT, nowLoc['arriveTime']);
         }
       },
 
       // dnd, day에서 location 제거될 때
       dayLocDel: (dayId, idx) => {
-        const dayLocArr = get().userPlan.travelDays[dayId - 1].locations;
+        const dayLocArr = get().userPlan.dayForm.travelDay[dayId];
         dayLocArr.splice(idx, 1);
         for (let i = idx; i < dayLocArr.length; i++) {
           get().autoTimeSet(dayLocArr, i, 'del');
@@ -299,47 +297,54 @@ export const useStore = create(
       pushLocToDay: (toDayId, toLocIdx, frCateId, frLocIdx) => {
         const selLoc = get().userPlan.selectedLocations;
         const loc = cloneDeep(selLoc[frCateId][frLocIdx]); // 깊은 복사
-        const days = get().userPlan.travelDays;
-        const dayLocArr = days[toDayId - 1];
-        loc['copy_location_id'] = uuid(); // copy_id 지정
-        loc['start_time'] = '';
-        loc['stay_time'] = '';
-        loc['vehicles'] = [];
-        loc['moving_time'] = '';
-        loc['arrive_time'] = '';
-        loc['sequence'] = toLocIdx + 1;
+        const days = get().userPlan.dayForm.travelDay;
+        const dayLocArr = days[Number(toDayId)];
+        const movingDataObj = {
+          startTime: '',
+          stayTime: '',
+          vehicle: '',
+          movingTime: '',
+          arriveTime: '',
+        };
+        loc['copyLocationId'] = uuid(); // copy_id 지정
+        loc['movingData'] = movingDataObj;
+        // loc['startTime'] = '';
+        // loc['stayTime'] = '';
+        // loc['vehicle'] = [];
+        // loc['movingTime'] = '';
+        // loc['arriveTime'] = '';
         if (toLocIdx !== 0) {
-          const prevLoc = dayLocArr.locations[toLocIdx - 1];
-          prevLoc['vehicles'] = [];
-          prevLoc['moving_time'] = '';
+          const prevLoc = dayLocArr[toLocIdx - 1];
+          prevLoc['vehicle'] = '';
+          prevLoc['movingTime'] = '';
         }
-        dayLocArr.locations.splice(toLocIdx, 0, loc);
-        for (let i = toLocIdx; i < dayLocArr.locations.length - 1; i++) {
-          get().autoTimeSet(dayLocArr.locations, i, 'add');
+        dayLocArr.splice(toLocIdx, 0, loc);
+        for (let i = toLocIdx; i < dayLocArr.length - 1; i++) {
+          get().autoTimeSet(dayLocArr, i, 'add');
         }
         set((state) => ({ userPlan: { ...state.userPlan } }));
       },
 
       // dnd, day에서 day로 이동될 때(같은 day, 서로 다른 day 공용)
       dayLocChange: (toDayId, toLocIdx, frDayId, frLocIdx) => {
-        const startDayLocArr = get().userPlan.travelDays[frDayId - 1].locations;
-        const endDayLocArr = get().userPlan.travelDays[toDayId - 1].locations;
+        const startDayLocArr = get().userPlan.dayForm.travelDay[frDayId];
+        const endDayLocArr = get().userPlan.dayForm.travelDay[toDayId];
         const [loc] = startDayLocArr.splice(frLocIdx, 1);
+        const locMoData = loc.movingData;
         if (toLocIdx !== 0) {
-          const prevLoc = endDayLocArr[toLocIdx - 1];
-          if (prevLoc['start_time'] !== '' && prevLoc['moving_time'] !== '') {
-            loc['arrive_time'] = get().calcTime(
-              prevLoc['start_time'],
-              prevLoc['moving_time'],
+          const prevLoc = endDayLocArr[toLocIdx - 1].movingData;
+          if (prevLoc['startTime'] !== '' && prevLoc['movingTime'] !== '') {
+            locMoData['arriveTime'] = get().calcTime(
+              prevLoc['startTime'],
+              prevLoc['movingTime'],
             );
           }
         } else {
-          loc['stay_time'] = '';
+          locMoData['stayTime'] = '';
         }
-        loc['start_time'] = '';
-        loc['moving_time'] = '';
-        loc['vehicles'] = [];
-        loc['sequence'] = toLocIdx + 1;
+        locMoData['startTime'] = '';
+        locMoData['movingTime'] = '';
+        locMoData['vehicle'] = '';
         endDayLocArr.splice(toLocIdx, 0, loc);
         if (toDayId !== frDayId) {
           for (let i = frLocIdx; i < startDayLocArr.length; i++) {
@@ -379,25 +384,26 @@ export const useStore = create(
       },
 
       // 출발시각, 체류시간, 이동수단 및 이동시간 저장 함수
-      setTimeData: (dayId, index, time, flag, vehiclesArr) => {
-        const locArr = get().userPlan.travelDays[dayId - 1].locations;
-        const nowLoc = locArr[index];
+      setTimeData: (dayId, index, time, flag, vehicleArr) => {
+        const locArr = get().userPlan.dayForm.travelDay[dayId];
+        const nowLoc = locArr[index].movingData;
+        console.log(locArr, nowLoc);
         if (flag === 'time') {
           if (index === 0) {
-            nowLoc['start_time'] = time;
+            nowLoc['startTime'] = time;
           } else {
             let { hour, min } = time;
             if (hour === '' && min === '') {
-              nowLoc['stay_time'] = '';
-              nowLoc['start_time'] = '';
+              nowLoc['stayTime'] = '';
+              nowLoc['startTime'] = '';
             } else {
               if (hour === '0' || hour === '') hour = '00';
               if (min === '0' || min === '') min = '00';
-              nowLoc['stay_time'] = `${hour}:${min}`;
-              if (nowLoc['arrive_time'] !== '') {
-                nowLoc['start_time'] = get().calcTime(
-                  nowLoc['arrive_time'],
-                  nowLoc['stay_time'],
+              nowLoc['stayTime'] = `${hour}:${min}`;
+              if (nowLoc['arriveTime'] !== '') {
+                nowLoc['startTime'] = get().calcTime(
+                  nowLoc['arriveTime'],
+                  nowLoc['stayTime'],
                 );
               }
             }
@@ -405,13 +411,13 @@ export const useStore = create(
         } else if (flag === 'move') {
           let { hour, min } = time;
           if (hour === '' && min === '') {
-            nowLoc['vehicles'] = [];
-            nowLoc['moving_time'] = '';
+            nowLoc['vehicle'] = [];
+            nowLoc['movingTime'] = '';
           } else {
             if (hour === '0' || hour === '') hour = '00';
             if (min === '0' || min === '') min = '00';
-            nowLoc['moving_time'] = `${hour}:${min}`;
-            nowLoc['vehicles'] = vehiclesArr;
+            nowLoc['movingTime'] = `${hour}:${min}`;
+            nowLoc['vehicle'] = vehicleArr;
           }
         }
         for (let i = index + 1; i < locArr.length; i++) {

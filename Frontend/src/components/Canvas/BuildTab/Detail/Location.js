@@ -27,7 +27,7 @@ const Span = styled.span`
 const Div = styled.div`
   ${(props) =>
     props.index === 0 &&
-    props.day &&
+    props.day > -1 &&
     css`
       > div {
         margin-bottom: 0px;
@@ -76,7 +76,7 @@ const ListDiv = styled.div`
 const Btn = styled.div`
   display: none;
   ${(props) =>
-    props.day &&
+    props.day > -1 &&
     css`
       display: flex;
       flex-direction: column;
@@ -88,9 +88,10 @@ const Btn = styled.div`
 
 const Location = ({ location, index, day, id }) => {
   const { dayLocDel, setViewTime } = useStore();
+  const { movingData } = location;
 
   const onClick = () => {
-    dayLocDel(day.days, index); // 함수수정,
+    dayLocDel(day, index); // 함수수정,
   };
 
   return (
@@ -115,26 +116,28 @@ const Location = ({ location, index, day, id }) => {
                   <div>
                     <div>
                       <>{location.name}</>
-                      {day && index !== 0 && location['arrive_time'] !== '' && (
-                        <Span>(도착 시간: {location['arrive_time']})</Span>
-                      )}
+                      {day > -1 &&
+                        index !== 0 &&
+                        movingData['arriveTime'] !== '' && (
+                          <Span>(도착 시간: {movingData['arriveTime']})</Span>
+                        )}
                     </div>
-                    {day ? (
+                    {day > -1 ? (
                       <LocTime>
                         {index === 0 ? (
                           <>
-                            {location['start_time']
+                            {movingData['startTime']
                               ? `${setViewTime(
-                                  location['start_time'],
+                                  movingData['startTime'],
                                   'start',
                                 )} 출발`
                               : `출발지의 출발시각을 입력해주세용`}
                           </>
                         ) : (
                           <>
-                            {location['stay_time']
+                            {movingData['stayTime']
                               ? `${setViewTime(
-                                  location['stay_time'],
+                                  movingData['stayTime'],
                                   'stay',
                                 )} 체류` // 0422 출발시간도 보여줄까?
                               : '체류시간과 이동수단 및 시간을 입력해주세용'}
@@ -156,7 +159,7 @@ const Location = ({ location, index, day, id }) => {
                 </ListDiv>
               </List>
             </Container>
-            {snapshot.isDragging && !day && (
+            {snapshot.isDragging && day < 0 && (
               <Clone>
                 <List>
                   <ImgDiv>

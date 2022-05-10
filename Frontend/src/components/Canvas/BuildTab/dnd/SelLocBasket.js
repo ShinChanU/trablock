@@ -78,10 +78,10 @@ const SelLocBasket = () => {
             {Object.keys(selectedLocations).length > 0 &&
               selectedLocations[type].map((location, index) => (
                 <Location
-                  key={location.location_id}
+                  key={location.id}
                   location={location}
                   index={index}
-                  id={location.location_id}
+                  id={location.id}
                 />
               ))}
             {provided.placeholder}
