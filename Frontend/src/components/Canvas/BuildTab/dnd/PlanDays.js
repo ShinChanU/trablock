@@ -77,7 +77,6 @@ const PlanDays = () => {
                 )}
                 {/* location map */}
                 {day.map((loc, idx) => {
-                  console.log(loc, idx);
                   // idx: 해당 loc index
                   return (
                     <div key={idx}>

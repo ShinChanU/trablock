@@ -6,7 +6,6 @@ import {
   MdDirectionsWalk,
   MdDirectionsBike,
 } from 'react-icons/md';
-// import TimeInput from 'components/Canvas/common/TimeInput';
 
 const Container = styled.div`
   display: flex;
@@ -42,13 +41,21 @@ const Time = styled.div`
 `;
 
 const MoveSettingChild = ({
-  vehicleList,
-  checkHandler,
   onChange,
   time,
-  checkVehicles,
+  checkedVehicleHandler,
+  checkVehicle,
 }) => {
+  const vehicleList = ['car', 'bus', 'walk', 'bike'];
   const { hour, min } = time;
+
+  const checkOnlyOne = (target) => {
+    const vehicles = document.getElementsByName('vehicle');
+    for (let i = 0; i < vehicles.length; i++) {
+      if (vehicles[i] !== target) vehicles[i].checked = false;
+    }
+  };
+
   return (
     <Container>
       <VehicleDiv>
@@ -59,13 +66,17 @@ const MoveSettingChild = ({
           <MdDirectionsBike style={{ marginRight: '5px' }} />
         </Vehicle>
         <Vehicle>
-          {vehicleList.map((e, i) => (
+          {vehicleList.map((vehicle, idx) => (
             <Input
+              name="vehicle"
               type="checkbox"
-              value={e}
-              onChange={(e) => checkHandler(e)}
-              key={i}
-              checked={checkVehicles.includes(e) ? true : false}
+              key={idx}
+              value={vehicle}
+              onChange={(e) => {
+                checkOnlyOne(e.target);
+                checkedVehicleHandler(e.target.value);
+              }}
+              checked={vehicle === checkVehicle}
             />
           ))}
         </Vehicle>

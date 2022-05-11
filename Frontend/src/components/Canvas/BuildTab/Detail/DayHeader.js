@@ -36,7 +36,6 @@ const DayHeader = ({ index }) => {
 
   useEffect(() => {
     let dayCnt = index;
-    console.log(dayCnt, planForm.depart);
     addDays(planForm.depart, dayCnt);
   }, [addDays, index, planForm.depart]);
 

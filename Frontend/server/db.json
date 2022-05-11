@@ -11,15 +11,31 @@
         "thumbnail": "thumbnail_test"
       },
       "conceptForm": {
-        "concept": ["Love", "FUCK", "TLQKF"]
+        "concept": [
+          "Love",
+          "FUCK",
+          "TLQKF"
+        ]
       },
       "dayForm": {
-        "travelDay": [[], []]
+        "travelDay": [
+          [],
+          []
+        ]
       },
       "selectedLocations": {
-        "attractions": [1, 2],
-        "restaurants": [3, 4],
-        "lodges": [5, 6]
+        "attractions": [
+          1,
+          2
+        ],
+        "restaurants": [
+          3,
+          4
+        ],
+        "lodges": [
+          5,
+          6
+        ]
       },
       "userLocations": []
     },
@@ -37,7 +53,9 @@
               "copy_location_id": "df6d42-d3a-e52d-2ecd-bde4afd73fcb",
               "start_time": "00:00",
               "stay_time": "",
-              "vehicles": ["bike"],
+              "vehicles": [
+                "bike"
+              ],
               "moving_time": "12:2",
               "arrive_time": "",
               "sequence": 1
@@ -70,7 +88,9 @@
               "copy_location_id": "f3283ee-ebde-221f-613b-11c84af5f5a",
               "start_time": "00:02",
               "stay_time": "",
-              "vehicles": ["walk"],
+              "vehicles": [
+                "walk"
+              ],
               "moving_time": "2:12",
               "arrive_time": "",
               "sequence": 1
@@ -93,9 +113,18 @@
         }
       ],
       "selectedLocations": {
-        "attractions": [1, 2],
-        "restaurants": [3, 4],
-        "lodges": [5, 6]
+        "attractions": [
+          1,
+          2
+        ],
+        "restaurants": [
+          3,
+          4
+        ],
+        "lodges": [
+          5,
+          6
+        ]
       }
     },
     {
@@ -109,10 +138,18 @@
         "thumbnail": "thumbnail_test"
       },
       "conceptForm": {
-        "concept": ["Love", "FUCK", "TLQKF"]
+        "concept": [
+          "Love",
+          "FUCK",
+          "TLQKF"
+        ]
       },
       "selectedLocationForm": {
-        "selectedLocation": [5, 6, 7]
+        "selectedLocation": [
+          5,
+          6,
+          7
+        ]
       },
       "dayForm": {
         "travelDay": [
@@ -256,11 +293,31 @@
         ]
       },
       "selectedLocations": {
-        "attractions": [1, 2],
-        "restaurants": [3, 4],
-        "lodges": [5, 6]
+        "attractions": [
+          1,
+          2
+        ],
+        "restaurants": [
+          3,
+          4
+        ],
+        "lodges": [
+          5,
+          6
+        ]
       },
       "userLocations": []
+    },
+    {
+      "selectedLocations": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "id": 5
     }
   ],
   "users": [

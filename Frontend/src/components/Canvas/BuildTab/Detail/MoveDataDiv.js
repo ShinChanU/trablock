@@ -69,16 +69,15 @@ const TimeDiv = styled.div`
 `;
 
 const MoveDataDiv = ({ day, index }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { userPlan, setTimeData, setViewTime, splitTime } = useStore();
-  const vehicleList = ['car', 'bus', 'walk', 'bike'];
-  const [isChecked, setIsChecked] = useState(false);
-  const [checkVehicles, setCheckVehicles] = useState(new Set());
+  const locMovingInfo = userPlan.dayForm.travelDay[day][index].movingData;
+  const locVehicle = locMovingInfo.vehicle;
+  const [checkVehicle, setCheckVehicle] = useState(locVehicle);
   const [time, setTime] = useState({
     hour: '',
     min: '',
   });
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const locMovingInfo = userPlan.dayForm.travelDay[day][index].movingData;
 
   useEffect(() => {
     if (locMovingInfo['movingTime'] !== '') {
@@ -88,17 +87,14 @@ const MoveDataDiv = ({ day, index }) => {
         min,
       });
     }
-  }, [locMovingInfo, splitTime, locMovingInfo.vehicle, checkVehicles]);
+  }, [locMovingInfo, splitTime]);
 
-  const checkedVehicleHandler = (value, isChecked) => {
-    if (isChecked) setCheckVehicles((prev) => new Set(prev.add(value)));
-    else if (!isChecked && checkVehicles.has(value))
-      setCheckVehicles((prev) => new Set([...prev].filter((x) => x !== value)));
-  };
-
-  const checkHandler = ({ target }) => {
-    setIsChecked(!isChecked);
-    checkedVehicleHandler(target.value, target.checked);
+  const checkedVehicleHandler = (value) => {
+    if (checkVehicle === value) {
+      setCheckVehicle('');
+    } else {
+      setCheckVehicle(value);
+    }
   };
 
   const onChange = (e) => {
@@ -133,6 +129,14 @@ const MoveDataDiv = ({ day, index }) => {
     }
   };
   const openModal = () => {
+    setCheckVehicle(locVehicle);
+    if (locMovingInfo['movingTime'] !== '') {
+      let [hour, min] = splitTime(locMovingInfo['movingTime']);
+      setTime({
+        hour,
+        min,
+      });
+    }
     setModalIsOpen(true);
   };
 
@@ -141,8 +145,28 @@ const MoveDataDiv = ({ day, index }) => {
   };
 
   const onSubmit = () => {
-    setTimeData(day, index, time, 'move', [...checkVehicles]);
+    setTimeData(day, index, time, 'move', checkVehicle);
     closeModal();
+    setCheckVehicle('');
+    setTime({
+      hour: '',
+      min: '',
+    });
+  };
+
+  const renderSwitch = (vehicle) => {
+    switch (vehicle) {
+      case 'car':
+        return <MdDirectionsCar />;
+      case 'bus':
+        return <MdDirectionsBus />;
+      case 'bike':
+        return <MdDirectionsBike />;
+      case 'walk':
+        return <MdDirectionsWalk />;
+      default:
+        return;
+    }
   };
 
   return (
@@ -159,37 +183,7 @@ const MoveDataDiv = ({ day, index }) => {
           <Span>
             <BubbleDiv>
               <BubbleDiv margin>
-                {/* {locMovingInfo.vehicle.map((e) => {
-                  switch (e) {
-                    case 'car':
-                      return (
-                        <div key={e}>
-                          <MdDirectionsCar />
-                        </div>
-                      );
-                    case 'bus':
-                      return (
-                        <div key={e}>
-                          <MdDirectionsBus />
-                        </div>
-                      );
-                    case 'walk':
-                      return (
-                        <div key={e}>
-                          <MdDirectionsWalk />
-                        </div>
-                      );
-                    case 'bike':
-                      return (
-                        <div key={e}>
-                          <MdDirectionsBike />
-                        </div>
-                      );
-                    default:
-                      break;
-                  }
-                  return '';
-                })} */}
+                {renderSwitch(locVehicle)}
                 {locMovingInfo['movingTime'] && (
                   <TimeDiv>{setViewTime(locMovingInfo['movingTime'])}</TimeDiv>
                 )}
@@ -207,11 +201,10 @@ const MoveDataDiv = ({ day, index }) => {
         onSubmit={onSubmit}
       >
         <MoveSettingChild
-          vehicleList={vehicleList}
-          checkHandler={checkHandler}
           onChange={onChange}
           time={time}
-          checkVehicles={[...checkVehicles]}
+          checkedVehicleHandler={checkedVehicleHandler}
+          checkVehicle={checkVehicle}
         />
       </ModalModule>
     </Container>

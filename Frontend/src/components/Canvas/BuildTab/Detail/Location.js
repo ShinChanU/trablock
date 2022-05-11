@@ -44,6 +44,7 @@ const LocTime = styled.div`
 `;
 
 const Clone = styled(Container)`
+  /* color: red; */
   ~ div {
     transform: none !important;
   }
@@ -159,7 +160,8 @@ const Location = ({ location, index, day, id }) => {
                 </ListDiv>
               </List>
             </Container>
-            {snapshot.isDragging && day < 0 && (
+            {/* {console.log(day)} */}
+            {snapshot.isDragging && day === undefined && (
               <Clone>
                 <List>
                   <ImgDiv>
