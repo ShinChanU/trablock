@@ -50,7 +50,7 @@ const siteMap = ['setting', 'select', 'build', 'share'];
 
 const CanvasButtons = () => {
   const location = useLocation();
-  const { canvasPost } = useStore();
+  // const { canvasPost } = useStore();
 
   // location.pathname은 '/canvas/setting'
   // const idx = siteMap.indexOf(location.pathname.substring(8));
@@ -117,7 +117,7 @@ const CanvasButtons = () => {
   // 0425 test
   const onClick = () => {
     // console.log('test');
-    canvasPost();
+    // canvasPost();
   };
 
   return (

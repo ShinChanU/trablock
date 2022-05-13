@@ -50,8 +50,8 @@ const LocationsList = styled('div')`
 `;
 
 const PlanDays = () => {
-  const { userPlan } = useStore();
-  const { travelDay } = userPlan.dayForm;
+  const { userTravelDay } = useStore();
+  const { travelDay } = userTravelDay;
 
   return (
     <Days>
@@ -60,7 +60,7 @@ const PlanDays = () => {
         <Container key={index}>
           <DayHeader index={index} />
           {/* day 영역 */}
-          <Droppable droppableId={String(index)}>
+          <Droppable droppableId={`day${index}`}>
             {(provided, snapshot) => (
               <LocationsList
                 ref={provided.innerRef}

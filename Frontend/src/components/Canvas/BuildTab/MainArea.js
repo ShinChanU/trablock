@@ -34,7 +34,6 @@ const MainArea = () => {
 
   const onDragEnd = (result) => {
     const { destination, source } = result;
-
     if (!destination) return;
     const startDropId = source.droppableId;
     const endDropId = destination.droppableId;
@@ -61,11 +60,9 @@ const MainArea = () => {
         source.index,
       );
     }
-    console.log(userPlan);
   };
 
   const onClick = () => {
-    console.log(userPlan);
     // canvasPost();
   };
 

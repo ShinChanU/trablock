@@ -41,28 +41,29 @@ const Basket = styled.div`
 `;
 
 const SelLocBasket = () => {
-  const { userPlan, category } = useStore();
-  const { selectedLocations } = userPlan;
-  const list = Object.keys(selectedLocations);
-  const [type, setType] = useState(list[0]);
+  const { category, selCateLoc } = useStore();
+  const list = Object.keys(category);
+  const [type, setType] = useState(category[list[0]].eng);
+  const [typeId, setTypeId] = useState(list[0]);
 
   const onClick = (cate) => {
-    setType(cate);
+    setType(category[cate].eng);
+    setTypeId(cate);
   };
 
   return (
     <Container>
       {/* 카테고리 */}
       <List>
-        {list.map((cate) => (
-          <Item key={cate} onClick={() => onClick(cate)}>
-            {category[cate]}
+        {list.map((cateNum) => (
+          <Item key={cateNum} onClick={() => onClick(cateNum)}>
+            {category[cateNum].kor}
           </Item>
         ))}
       </List>
       {/* 현재 카테고리 담은 블록 */}
       <Droppable
-        droppableId={type}
+        droppableId={typeId}
         isDropDisabled={true}
         // type="location"
       >
@@ -72,18 +73,22 @@ const SelLocBasket = () => {
             // {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
-            {Object.keys(selectedLocations).length === 0 && (
+            {selCateLoc[`sel${type}`].length === 0 && (
               <>로케이션을 담아오세요</>
             )}
-            {Object.keys(selectedLocations).length > 0 &&
-              selectedLocations[type].map((location, index) => (
-                <Location
-                  key={location.id}
-                  location={location}
-                  index={index}
-                  id={location.id}
-                />
-              ))}
+            {selCateLoc[`sel${type}`].length > 0 &&
+              selCateLoc[`sel${type}`].map((location, index) => {
+                // <div>test</div>
+                console.log(location);
+                return (
+                  <Location
+                    key={location.id}
+                    location={location}
+                    index={index}
+                    id={location.id}
+                  />
+                );
+              })}
             {provided.placeholder}
           </Basket>
         )}

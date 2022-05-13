@@ -23,24 +23,20 @@ const Buttons = styled.div`
 export let travelPlan = {};
 
 const BuildBlockForm = () => {
-  const { selLocSort, userPlan } = useStore();
-  const { loading } = userPlan;
+  const { userTravelDay, selCateLoc } = useStore();
 
   useEffect(() => {
-    selLocSort();
+    console.log(selCateLoc, selCateLoc);
   }, []);
 
   return (
     <>
-      {loading === 0 && <div>로케이션을 담아오세요</div>}
-      {loading && (
-        <Container>
-          <MainArea />
-          <Buttons>
-            <CreateLoc size="30" />
-          </Buttons>
-        </Container>
-      )}
+      <Container>
+        <MainArea />
+        {/* <Buttons>
+          <CreateLoc size="30" />
+        </Buttons> */}
+      </Container>
     </>
   );
 };

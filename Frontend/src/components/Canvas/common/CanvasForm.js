@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BuildBlockForm from 'containers/Canvas/BuildBlockForm';
 import TravelSettingForm from 'containers/Canvas/TravelSettingForm';
 // import PlanName from './PlanName';
+import Block from 'containers/Canvas/Block';
 
 const CanvasDiv = styled.div`
   /* position: absolute; */
@@ -28,7 +29,7 @@ const CanvasForm = ({ type }) => {
       {/* <H1>{text}</H1> */}
       {/* <PlanName /> 어디에 넣을지.. */}
       {type === 'setting' && <TravelSettingForm />}
-      {/* {type === 'select' && <TravelSettingForm />} */}
+      {type === 'select' && <Block />}
       {type === 'build' && <BuildBlockForm />}
       {/* {type === 'share' && <TravelSettingForm />} */}
     </CanvasDiv>

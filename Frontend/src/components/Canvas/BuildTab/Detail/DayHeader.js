@@ -21,7 +21,6 @@ const DayNum = styled.div``;
 
 const DayHeader = ({ index }) => {
   const { userPlan, setDepart } = useStore();
-  const { planForm } = userPlan;
   const [dates, setDates] = useState('');
 
   const addDays = useCallback(
@@ -36,8 +35,8 @@ const DayHeader = ({ index }) => {
 
   useEffect(() => {
     let dayCnt = index;
-    addDays(planForm.depart, dayCnt);
-  }, [addDays, index, planForm.depart]);
+    addDays(userPlan.depart, dayCnt);
+  }, [addDays, index, userPlan.depart]);
 
   return (
     <Container>

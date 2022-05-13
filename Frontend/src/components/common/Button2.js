@@ -11,6 +11,8 @@ const buttonStyle = css`
   cursor: pointer;
   text-decoration: none;
   transition: 0.2s all;
+  border: none;
+  background-color: transparent;
 
   &:hover {
   }

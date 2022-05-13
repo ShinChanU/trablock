@@ -70,8 +70,8 @@ const TimeDiv = styled.div`
 
 const MoveDataDiv = ({ day, index }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { userPlan, setTimeData, setViewTime, splitTime } = useStore();
-  const locMovingInfo = userPlan.dayForm.travelDay[day][index].movingData;
+  const { userTravelDay, setTimeData, setViewTime, splitTime } = useStore();
+  const locMovingInfo = userTravelDay.travelDay[day][index].movingData;
   const locVehicle = locMovingInfo.vehicle;
   const [checkVehicle, setCheckVehicle] = useState(locVehicle);
   const [time, setTime] = useState({
