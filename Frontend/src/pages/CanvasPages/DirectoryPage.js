@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { planStore, useStore } from 'lib/store';
+import { planStore, useStore } from 'lib/store/planStore';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`

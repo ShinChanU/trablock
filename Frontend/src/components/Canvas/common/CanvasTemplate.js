@@ -30,5 +30,4 @@ const CanvasTemplate = ({ children }) => {
     </Container>
   );
 };
-
 export default CanvasTemplate;

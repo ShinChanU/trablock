@@ -1,0 +1,16 @@
+{
+    "users": [
+        {
+            "username": "react",
+            "password": "1234",
+            "passwordConfirm": "1234",
+            "name": "얍"
+        },
+        {
+            "username": "react2",
+            "password": "1212",
+            "passwordConfirm": "1212",
+            "name": "얍얍"
+        }
+    ]
+}

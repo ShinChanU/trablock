@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, signup } from 'redux/modules/auth';
 import AuthForm from 'components/Auth/AuthForm';
 import { useNavigate } from 'react-router-dom';
-// import { check } from 'redux/modules/user';
+import { check } from 'redux/modules/user';
 
 const SignupForm = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [usingEmail, setUsingEmail] = useState(false); // email 유효성 (인증이 되었는지)
+  const [number, setNumber] = useState(''); // 보내진 인증번호
+  const [inputNumber, setInputNumber] = useState(''); // 입력된 인증번호
+  const [isEmailSend, setIsEmailSend] = useState(false);
   const [detailErr, setDetailErr] = useState({
     username: null,
     password: null,
@@ -26,6 +30,14 @@ const SignupForm = () => {
       userState: user.userState,
     }),
   );
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setIsEmailSend(true);
+    // post api
+    // 서버와 통신(node, 아님 spring)
+    // 0529 https://coding-hwije.tistory.com/6?category=856854
+  };
 
   // 인풋 변경 이벤트 핸들러
   const onChange = useCallback(
@@ -107,22 +119,17 @@ const SignupForm = () => {
     if (auth) {
       console.log('회원가입 성공');
       console.log(auth);
-      // dispatch(check());
+      dispatch(check());
+      alert('회원가입이 완료되었습니다!');
     }
   }, [auth, authError, dispatch]);
 
   // user 값이 잘 설정되었는지 확인
-  // useEffect(() => {
-  //   console.log(userState);
-  //   if (userState) {
-  //     navigate('/'); // 수정 필요
-  //     try {
-  //       localStorage.setItem('userState', JSON.stringify(userState));
-  //     } catch (e) {
-  //       console.log('localStorage is not working');
-  //     }
-  //   }
-  // }, [userState, navigate]);
+  useEffect(() => {
+    if (userState) {
+      navigate(process.env.PUBLIC_URL + '/');
+    }
+  }, [userState, navigate]);
 
   const onBlur = (e) => {
     let { name, value } = e.target;
@@ -176,6 +183,8 @@ const SignupForm = () => {
       error={error}
       detailErr={detailErr}
       onBlur={onBlur}
+      sendEmail={sendEmail}
+      isEmailSend={isEmailSend}
     />
   );
 };

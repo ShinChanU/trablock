@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SelectArea from 'components/Canvas/BlockSelect/SelectArea';
 import SelectedArea from 'components/Canvas/BlockSelect/SelectedArea';
 import axios from 'axios';
-import { sysLocStore, useStore } from '../../lib/store';
+import { sysLocStore, useStore } from '../../lib/store/planStore';
 
 const Block = () => {
   // const [globalLocations, setGlobalLocations] = useState(null);
@@ -12,8 +12,8 @@ const Block = () => {
 
   useEffect(() => {
     getSysLoc();
-    console.log(sysCateLoc);
-    console.log(selCateLoc);
+    // console.log(sysCateLoc);
+    // console.log(selCateLoc);
   }, []);
 
   return (

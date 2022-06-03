@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { useStore } from 'lib/store';
 import oc from 'open-color';
-import DayHeader from 'components/Canvas/BuildTab/Detail/DayHeader';
+import DayHeader from 'components/Canvas/BuildTab/LocDetail/DayHeader';
 import { Droppable } from 'react-beautiful-dnd';
-import MoveDataDiv from '../Detail/MoveDataDiv';
-import Location from 'components/Canvas/BuildTab/Detail/Location';
+import MoveDataDiv from '../LocDetail/MoveDataDiv';
+import Location from 'components/Canvas/BuildTab/LocDetail/Location';
+import CreateLoc from 'components/Canvas/BuildTab/MemLoc/CreateLoc';
+// import { apiStore } from 'lib/store/apiStore';
 
 const Days = styled.div`
   display: flex;
+  justify-content: space-between;
   flex: 1; //남은 영역 모두 채움
-  justify-content: space-around;
+  overflow: auto;
+  white-space: nowrap;
 `;
 
 const Container = styled.div`
   margin: 8px;
   border-radius: 15px;
-  border: 1px solid lightgrey;
   width: 270px;
   background: white;
 `;
@@ -49,9 +51,22 @@ const LocationsList = styled('div')`
     `}
 `;
 
-const PlanDays = () => {
-  const { userTravelDay } = useStore();
+const Buttons = styled.div`
+  width: 100px;
+`;
+
+const PlanDays = ({
+  dayLocDel,
+  setViewTime,
+  userTravelDay,
+  setTimeData,
+  splitTime,
+}) => {
   const { travelDay } = userTravelDay;
+
+  const onClickTest = () => {
+    console.log(userTravelDay);
+  };
 
   return (
     <Days>
@@ -77,7 +92,6 @@ const PlanDays = () => {
                 )}
                 {/* location map */}
                 {day.map((loc, idx) => {
-                  // idx: 해당 loc index
                   return (
                     <div key={idx}>
                       <Location
@@ -86,9 +100,19 @@ const PlanDays = () => {
                         id={loc.copyLocationId}
                         index={idx}
                         day={index} // ?
+                        dayLocDel={dayLocDel}
+                        setViewTime={setViewTime}
+                        lastIdx={day.length - 1}
                       />
                       {day[idx + 1] !== undefined && (
-                        <MoveDataDiv day={index} index={idx} />
+                        <MoveDataDiv
+                          day={index}
+                          index={idx}
+                          userTravelDay={userTravelDay}
+                          setTimeData={setTimeData}
+                          setViewTime={setViewTime}
+                          splitTime={splitTime}
+                        />
                       )}
                     </div>
                   );
@@ -99,6 +123,10 @@ const PlanDays = () => {
           </Droppable>
         </Container>
       ))}
+      <Buttons>
+        <CreateLoc size="30" />
+      </Buttons>
+      <button onClick={onClickTest}>state 출력 버튼</button>
     </Days>
   );
 };

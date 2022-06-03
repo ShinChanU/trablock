@@ -1,108 +1,143 @@
 {
+  "planForm": {
+    "depart": "2022/01/16",
+    "destination": "어딘가",
+    "name": "새로운 여행",
+    "periods": 2,
+    "planStatus": "MAIN",
+    "thumbnail": "https://ifh.cc/g/qrVZrf.png"
+  },
+  "conceptForm": {
+    "concept": [
+      "Love",
+      "Family",
+      "Alone"
+    ]
+  },
+  "selectedLocationForm": {
+    "selectedLocation": [
+      5,
+      6,
+      7
+    ]
+  },
+  "dayForm": {
+    "travelDay": [
+      [
+        {
+          "id": 5,
+          "copyLocationId": "13-1",
+          "movingData": {
+            "startTime": "12:3",
+            "stayTime": "14124",
+            "vehicle": "car124",
+            "movingTime": "1:12300"
+          }
+        },
+        {
+          "id": 6,
+          "copyLocationId": "13-1",
+          "movingData": {
+            "startTime": "12:3",
+            "stayTime": "14124",
+            "vehicle": "car124",
+            "movingTime": "1:12300"
+          }
+        },
+        {
+          "id": 7,
+          "copyLocationId": "13-1",
+          "movingData": {
+            "startTime": "12:3",
+            "stayTime": "14124",
+            "vehicle": "car124",
+            "movingTime": "1:12300"
+          }
+        }
+      ],
+      [
+        {
+          "id": 8,
+          "copyLocationId": "13-1",
+          "movingData": {
+            "startTime": "12:3",
+            "stayTime": "14124",
+            "vehicle": "car124",
+            "movingTime": "1:12300"
+          }
+        },
+        {
+          "id": 9,
+          "copyLocationId": "13-1",
+          "movingData": {
+            "startTime": "12:3",
+            "stayTime": "14124",
+            "vehicle": "car124",
+            "movingTime": "1:12300"
+          }
+        },
+        {
+          "id": 10,
+          "copyLocationId": "13-1",
+          "movingData": {
+            "startTime": "12:3",
+            "stayTime": "14124",
+            "vehicle": "car124",
+            "movingTime": "1:12300"
+          }
+        }
+      ]
+    ]
+  },
   "travelPlans": [
     {
       "id": 1,
       "planForm": {
-        "depart": "2022/12/15",
-        "destination": "제주도",
-        "name": "새로운 여행",
-        "periods": 2,
+        "id": "",
+        "depart": "",
+        "destination": "",
+        "name": "",
+        "periods": 3,
         "planStatus": "MAIN",
-        "thumbnail": "https://ifh.cc/g/qrVZrf.png"
+        "thumbnail": []
       },
       "conceptForm": {
-        "concept": ["Love"]
+        "concept": []
       },
       "selectedLocationForm": {
-        "selectedLocation": [5, 6, 7]
+        "selectedLocation": [
+          5,
+          6,
+          7
+        ]
       },
       "dayForm": {
         "travelDay": [
-          [
-            {
-              "id": 5,
-              "copyLocationId": "13-1",
-              "movingData": {
-                "startTime": "12:3",
-                "stayTime": "14124",
-                "vehicle": "car124",
-                "movingTime": "1:12300"
-              }
-            },
-            {
-              "id": 6,
-              "copyLocationId": "13-1",
-              "movingData": {
-                "startTime": "12:3",
-                "stayTime": "14124",
-                "vehicle": "car124",
-                "movingTime": "1:12300"
-              }
-            },
-            {
-              "id": 7,
-              "copyLocationId": "13-1",
-              "movingData": {
-                "startTime": "12:3",
-                "stayTime": "14124",
-                "vehicle": "car124",
-                "movingTime": "1:12300"
-              }
-            }
-          ],
-          [
-            {
-              "id": 8,
-              "copyLocationId": "13-1",
-              "movingData": {
-                "startTime": "12:3",
-                "stayTime": "14124",
-                "vehicle": "car124",
-                "movingTime": "1:12300"
-              }
-            },
-            {
-              "id": 9,
-              "copyLocationId": "13-1",
-              "movingData": {
-                "startTime": "12:3",
-                "stayTime": "14124",
-                "vehicle": "car124",
-                "movingTime": "1:12300"
-              }
-            },
-            {
-              "id": 10,
-              "copyLocationId": "13-1",
-              "movingData": {
-                "startTime": "12:3",
-                "stayTime": "14124",
-                "vehicle": "car124",
-                "movingTime": "1:12300"
-              }
-            }
-          ]
+          [],
+          [],
+          []
         ]
       }
     },
     {
       "id": 2,
       "planForm": {
-        "depart": "2022/12/15",
-        "destination": "어딘가",
-        "name": "새로운 여행",
-        "periods": 4,
+        "id": "",
+        "depart": "",
+        "destination": "",
+        "name": "",
+        "periods": 1,
         "planStatus": "MAIN",
-        "thumbnail": "https://ifh.cc/g/qrVZrf.png"
+        "thumbnail": []
       },
       "conceptForm": {
-        "concept": ["Love", "Family"]
+        "concept": []
       },
       "selectedLocationForm": {
         "selectedLocation": []
       },
       "dayForm": {
-        "travelDay": [[], [], [], []]
+        "travelDay": []
       }
     }
   ],
@@ -564,7 +599,135 @@
       "phoneNum": "123",
       "gender": "MALE",
       "email": "tlscksnd963@naver.com",
+      "id": 3,
+      "plan": [
+        {
+          "id": 1,
+          "planForm": {},
+          "conceptForm": {},
+          "selectedLocationForm": {},
+          "dayForm": {}
+        }
+      ]
+    },
+    {
+      "userId": "tlscksdn",
+      "password": "123",
+      "passwordCheck": "123",
+      "username": "123",
+      "nickname": "123",
+      "birthday": "123123-12-23",
+      "phoneNum": "123",
+      "gender": "MALE",
+      "email": "tlscksnd963@naver.com",
+      "id": 2,
+      "plan": [
+        {
+          "id": 1,
+          "planForm": {
+            "depart": "2022/01/16",
+            "periods": 2
+          },
+          "conceptForm": {},
+          "selectedLocationForm": {},
+          "dayForm": {}
+        }
+      ]
+    }
+  ],
+  "memberLocations": [
+    {
+      "data": {
+        "location": {
+          "name": "한경대학교",
+          "type": "Attractions",
+          "coords": {
+            "lat": "37.01183670770416",
+            "lng": "127.26378919389889"
+          },
+          "address1": "경기 안성시 석정동 63-1",
+          "address2": "",
+          "image": "",
+          "information": {
+            "summary": "12",
+            "detail": ""
+          },
+          "isMember": true
+        },
+        "member_location": {
+          "memberId": 1,
+          "isPublic": true
+        },
+        "Attractions": {
+          "parking": true,
+          "restDate": "",
+          "useTime": ""
+        }
+      },
       "id": 1
+    },
+    {
+      "data": {
+        "location": {
+          "name": "우리집",
+          "type": "Lodge",
+          "coords": {
+            "lat": "37.006802340740215",
+            "lng": "127.2642133503599"
+          },
+          "address1": "경기 안성시 아양동 300",
+          "address2": "103동 408호",
+          "image": "",
+          "information": {
+            "summary": "찬우집",
+            "detail": "가는 길이 살짝 무서울 수 있음."
+          },
+          "isMember": true
+        },
+        "member_location": {
+          "memberId": 1,
+          "isPublic": false
+        },
+        "Lodge": {
+          "checkInTime": "18:00",
+          "checkOutTime": "13:00",
+          "cooking": true,
+          "parking": true,
+          "reservationUrl": "https://github.com/ShinChanU",
+          "subfacility": "베란다(빨래 널기 가능)"
+        }
+      },
+      "id": 2
+    },
+    {
+      "data": {
+        "location": {
+          "name": "한경대학교 나래관",
+          "type": "Attractions",
+          "coords": {
+            "lat": "37.0127324119188",
+            "lng": "127.261739413379"
+          },
+          "address1": "경기 안성시 석정동 63-1",
+          "address2": "",
+          "image": "",
+          "information": {
+            "summary": "12",
+            "detail": "11"
+          },
+          "isMember": true
+        },
+        "member_location": {
+          "memberId": 1,
+          "isPublic": true
+        },
+        "Attractions": {
+          "parking": "",
+          "restDate": "",
+          "useTime": ""
+        }
+      },
+      "id": 3
     }
   ]
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import Modal from '../../modal/modal';
-import {useStore} from '../../../lib/store';
+import { useStore } from '../../../lib/store/planStore';
 import BlockInfo from '../BlockInfo/BlockInfo';
 
 const Block = styled.li`
@@ -32,53 +32,58 @@ const BButton = styled.button`
   border-radius: 4px;
   background-color: #74b9ff;
   z-index: 0;
-`
+`;
 
-const SelectedLocations = ({selectedLocation}) => {
-    const [modalOpen, setModalOpen] = useState(false);
+const SelectedLocations = ({ selectedLocation }) => {
+  const [modalOpen, setModalOpen] = useState(false);
 
-    const OpenModal = () => {
-      setModalOpen(true);
-    };
-  
-    const closeModal = () => {
-      setModalOpen(false);
-    };
+  const OpenModal = () => {
+    setModalOpen(true);
+  };
 
-    const {remove} = useStore();
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
-    return (
-      <Block>
-          <Img src={selectedLocation.image} alt="img" />
-          <BlockDiv onClick={OpenModal}>
-              {selectedLocation.name}
-              <br />
-              {selectedLocation.address}
-              <br />
-              {selectedLocation.tel}
-          </BlockDiv>
-          <BButton
-            onClick={() => {
-              console.log(selectedLocation.id)
-              remove(selectedLocation.id, selectedLocation.type)
-              }
-            }>취소</BButton>
-          <Modal open={modalOpen} close={closeModal} header={selectedLocation.name}>
-            {selectedLocation.info}
-            <BlockInfo type={selectedLocation.type} id={selectedLocation.id}/>
-          </Modal>
+  const { remove } = useStore();
+
+  return (
+    <Block>
+      <Img src={selectedLocation.image} alt="img" />
+      <BlockDiv onClick={OpenModal}>
+        {selectedLocation.name}
+        <br />
+        {selectedLocation.address}
+        <br />
+        {selectedLocation.tel}
+      </BlockDiv>
+      <BButton
+        onClick={() => {
+          console.log(selectedLocation.id);
+          remove(selectedLocation.id, selectedLocation.type);
+        }}
+      >
+        취소
+      </BButton>
+      <Modal open={modalOpen} close={closeModal} header={selectedLocation.name}>
+        {selectedLocation.info}
+        <BlockInfo type={selectedLocation.type} id={selectedLocation.id} />
+      </Modal>
     </Block>
-  )
-}
+  );
+};
 
 const SelectedLocationList = ({ selectedLocations }) => {
-    return (
-        <div>
-            {selectedLocations.map(selectedLocation => (
-                <SelectedLocations selectedLocation={selectedLocation} key={selectedLocation.id}/>
-            ))}
-        </div>
-    );
+  return (
+    <div>
+      {selectedLocations.map((selectedLocation) => (
+        <SelectedLocations
+          selectedLocation={selectedLocation}
+          key={selectedLocation.id}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default SelectedLocationList;

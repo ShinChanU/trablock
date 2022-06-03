@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { shadow, media } from 'lib/styleUtils';
 import oc from 'open-color';
-// import Button from 'components/Base/Header/Button';
 import Button from 'components/common/Button';
 import ModalModule from 'components/common/modal/ModalModule';
 import InsertCanvas from './InsertCanvas';
@@ -70,7 +69,7 @@ const UserInfo = styled.div`
   color: ${oc.teal[6]};
 `;
 
-const Header = ({ user, onLogout }) => {
+const Header = ({ userState, onLogout }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -81,14 +80,12 @@ const Header = ({ user, onLogout }) => {
     setModalIsOpen(false);
   };
 
-  // const onClick = () => {openModal()};
   return (
     <Positioner>
       <WhiteBackground>
         <HeaderContents>
           <Logo to={process.env.PUBLIC_URL}>TRABLOCK</Logo>
           <Spacer />
-
           {/* 임시로 만듦 */}
           <Button
             // to={process.env.PUBLIC_URL + '/canvas/insert'}
@@ -97,10 +94,9 @@ const Header = ({ user, onLogout }) => {
             여행 계획 세우러 가기
           </Button>
           <Spacer />
-
-          {user ? (
+          {userState ? (
             <>
-              <UserInfo>{user.username}</UserInfo>
+              <UserInfo>{userState}</UserInfo>
               <Button onClick={onLogout}>로그아웃</Button>
             </>
           ) : (

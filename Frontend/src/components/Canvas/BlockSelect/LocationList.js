@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import Modal from '../../modal/modal';
-import { useStore } from '../../../lib/store';
+import { useStore } from '../../../lib/store/planStore';
 import BlockInfo from '../BlockInfo/BlockInfo';
 
 const BButton = styled.button`

@@ -28,7 +28,6 @@ export const changeField = createAction(
 
 // createAction(타입, 현재 상태)
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form); // signup, login
-// export const initializeForm = (form) => ({type: INITIALIZE_FORM, form})
 
 export const signup = createAction(
   SIGNUP,
@@ -57,7 +56,6 @@ export const login = createAction(LOGIN, ({ userName, password }) => ({
   userName,
   password,
 }));
-// export const login = ({ type: LOGIN });
 
 // 사가 생성
 // yield 비동기 통신
@@ -88,29 +86,8 @@ const initialState = {
   },
   auth: null,
   authError: null,
+  accessToken: null,
 };
-
-// function auth(state = initialState, action) {
-//   switch(action.type) {
-//     case LOGIN:
-//       return {
-//         ...state
-//         ..
-//       }
-//   }
-// }
-
-// const auth = (state = initState, action) => {
-//   switch (action.type) {
-//     case CHANGE_USER:
-//       return { ...state, user: action.user };
-//   }
-// };
-
-// import { handleActions } from 'redux-actions';
-// const reducer = handleActions({
-//   [CHANGE_USER]: (state, action) => ({ ...state, user: action.user }),
-// });
 
 const auth = handleActions(
   {
@@ -125,6 +102,7 @@ const auth = handleActions(
       ...state,
       [form]: initialState[form],
       authError: null, // 폼 전환 시 외원 인증 에러 초기화
+      accessToken: null,
     }),
     // 회원가입 성공
     [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
@@ -138,16 +116,20 @@ const auth = handleActions(
       authError: error,
     }),
     // 로그인 성공
-    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
-      ...state,
-      authError: null,
-      auth,
-    }),
+    [LOGIN_SUCCESS]: (state, { payload: auth }) => {
+      return {
+        ...state,
+        authError: null,
+        auth,
+      };
+    },
     // 로그인 실패
-    [LOGIN_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      authError: error,
-    }),
+    [LOGIN_FAILURE]: (state, { payload: error }) => {
+      return {
+        ...state,
+        authError: error,
+      };
+    },
   },
   initialState,
 );

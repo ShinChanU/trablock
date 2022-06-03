@@ -3,7 +3,8 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 import Close from 'lib/Icons/Close';
 import 'lib/styles/Modal.css';
-import SearchPlace from 'components/Canvas/BuildTab/Map/SearchPlace';
+import MapContainer from 'components/Canvas/BuildTab/Map/MapContainer';
+import MapMove from 'components/Canvas/BuildTab/Map/MapMove';
 
 const Header = styled.div`
   display: flex;
@@ -14,24 +15,17 @@ const Header = styled.div`
   font-weight: 700;
 `;
 
-const MapHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 10px;
-  background-color: #f1f1f1;
-  font-weight: 700;
-`;
-
-const Section = styled.section`
+const Section = styled.div`
   margin: 0 auto;
   border-radius: 0.3rem;
   background-color: #fff;
   animation: modal-show 0.3s;
   overflow: hidden;
+  /* width: 100px; */
 `;
 
-const Section2 = styled.section`
+const Section2 = styled.div`
+  width: 65vw;
   margin-right: 20px;
   border-radius: 0.3rem;
   background-color: #fff;
@@ -54,6 +48,9 @@ const ModalModule = ({
   map,
   onSubmit,
   day,
+  fromLocName,
+  toLocName,
+  onSelect,
 }) => {
   return (
     <Modal
@@ -73,11 +70,14 @@ const ModalModule = ({
       </Section>
       {map && (
         <Section2>
-          <MapHeader>
-            <div>kakao Map Api</div>
+          <Header>
+            <div>kakao 지도</div>
             <Close size="20" onClick={closeModal} tooltip={false} />
-          </MapHeader>
-          <SearchPlace />
+          </Header>
+          {map === 'memberLoc' && <MapContainer onSelect={onSelect} />}
+          {map === 'moveLoc' && (
+            <MapMove fromLocName={fromLocName} toLocName={toLocName} />
+          )}
           <Btn>
             <button onClick={onSubmit}>닫기</button>
           </Btn>

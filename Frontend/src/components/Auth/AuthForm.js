@@ -6,7 +6,8 @@ import Button from 'components/common/Button';
 // import AccountCircle from './icons/AccountCircle';
 
 const AuthFormBlock = styled.div`
-  /* padding-top: 30px; */
+  /* width: 300px; */
+  width: 100%;
 `;
 
 const Div = styled.div`
@@ -20,9 +21,10 @@ const H2 = styled.h2`
   margin-top: 0;
 `;
 
-// const Form = styled.form`
-//   margin: 30px;
-// `;
+const Form = styled.form`
+  margin: auto;
+  width: 70%;
+`;
 
 // const H4 = styled.h4`
 //   margin-top: 10px;
@@ -44,36 +46,42 @@ const SpanRed = styled.span`
 `;
 
 const StyledDiv = styled.div`
-  /* display: flex; */
+  display: flex;
   align-items: center;
   position: relative;
   /* text-align: center; */
   /* display: flex; */
+  justify-content: space-between;
+  margin: 5px 0px;
   /* justify-content: space-between; */
-  margin-top: 1.5rem;
-  /* justify-content: space-between; */
+  /* width: 360px; */
 `;
 
 const InputHeader = styled.div`
+  width: 100px;
   display: flex;
+  align-items: center;
 `;
 
 const StyledInput = styled.input`
   padding-left: 30px;
-  /* margin-right: 30px; */
   font-size: 1rem;
-  /* border: none; */
   border: 1px solid ${palette.gray[5]};
   border-radius: 8px;
-  /* padding-bottom: 0.5rem; */
   outline: none;
-  width: 100%;
+  width: 70%;
   height: 45px;
+  float: right;
   &:focus {
     border-bottom: 1px solid ${palette.gray[7]};
   }
   & + & {
     margin-top: 1rem;
+  }
+  @media screen and (max-width: 767px) {
+    height: 40px;
+    padding-left: 10px;
+    font-size: 0.9rem;
   }
 `;
 
@@ -86,7 +94,8 @@ const Select = styled.select`
   border-radius: 8px;
   /* padding-bottom: 0.5rem; */
   outline: none;
-  width: 100%;
+  /* width: 350px; */
+  width: 70%;
   height: 45px;
   &:focus {
     border-bottom: 1px solid ${palette.gray[7]};
@@ -94,11 +103,14 @@ const Select = styled.select`
   & + & {
     margin-top: 1rem;
   }
+  @media screen and (max-width: 767px) {
+    height: 40px;
+  }
 `;
 
 const Footer = styled.div`
   margin-top: 2rem;
-  text-align: right;
+  /* text-align: right; */
   a {
     color: ${palette.gray[6]};
     text-decoration: underline;
@@ -106,6 +118,11 @@ const Footer = styled.div`
       color: ${palette.gray[9]};
     }
   }
+`;
+
+const Links = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
 
 const ButtonWidthMarginTop = styled(Button)`
@@ -126,6 +143,34 @@ const ErrorMessage = styled.div`
   margin-top: 1rem;
 `;
 
+const Email = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const EmailDiv = styled.input`
+  padding-left: 30px;
+  font-size: 1rem;
+  border: 1px solid ${palette.gray[5]};
+  border-radius: 8px;
+  outline: none;
+  width: 70%;
+  height: 45px;
+  /* float: right; */
+  &:focus {
+    border-bottom: 1px solid ${palette.gray[7]};
+  }
+  & + & {
+    margin-top: 1rem;
+  }
+  @media screen and (max-width: 767px) {
+    height: 40px;
+    padding-left: 10px;
+    font-size: 0.9rem;
+  }
+`;
+
 const AuthForm = ({
   type,
   form,
@@ -134,6 +179,8 @@ const AuthForm = ({
   error,
   onBlur,
   detailErr,
+  sendEmail,
+  isEmailSend,
 }) => {
   const text = textMap[type];
 
@@ -142,14 +189,14 @@ const AuthForm = ({
       <AuthFormBlock>
         <Div>
           <H2>
-            {text}
+            {/* {text} */}
             {type === 'signup' && <SpanRed>( * 필수항목 )</SpanRed>}
           </H2>
-          <form onSubmit={onSubmit}>
+          <Form onSubmit={onSubmit}>
             <StyledDiv>
               <InputHeader>
-                아이디
                 {type === 'signup' && <SpanRed>*</SpanRed>}
+                아이디
               </InputHeader>
               <StyledInput
                 autoComplete="username"
@@ -165,8 +212,8 @@ const AuthForm = ({
             </StyledDiv>
             <StyledDiv>
               <InputHeader>
-                비밀번호
                 {type === 'signup' && <SpanRed>*</SpanRed>}
+                비밀번호
               </InputHeader>
               <StyledInput
                 autoComplete="new-password"
@@ -179,21 +226,24 @@ const AuthForm = ({
                 maxLength="20"
                 minLength="8"
               />
-              {type === 'signup' && (
-                <SpanRed>- 영문자, 숫자, 특수문자 조합 8자리 이상</SpanRed>
-              )}
-              {type === 'signup' && detailErr.password && (
-                <SpanRed detail>{detailErr.password}</SpanRed>
-              )}
               {/* <SpanRed>- 영문자, 숫자, 특수문자 조합 8자리 이상</SpanRed>
               )} */}
               {/* {detailErr.password && <div>asd</div>}} */}
             </StyledDiv>
             {type === 'signup' && (
+              <SpanRed>영문자, 숫자, 특수문자 조합 8자리 이상</SpanRed>
+            )}
+            {type === 'signup' && detailErr.password && (
+              <SpanRed detail>{detailErr.password}</SpanRed>
+            )}
+            {type === 'signup' && (
               <>
                 <StyledDiv>
                   <InputHeader>
-                    비밀번호 확인<SpanRed>*</SpanRed>
+                    <SpanRed>*</SpanRed>
+                    비밀번호
+                    <br />
+                    확인
                   </InputHeader>
                   <StyledInput
                     autoComplete="new-password"
@@ -210,7 +260,7 @@ const AuthForm = ({
                 </StyledDiv>
                 <StyledDiv>
                   <InputHeader>
-                    이름<SpanRed>*</SpanRed>
+                    <SpanRed>*</SpanRed>이름
                   </InputHeader>
                   <StyledInput
                     name="realName"
@@ -223,7 +273,7 @@ const AuthForm = ({
                 </StyledDiv>
                 <StyledDiv>
                   <InputHeader>
-                    닉네임<SpanRed>*</SpanRed>
+                    <SpanRed>*</SpanRed>닉네임
                   </InputHeader>
                   <StyledInput
                     name="nickName"
@@ -272,36 +322,69 @@ const AuthForm = ({
 
                 <StyledDiv>
                   <InputHeader>
-                    본인 확인 이메일<SpanRed>*</SpanRed>
+                    <SpanRed>*</SpanRed>
+                    본인 확인
+                    <br /> 이메일
                   </InputHeader>
-                  <StyledInput
+                  {/* <StyledInput
                     name="email"
                     type="email"
                     onChange={onChange}
                     value={form.email}
-                  />
-                  {/* <input></input>@<input></input>
-                  <select>
-                    <option>직접 입력</option>
-                    <option>naver.com</option>
-                    <option>daum.net</option>
-                    <option>gmail.com</option>
-                    <option>hanmail.net</option>
-                    <option>kakao.com</option>
-                  </select> */}
+                  /> */}
+                  <Email>
+                    <EmailDiv
+                      name="email"
+                      type="email"
+                      onChange={onChange}
+                      value={form.email}
+                      placeholder="인증할 이메일을 작성해주세요."
+                    />
+                    <button onClick={sendEmail}>
+                      {isEmailSend ? '인증번호 재전송' : '인증번호 전송'}
+                    </button>
+                  </Email>
+                  {/* <EmailDiv>
+                    <input></input>@<input></input>
+                    <select>
+                      <option>직접 입력</option>
+                      <option>naver.com</option>
+                      <option>daum.net</option>
+                      <option>gmail.com</option>
+                      <option>hanmail.net</option>
+                      <option>kakao.com</option>
+                    </select>
+                  </EmailDiv> */}
                 </StyledDiv>
+                {isEmailSend && ( // 수정필요 0529
+                  <StyledDiv>
+                    인증번호 입력해주쇼
+                    <input />
+                    <button>확인</button>
+                  </StyledDiv>
+                )}
               </>
             )}
             {error && <ErrorMessage>{error}</ErrorMessage>}
             <ButtonWidthMarginTop cyan fullWidth>
               {text}
             </ButtonWidthMarginTop>
-          </form>
+          </Form>
           <Footer>
             {type === 'login' ? (
-              <Link to={process.env.PUBLIC_URL + '/signup'}>회원가입</Link>
+              <Links>
+                <Link to={process.env.PUBLIC_URL + '/signup'}>회원가입</Link>
+                <Link to={process.env.PUBLIC_URL + '/find'}>
+                  아이디/비밀번호 찾기
+                </Link>
+              </Links>
             ) : (
-              <Link to={process.env.PUBLIC_URL + '/login'}>로그인</Link>
+              <Links>
+                <Link to={process.env.PUBLIC_URL + '/login'}>로그인</Link>
+                <Link to={process.env.PUBLIC_URL + '/find'}>
+                  아이디/비밀번호 찾기
+                </Link>
+              </Links>
             )}
           </Footer>
         </Div>

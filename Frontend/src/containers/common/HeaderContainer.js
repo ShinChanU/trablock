@@ -5,16 +5,14 @@ import { logout } from 'redux/modules/user';
 
 const HeaderContainer = () => {
   const { userState } = useSelector(({ user }) => ({
-    userState: user.userState
+    userState: user.userState,
   }));
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
   };
 
-  return (
-    <Header user={userState} onLogout={onLogout} />
-  );
+  return <Header userState={userState} onLogout={onLogout} />;
 };
 
 export default HeaderContainer;

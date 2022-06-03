@@ -1,43 +1,53 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import MainArea from 'components/Canvas/BuildTab/MainArea';
-import CreateLoc from 'lib/Icons/CreateLoc';
 import palette from 'lib/styles/palette';
-import { useStore, sysLocStore } from 'lib/store';
+import { useStore } from 'lib/store/planStore';
+import { buildStore } from 'lib/store/CanvasBuildStore';
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  /* margin-top: 10px; */
   background-color: ${palette.gray[3]};
   height: 70vh;
-  overflow: auto;
-  /* border-radius: 7px; */
+  width: 100vw;
 `;
 
-const Buttons = styled.div`
-  width: 100px;
-`;
-
-export let travelPlan = {};
+// export let travelPlan = {};
 
 const BuildBlockForm = () => {
-  const { userTravelDay, selCateLoc } = useStore();
+  const { category, selCateLoc, userTravelDay } = useStore();
+  const {
+    dayLocDel,
+    pushLocToDay,
+    dayLocChange,
+    setViewTime,
+    setTimeData,
+    splitTime,
+  } = buildStore();
 
+  // 앞부분 api 설정이 되면 작성 예정(0518)
   useEffect(() => {
-    console.log(selCateLoc, selCateLoc);
+    // get api
+    return {
+      // post api
+    };
   }, []);
 
   return (
-    <>
-      <Container>
-        <MainArea />
-        {/* <Buttons>
-          <CreateLoc size="30" />
-        </Buttons> */}
-      </Container>
-    </>
+    <Container>
+      <MainArea
+        category={category}
+        pushLocToDay={pushLocToDay}
+        dayLocChange={dayLocChange}
+        selCateLoc={selCateLoc}
+        dayLocDel={dayLocDel}
+        setViewTime={setViewTime}
+        userTravelDay={userTravelDay}
+        setTimeData={setTimeData}
+        splitTime={splitTime}
+      />
+    </Container>
   );
 };
 
